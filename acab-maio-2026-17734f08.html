@@ -140,6 +140,7 @@ footer b{color:var(--accent)}
       <div class="period-badge"><span class="dot"></span>Maio 2026</div>
       <div class="btns">
         <button class="print-btn" onclick="window.print()">🖨️ Imprimir</button>
+        <button class="print-btn" onclick="baixarHTML()">💾 Baixar HTML</button>
         <button class="print-btn solid" onclick="window.print()">⬇️ Baixar PDF</button>
       </div>
     </div>
@@ -396,6 +397,28 @@ function closeAll(){
  document.getElementById('overlay').classList.remove('open');
 }
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeAll()});
+</script>
+<script>
+function baixarHTML(){
+  fetch(window.location.href)
+    .then(r=>r.text())
+    .then(html=>{
+      var blob=new Blob([html],{type:'text/html;charset=utf-8'});
+      var a=document.createElement('a');
+      a.href=URL.createObjectURL(blob);
+      a.download=(document.title||'fechamento').replace(/[^a-z0-9]+/gi,'-').toLowerCase()+'.html';
+      document.body.appendChild(a); a.click();
+      setTimeout(()=>{URL.revokeObjectURL(a.href); a.remove();},1000);
+    })
+    .catch(()=>{ // fallback: salva o DOM atual
+      var blob=new Blob(['<!DOCTYPE html>\n'+document.documentElement.outerHTML],{type:'text/html;charset=utf-8'});
+      var a=document.createElement('a');
+      a.href=URL.createObjectURL(blob);
+      a.download=(document.title||'fechamento').replace(/[^a-z0-9]+/gi,'-').toLowerCase()+'.html';
+      document.body.appendChild(a); a.click();
+      setTimeout(()=>{URL.revokeObjectURL(a.href); a.remove();},1000);
+    });
+}
 </script>
 </body>
 </html>

@@ -118,6 +118,9 @@ header{position:static;background:#0f2044;}
       <button class="print-btn" onclick="window.print()" title="Imprimir / Baixar PDF">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
       </button>
+      <button class="print-btn" onclick="baixarHTML()" title="Baixar HTML">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      </button>
     </div>
   </div>
 </header>
@@ -400,6 +403,28 @@ despesas.forEach(d=>{const tr=document.createElement('tr');tr.innerHTML=`<td>${d
 function openPanel(id){buildPanelCharts();document.querySelectorAll('.expense-panel').forEach(p=>p.classList.remove('open'));document.getElementById(id).classList.add('open');document.getElementById('overlay').classList.add('open');}
 function closeAll(){document.querySelectorAll('.expense-panel').forEach(p=>p.classList.remove('open'));document.getElementById('overlay').classList.remove('open');}
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeAll();});
+</script>
+<script>
+function baixarHTML(){
+  fetch(window.location.href)
+    .then(r=>r.text())
+    .then(html=>{
+      var blob=new Blob([html],{type:'text/html;charset=utf-8'});
+      var a=document.createElement('a');
+      a.href=URL.createObjectURL(blob);
+      a.download=(document.title||'fechamento').replace(/[^a-z0-9]+/gi,'-').toLowerCase()+'.html';
+      document.body.appendChild(a); a.click();
+      setTimeout(()=>{URL.revokeObjectURL(a.href); a.remove();},1000);
+    })
+    .catch(()=>{ // fallback: salva o DOM atual
+      var blob=new Blob(['<!DOCTYPE html>\n'+document.documentElement.outerHTML],{type:'text/html;charset=utf-8'});
+      var a=document.createElement('a');
+      a.href=URL.createObjectURL(blob);
+      a.download=(document.title||'fechamento').replace(/[^a-z0-9]+/gi,'-').toLowerCase()+'.html';
+      document.body.appendChild(a); a.click();
+      setTimeout(()=>{URL.revokeObjectURL(a.href); a.remove();},1000);
+    });
+}
 </script>
 </body>
 </html>
