@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/2.2.0/chartjs-plugin-datalabels.min.js"></script>
 <style>
 :root{
   --navy:#0a1628; --navy-mid:#0f2044; --navy-card:#132952;
@@ -104,6 +105,21 @@ header{position:sticky;top:0;z-index:100;height:72px;background:var(--navy-mid);
 footer{margin-top:60px;padding:30px 0 44px;text-align:center;font-size:12.5px;color:var(--muted);border-top:1px solid var(--border)}
 footer b{color:var(--accent)}
 
+/* RESUMO EXECUTIVO */
+.exec{margin-top:26px;background:linear-gradient(120deg,rgba(30,95,200,.14),var(--navy-card));border:1px solid var(--border);border-left:4px solid var(--accent);border-radius:14px;padding:20px 24px}
+.exec .exec-t{font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--accent);margin-bottom:8px}
+.exec p{font-size:14px;line-height:1.65;color:var(--white);font-weight:500}
+.exec b{color:var(--accent2)}
+
+/* DELTAS */
+.delta{display:inline-flex;align-items:center;gap:3px;font-weight:800;font-size:11.5px;padding:2px 8px;border-radius:20px;margin-left:4px}
+.delta.up{background:rgba(34,197,94,.14);color:#4ade80}
+.delta.down{background:rgba(239,68,68,.14);color:#f87171}
+.delta.neu{background:rgba(139,163,199,.14);color:var(--muted)}
+
+/* CAPA E ANEXO (somente impressão) */
+.print-cover,.print-annex{display:none}
+
 @media (max-width:980px){.kpis{grid-template-columns:repeat(2,1fr)}.charts{grid-template-columns:1fr}.fuel-metrics{grid-template-columns:repeat(2,1fr)}.panel-kpis{grid-template-columns:1fr}}
 
 @media print{
@@ -125,10 +141,45 @@ footer b{color:var(--accent)}
   .section{margin-top:20px;break-inside:avoid}
   footer{color:#475569;border-top:1px solid #cbd5e1}
   footer b{color:#1e5fc8}
+  .exec{background:#eef4fd;border:1px solid #cbd5e1;border-left:4px solid #1e5fc8}
+  .exec p{color:#0f2044}
+  .exec b{color:#1e5fc8}
+  .delta.up{background:#dcfce7;color:#15803d}
+  .delta.down{background:#fee2e2;color:#b91c1c}
+  .print-cover{display:flex;flex-direction:column;justify-content:space-between;background:#0a1628 !important;color:#f0f6ff;border-radius:18px;padding:60px 54px;height:255mm;page-break-after:always;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .print-cover .pc-logo{width:64px;height:64px;border-radius:16px;background:linear-gradient(135deg,#5fb3f5,#1e5fc8);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:30px;color:#fff}
+  .print-cover h1{font-size:54px;font-weight:900;color:#f0f6ff;-webkit-text-fill-color:#f0f6ff;letter-spacing:-1px;margin-top:22px}
+  .print-cover .pc-sub{font-size:17px;color:#8ba3c7;margin-top:8px;font-weight:600}
+  .print-cover .pc-hl{display:flex;gap:14px;margin-top:40px}
+  .print-cover .pc-box{flex:1;background:#132952;border:1px solid rgba(94,179,245,.25);border-radius:14px;padding:18px;-webkit-print-color-adjust:exact}
+  .print-cover .pc-box .l{font-size:10.5px;text-transform:uppercase;letter-spacing:.6px;color:#8ba3c7;font-weight:700}
+  .print-cover .pc-box .v{font-size:23px;font-weight:900;margin-top:6px;color:#f0f6ff}
+  .print-cover .pc-box .d{font-size:12px;margin-top:4px;font-weight:700}
+  .print-cover .pc-foot{font-size:12px;color:#8ba3c7;display:flex;justify-content:space-between;border-top:1px solid rgba(94,179,245,.2);padding-top:16px}
+  .print-annex{display:block;page-break-before:always}
+  .print-annex h2{font-size:18px;color:#0f2044;margin:8px 0 12px}
+  .print-annex .ptable th{color:#1e5fc8;border-bottom:1px solid #cbd5e1;padding:8px 12px}
+  .print-annex .ptable td{border-bottom:1px solid #e2e8f0;color:#0f2044;padding:6px 12px;font-size:12px}
+  .print-annex tr{break-inside:avoid}
 }
 </style>
 </head>
 <body>
+
+<!-- CAPA (somente PDF/impressão) -->
+<div class="print-cover">
+  <div>
+    <div class="pc-logo">F</div>
+    <h1>ACAB</h1>
+    <div class="pc-sub">Assoc. dos Caminhoneiros do Brasil<br>Fechamento Mensal — Junho 2026</div>
+    <div class="pc-hl">
+      <div class="pc-box"><div class="l">Lucro Líquido</div><div class="v">R$ 270.790</div><div class="d" style="color:#f87171">▼ 17,0% vs maio</div></div>
+      <div class="pc-box"><div class="l">Litros Vendidos</div><div class="v">491.698 L</div><div class="d" style="color:#f87171">▼ 16,9% vs maio</div></div>
+      <div class="pc-box"><div class="l">Margem Líquida</div><div class="v">8,69%</div><div class="d" style="color:#4ade80">▲ 0,04 p.p. vs maio</div></div>
+    </div>
+  </div>
+  <div class="pc-foot"><span><b style="color:#5fb3f5">Finansys</b> · Assessoria &amp; Consultoria Financeira</span><span>Documento confidencial · Julho/2026</span></div>
+</div>
 
 <header>
   <div class="hdr-inner">
@@ -153,36 +204,42 @@ footer b{color:var(--accent)}
     <p>Assoc. dos Caminhoneiros do Brasil · Fechamento Mensal — Junho 2026</p>
   </div>
 
+  <!-- RESUMO EXECUTIVO -->
+  <div class="exec">
+    <div class="exec-t">Resumo do Mês</div>
+    <p>Junho fechou com lucro líquido de <b>R$ 270.790</b> (margem 8,69%), queda de <b>17,0%</b> frente a maio — reflexo direto do menor volume: <b>491,7 mil litros</b> em 24 dias de operação (−16,9%). A rentabilidade melhorou: o lucro por litro subiu de R$ 0,687 para <b>R$ 0,718</b> (+4,5%), compensando parte da retração. Despesas sob controle (<b>R$ 82,3 mil</b>, +2,6%), com aluguel e folha concentrando 62% do total.</p>
+  </div>
+
   <!-- KPIs -->
   <div class="kpis">
     <div class="kpi-card" onclick="openPanel('litersPanel')">
       <div class="kpi-label">Litros Vendidos</div>
       <div class="kpi-val">491.698 L</div>
-      <div class="kpi-sub">↗ 24 dias trabalhados</div>
+      <div class="kpi-sub">24 dias <span class="delta down">▼ 16,9%</span></div>
       <span class="tap">clique ↗</span>
     </div>
     <div class="kpi-card" onclick="openPanel('revenuePanel')">
       <div class="kpi-label">Faturamento</div>
       <div class="kpi-val">R$ 3,12 mi</div>
-      <div class="kpi-sub">R$ 6,334/L médio</div>
+      <div class="kpi-sub">R$ 6,334/L <span class="delta down">▼ 17,4%</span></div>
       <span class="tap">clique ↗</span>
     </div>
     <div class="kpi-card" onclick="openPanel('expensePanel')">
       <div class="kpi-label">Despesas Totais</div>
       <div class="kpi-val">R$ 82.308</div>
-      <div class="kpi-sub">36 lançamentos</div>
+      <div class="kpi-sub">36 lançtos. <span class="delta down">▲ 2,6%</span></div>
       <span class="tap">clique ↗</span>
     </div>
     <div class="kpi-card" onclick="openPanel('profitPanel')">
       <div class="kpi-label">Lucro Líquido</div>
       <div class="kpi-val">R$ 270.790</div>
-      <div class="kpi-sub">Bruto R$ 353.098</div>
+      <div class="kpi-sub">Bruto R$ 353.098 <span class="delta down">▼ 17,0%</span></div>
       <span class="tap">clique ↗</span>
     </div>
     <div class="kpi-card" onclick="openPanel('profitPanel')">
       <div class="kpi-label">Margem Líquida</div>
       <div class="kpi-val">8,69%</div>
-      <div class="kpi-sub">Bruta 11,33%</div>
+      <div class="kpi-sub">Bruta 11,33% <span class="delta up">▲ 0,04 p.p.</span></div>
       <span class="tap">clique ↗</span>
     </div>
   </div>
@@ -225,6 +282,36 @@ footer b{color:var(--accent)}
         <div class="chart-box"><canvas id="litersLineChart"></canvas></div>
       </div>
     </div>
+  </div>
+
+  <!-- ANEXOS (somente PDF/impressão) -->
+  <div class="print-annex">
+    <h2>Anexo 1 — Demonstrativo do Resultado</h2>
+    <table class="ptable">
+      <tbody>
+        <tr><td>Faturamento</td><td class="num">R$ 3.116.939,13</td></tr>
+        <tr><td>(−) Custo do combustível</td><td class="num">R$ 2.763.841,04</td></tr>
+        <tr><td><b>(=) Lucro Bruto</b></td><td class="num"><b>R$ 353.098,08</b></td></tr>
+        <tr><td>(−) Despesas Totais</td><td class="num">R$ 82.308,25</td></tr>
+        <tr><td><b>(=) Lucro Líquido</b></td><td class="num"><b>R$ 270.790,08</b></td></tr>
+        <tr><td>Margem Bruta / Líquida</td><td class="num">11,33% / 8,69%</td></tr>
+      </tbody>
+    </table>
+    <h2 style="margin-top:26px">Anexo 2 — Faturamento por Forma de Pagamento</h2>
+    <table class="ptable">
+      <thead><tr><th>Forma de Pagamento</th><th class="num">Valor</th><th class="num">%</th></tr></thead>
+      <tbody>
+        <tr><td>PIX</td><td class="num">R$ 2.260.286,26</td><td class="num">72,5%</td></tr>
+        <tr><td>Saldo</td><td class="num">R$ 321.777,60</td><td class="num">10,3%</td></tr>
+        <tr><td>Crédito (Visa/Master/Elo)</td><td class="num">R$ 303.930,43</td><td class="num">9,8%</td></tr>
+        <tr><td>Débito (Visa/Master/Elo)</td><td class="num">R$ 230.944,83</td><td class="num">7,4%</td></tr>
+      </tbody>
+    </table>
+    <h2 style="margin-top:26px">Anexo 3 — Despesas do Mês (agrupadas)</h2>
+    <table class="ptable">
+      <thead><tr><th>Descrição</th><th class="num">Valor</th></tr></thead>
+      <tbody id="expRowsPrint"></tbody>
+    </table>
   </div>
 
   <footer>Relatório gerado por <b>Finansys</b> · Assessoria &amp; Consultoria Financeira · Junho 2026</footer>
@@ -323,6 +410,7 @@ footer b{color:var(--accent)}
 Chart.defaults.color='#8ba3c7';
 Chart.defaults.borderColor='rgba(94,179,245,0.1)';
 Chart.defaults.font.family="'Inter',sans-serif";
+if(window.ChartDataLabels){Chart.register(ChartDataLabels);Chart.defaults.set('plugins.datalabels',{display:false});}
 
 const BRL=v=>'R$ '+v.toLocaleString('pt-BR',{maximumFractionDigits:0});
 const payLabels=['PIX','Saldo','Crédito (Visa/Master/Elo)','Débito (Visa/Master/Elo)'];
@@ -342,23 +430,28 @@ const expenses=[
 ];
 
 function donut(id,labels,data,colors){
+ const tot=data.reduce((a,b)=>a+b,0);
  new Chart(document.getElementById(id),{type:'doughnut',
   data:{labels,datasets:[{data,backgroundColor:colors,borderColor:'#0a1628',borderWidth:2,hoverOffset:8}]},
-  options:{responsive:true,maintainAspectRatio:false,cutout:'62%',
+  options:{responsive:true,maintainAspectRatio:false,cutout:'58%',
    plugins:{legend:{position:'bottom',labels:{padding:14,font:{size:11.5},boxWidth:13,usePointStyle:true,pointStyle:'circle'}},
+    datalabels:{display:c=>c.dataset.data[c.dataIndex]/tot>0.05,color:'#fff',font:{weight:800,size:12},
+     formatter:v=>(100*v/tot).toFixed(1).replace('.',',')+'%'},
     tooltip:{callbacks:{label:c=>' '+c.label+': '+BRL(c.parsed)}}}}});
 }
 donut('revenueDonutChart',payLabels,payData,payColors);
 donut('revenuePanelChart',payLabels,payData,payColors);
 
-// profit bar (composição)
+// cascata do resultado (waterfall)
 function profitBar(id){
+ const wf=[[0,3116939],[353098,3116939],[0,353098],[270790,353098],[0,270790]];
+ const vals=[3116939,2763841,353098,82308,270790];
  new Chart(document.getElementById(id),{type:'bar',
-  data:{labels:['Faturamento','Lucro Bruto','Despesas','Lucro Líquido'],
-   datasets:[{data:[3116939,353098,82308,270790],backgroundColor:['#1e5fc8','#5fb3f5','#ef4444','#22c55e'],borderRadius:6}]},
-  options:{responsive:true,maintainAspectRatio:false,indexAxis:'y',
-   plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>' '+BRL(c.parsed.x)}}},
-   scales:{x:{ticks:{callback:v=>BRL(v)}},y:{grid:{display:false}}}}});
+  data:{labels:['Faturamento','(−) Custo','(=) Bruto','(−) Despesas','(=) Líquido'],
+   datasets:[{data:wf,backgroundColor:['#1e5fc8','rgba(239,68,68,.75)','#5fb3f5','#ef4444','#22c55e'],borderRadius:6,borderSkipped:false}]},
+  options:{responsive:true,maintainAspectRatio:false,
+   plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>' '+BRL(vals[c.dataIndex])}}},
+   scales:{y:{ticks:{callback:v=>(v/1e6).toLocaleString('pt-BR',{maximumFractionDigits:1})+' mi'}},x:{grid:{display:false},ticks:{font:{size:10.5}}}}}});
 }
 profitBar('profitBarChart');
 profitBar('profitPanelChart');
@@ -366,10 +459,12 @@ profitBar('profitPanelChart');
 // liters line
 function litersLine(id){
  new Chart(document.getElementById(id),{type:'line',
-  data:{labels:dayLabels,datasets:[{data:dailyLiters,borderColor:'#5fb3f5',backgroundColor:'rgba(95,179,245,0.12)',
-   fill:true,tension:.35,pointRadius:3,pointBackgroundColor:'#7dd3fc',borderWidth:2.5}]},
+  data:{labels:dayLabels,datasets:[
+   {data:dailyLiters,borderColor:'#5fb3f5',backgroundColor:'rgba(95,179,245,0.12)',
+    fill:true,tension:.35,pointRadius:3,pointBackgroundColor:'#7dd3fc',borderWidth:2.5,label:'Litros/dia'},
+   {data:dailyLiters.map(()=>20487),borderColor:'#f59e0b',borderDash:[6,5],borderWidth:1.8,pointRadius:0,fill:false,label:'Média (20.487 L)'}]},
   options:{responsive:true,maintainAspectRatio:false,
-   plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>' '+c.parsed.y.toLocaleString('pt-BR')+' L'}}},
+   plugins:{legend:{display:true,position:'bottom',labels:{boxWidth:14,font:{size:11}}},tooltip:{callbacks:{label:c=>' '+c.parsed.y.toLocaleString('pt-BR')+' L'}}},
    scales:{y:{ticks:{callback:v=>(v/1000)+'k'}},x:{grid:{display:false}}}}});
 }
 litersLine('litersLineChart');
@@ -384,9 +479,11 @@ new Chart(document.getElementById('expensePanelChart'),{type:'bar',
   scales:{x:{ticks:{callback:v=>BRL(v)}},y:{grid:{display:false},ticks:{font:{size:10.5}}}}}});
 
 // expense rows
-document.getElementById('expRows').innerHTML=expenses.map(e=>
+const expHTML=expenses.map(e=>
  `<tr><td>${e[0]}</td><td class="num">${BRL(e[1])}</td></tr>`).join('')+
  `<tr><td><b>TOTAL</b></td><td class="num"><b>R$ 82.308</b></td></tr>`;
+document.getElementById('expRows').innerHTML=expHTML;
+document.getElementById('expRowsPrint').innerHTML=expHTML;
 
 function openPanel(id){
  document.querySelectorAll('.expense-panel').forEach(p=>p.classList.remove('open'));

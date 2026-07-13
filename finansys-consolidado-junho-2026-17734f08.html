@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Finansys · Consolidado Junho 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+:root{
+--navy:#0a1628;--navy-mid:#0f2044;--navy-card:#132952;--blue:#1e5fc8;--accent:#5fb3f5;--accent2:#7dd3fc;
+--green:#22c55e;--amber:#f59e0b;--red:#ef4444;--white:#f0f6ff;--muted:#8ba3c7;--border:rgba(94,179,245,0.15);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',sans-serif;background:var(--navy);color:var(--white);-webkit-font-smoothing:antialiased;line-height:1.5}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+header{position:sticky;top:0;z-index:100;height:72px;background:var(--navy-mid);border-bottom:1px solid var(--border);display:flex;align-items:center}
+.hdr-in{max-width:1180px;margin:0 auto;padding:0 24px;width:100%;display:flex;align-items:center;justify-content:space-between}
+.brand{display:flex;align-items:center;gap:13px}
+.logo{width:40px;height:40px;border-radius:11px;background:linear-gradient(135deg,var(--accent),var(--blue));display:flex;align-items:center;justify-content:center;font-weight:900;font-size:19px;color:#fff}
+.brand b{font-size:16px;font-weight:700}
+.brand span{display:block;font-size:11px;color:var(--muted)}
+.badge{background:rgba(245,158,11,.12);border:1px solid rgba(245,158,11,.35);color:#fbbf24;border-radius:30px;padding:7px 15px;font-size:12px;font-weight:700}
+.hero{padding:50px 0 26px}
+.hero h1{font-size:44px;font-weight:900;letter-spacing:-1px;background:linear-gradient(120deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.hero p{margin-top:10px;font-size:16px;color:var(--muted);font-weight:600}
+.exec{margin-top:22px;background:linear-gradient(120deg,rgba(30,95,200,.14),var(--navy-card));border:1px solid var(--border);border-left:4px solid var(--accent);border-radius:14px;padding:20px 24px}
+.exec .t{font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--accent);margin-bottom:8px}
+.exec p{font-size:14px;line-height:1.65;font-weight:500}
+.exec b{color:var(--accent2)}
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:26px}
+.kpi{background:var(--navy-card);border:1px solid var(--border);border-radius:16px;padding:22px}
+.kpi .l{font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--muted)}
+.kpi .v{font-size:27px;font-weight:900;margin-top:10px;letter-spacing:-.5px}
+.kpi .s{font-size:12px;color:var(--accent);margin-top:6px;font-weight:600}
+.delta{display:inline-flex;font-weight:800;font-size:11px;padding:2px 8px;border-radius:20px;margin-left:4px}
+.delta.up{background:rgba(34,197,94,.14);color:#4ade80}
+.delta.down{background:rgba(239,68,68,.14);color:#f87171}
+.section{margin-top:44px}
+.sec-t{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.9px;color:var(--accent);margin-bottom:18px;display:flex;align-items:center;gap:9px}
+.sec-t::before{content:'';width:4px;height:16px;background:linear-gradient(var(--accent),var(--blue));border-radius:3px}
+.emp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.emp{background:var(--navy-card);border:1px solid var(--border);border-radius:16px;padding:24px;display:flex;flex-direction:column;gap:12px}
+.emp h3{font-size:17px;font-weight:800}
+.emp .tag{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--amber)}
+.emp .row{display:flex;justify-content:space-between;font-size:13.5px;padding:7px 0;border-bottom:1px solid rgba(94,179,245,.08)}
+.emp .row .k{color:var(--muted)}
+.emp .row .v{font-weight:700;font-variant-numeric:tabular-nums}
+.emp a{margin-top:auto;text-align:center;text-decoration:none;font-weight:700;font-size:13px;padding:11px 0;border-radius:9px;background:rgba(30,95,200,.18);color:var(--accent2);border:1px solid var(--border);transition:.2s}
+.emp a:hover{background:rgba(30,95,200,.35)}
+.charts{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.chart-card{background:var(--navy-card);border:1px solid var(--border);border-radius:16px;padding:24px}
+.chart-card h3{font-size:14px;font-weight:700;margin-bottom:18px}
+.chart-box{position:relative;height:300px}
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+th{text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);padding:11px 12px;border-bottom:1px solid var(--border);font-weight:700}
+td{padding:12px;border-bottom:1px solid rgba(94,179,245,.07);font-weight:600}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+tr.tot td{font-weight:900;color:var(--accent2);border-top:2px solid var(--border)}
+.pos{color:#4ade80}.neg{color:#f87171}
+footer{margin-top:56px;padding:28px 0 44px;text-align:center;font-size:12.5px;color:var(--muted);border-top:1px solid var(--border)}
+footer b{color:var(--accent)}
+@media(max-width:980px){.kpis,.emp-grid,.charts{grid-template-columns:1fr}.hero h1{font-size:32px}}
+@media print{
+ @page{size:A4 portrait;margin:11mm}
+ body{background:#fff;color:#0a1628}
+ header{position:static;background:#fff;border-bottom:2px solid #1e5fc8}
+ .brand b{color:#0a1628}
+ .hero h1{-webkit-text-fill-color:#0f2044;color:#0f2044;font-size:30px}
+ .kpi,.emp,.chart-card,.exec{background:#fff;border:1px solid #cbd5e1;break-inside:avoid}
+ .kpi .v,.emp h3{color:#0a1628}
+ .exec p{color:#0f2044}
+ .emp a{display:none}
+ footer{color:#475569}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="hdr-in">
+    <div class="brand"><div class="logo">F</div><div><b>Finansys</b><span>Assessoria &amp; Consultoria Financeira</span></div></div>
+    <div class="badge">USO INTERNO · JUNHO 2026</div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="hero">
+    <h1>Visão Consolidada</h1>
+    <p>Fechamentos Finansys · Junho 2026 — ACAB · Posto Carga Pesada · Terminal Carga Pesada</p>
+  </div>
+
+  <div class="exec">
+    <div class="t">Leitura Consolidada do Mês</div>
+    <p>O grupo faturou <b>R$ 5,34 milhões</b> em junho (−16,4% vs maio) e gerou <b>R$ 327,7 mil</b> de resultado de caixa (−36,8%). A ACAB segue como principal geradora de lucro (<b>R$ 270,8 mil</b>, 83% do resultado). O Posto exige atenção: lucro caiu à metade com margem comprimida nos dieséis. O Terminal teve o melhor mês operacional em eficiência (R$ 400/conteiner), mas o investimento de R$ 46,1 mil na empilhadeira levou o caixa a −R$ 4,6 mil — efeito não recorrente que se reverte já em julho.</p>
+  </div>
+
+  <div class="kpis">
+    <div class="kpi"><div class="l">Faturamento Consolidado</div><div class="v">R$ 5.344.383</div><div class="s">Maio: R$ 6.395.771 <span class="delta down">▼ 16,4%</span></div></div>
+    <div class="kpi"><div class="l">Resultado de Caixa</div><div class="v">R$ 327.719</div><div class="s">Maio: R$ 518.718 <span class="delta down">▼ 36,8%</span></div></div>
+    <div class="kpi"><div class="l">Resultado Operacional</div><div class="v">R$ 373.807</div><div class="s">Antes de investimentos (Terminal R$ 46,1 mil)</div></div>
+  </div>
+
+  <div class="section">
+    <div class="sec-t">Empresas</div>
+    <div class="emp-grid">
+      <div class="emp">
+        <div class="tag">Associação</div><h3>ACAB</h3>
+        <div class="row"><span class="k">Faturamento</span><span class="v">R$ 3.116.939</span></div>
+        <div class="row"><span class="k">Lucro Líquido</span><span class="v pos">R$ 270.790 <span class="delta down">▼17,0%</span></span></div>
+        <div class="row"><span class="k">Margem Líquida</span><span class="v">8,69%</span></div>
+        <div class="row"><span class="k">Litros</span><span class="v">491.698 L</span></div>
+        <a href="acab-junho-2026-17734f08.html">Abrir painel completo</a>
+      </div>
+      <div class="emp">
+        <div class="tag">Posto</div><h3>Posto Carga Pesada</h3>
+        <div class="row"><span class="k">Faturamento</span><span class="v">R$ 2.107.980</span></div>
+        <div class="row"><span class="k">Lucro Líquido</span><span class="v pos">R$ 61.576 <span class="delta down">▼53,1%</span></span></div>
+        <div class="row"><span class="k">Margem Bruta</span><span class="v">9,59%</span></div>
+        <div class="row"><span class="k">Litros</span><span class="v">316.079 L</span></div>
+        <a href="posto-junho-2026-17734f08.html">Abrir painel completo</a>
+      </div>
+      <div class="emp">
+        <div class="tag">Terminal</div><h3>Terminal Carga Pesada</h3>
+        <div class="row"><span class="k">Faturamento</span><span class="v">R$ 119.464</span></div>
+        <div class="row"><span class="k">Lucro Operacional</span><span class="v pos">R$ 41.441 <span class="delta down">▼34,0%</span></span></div>
+        <div class="row"><span class="k">Resultado de Caixa</span><span class="v neg">−R$ 4.647</span></div>
+        <div class="row"><span class="k">Conteiners</span><span class="v">299</span></div>
+        <a href="terminal-junho-2026-17734f08.html">Abrir painel completo</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="sec-t">Comparativo Maio × Junho</div>
+    <div class="charts">
+      <div class="chart-card"><h3>Resultado por Empresa (R$)</h3><div class="chart-box"><canvas id="lucroChart"></canvas></div></div>
+      <div class="chart-card"><h3>Faturamento por Empresa (R$)</h3><div class="chart-box"><canvas id="fatChart"></canvas></div></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="sec-t">Tabela Consolidada</div>
+    <div class="chart-card">
+    <table>
+      <thead><tr><th>Empresa</th><th class="num">Faturamento</th><th class="num">Δ Fat.</th><th class="num">Resultado</th><th class="num">Δ Result.</th></tr></thead>
+      <tbody>
+        <tr><td>ACAB</td><td class="num">R$ 3.116.939,13</td><td class="num neg">−17,4%</td><td class="num pos">R$ 270.790,08</td><td class="num neg">−17,0%</td></tr>
+        <tr><td>Posto Carga Pesada</td><td class="num">R$ 2.107.979,56</td><td class="num neg">−15,9%</td><td class="num pos">R$ 61.575,99</td><td class="num neg">−53,1%</td></tr>
+        <tr><td>Terminal Carga Pesada</td><td class="num">R$ 119.464,36</td><td class="num pos">+3,1%</td><td class="num neg">−R$ 4.647,31</td><td class="num neg">(maio +61.103)</td></tr>
+        <tr class="tot"><td>Consolidado</td><td class="num">R$ 5.344.383,05</td><td class="num neg">−16,4%</td><td class="num">R$ 327.718,76</td><td class="num neg">−36,8%</td></tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+
+  <footer>Relatório gerado por <b>Finansys</b> · Assessoria &amp; Consultoria Financeira · Junho 2026 · Uso interno</footer>
+</div>
+
+<script>
+Chart.defaults.color='#8ba3c7';Chart.defaults.borderColor='rgba(94,179,245,0.1)';Chart.defaults.font.family='Inter';
+const brl=v=>'R$ '+v.toLocaleString('pt-BR',{maximumFractionDigits:0});
+new Chart(document.getElementById('lucroChart'),{type:'bar',
+ data:{labels:['ACAB','Posto','Terminal'],datasets:[
+  {label:'Maio',data:[326323,131292.42,61102.81],backgroundColor:'rgba(139,163,199,.55)',borderRadius:6},
+  {label:'Junho',data:[270790.08,61575.99,-4647.31],backgroundColor:['#5fb3f5','#5fb3f5','#ef4444'],borderRadius:6}]},
+ options:{responsive:true,maintainAspectRatio:false,
+  plugins:{legend:{position:'bottom'},tooltip:{callbacks:{label:c=>' '+c.dataset.label+': '+brl(c.parsed.y)}}},
+  scales:{y:{ticks:{callback:v=>(v/1000)+'k'}},x:{grid:{display:false}}}}});
+new Chart(document.getElementById('fatChart'),{type:'bar',
+ data:{labels:['ACAB','Posto','Terminal'],datasets:[
+  {label:'Maio',data:[3773020,2506924.01,115827.46],backgroundColor:'rgba(139,163,199,.55)',borderRadius:6},
+  {label:'Junho',data:[3116939.13,2107979.56,119464.36],backgroundColor:'#1e5fc8',borderRadius:6}]},
+ options:{responsive:true,maintainAspectRatio:false,
+  plugins:{legend:{position:'bottom'},tooltip:{callbacks:{label:c=>' '+c.dataset.label+': '+brl(c.parsed.y)}}},
+  scales:{y:{ticks:{callback:v=>(v/1e6).toLocaleString('pt-BR',{maximumFractionDigits:1})+' mi'}},x:{grid:{display:false}}}}});
+</script>
+</body>
+</html>

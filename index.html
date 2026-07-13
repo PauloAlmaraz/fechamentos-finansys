@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
 <title>Finansys — Fechamentos Junho 2026</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%230a1f44'/><text x='50' y='72' font-size='62' font-weight='bold' font-family='Arial' fill='%23c8a24a' text-anchor='middle'>F</text></svg>">
 <style>
   :root{
     --navy:#0a1f44; --navy2:#13366b; --gold:#c8a24a; --bg:#f4f6fb;
@@ -28,6 +29,10 @@
   .card:hover{transform:translateY(-3px);box-shadow:0 8px 26px rgba(10,31,68,.14)}
   .card h2{font-size:18px;color:var(--navy)}
   .card .tag{font-size:12px;color:var(--gold);font-weight:700;text-transform:uppercase;letter-spacing:1px}
+  .card .kpi{font-size:13.5px;color:var(--txt);font-weight:600;background:#f0f4fb;border:1px solid #e0e7f3;border-radius:9px;padding:9px 12px;display:flex;justify-content:space-between;align-items:center}
+  .card .kpi .d{font-size:12px;font-weight:800}
+  .d.down{color:#dc2626}.d.up{color:#16a34a}
+  .card.full{grid-column:1/-1;border:1.5px solid var(--gold);background:linear-gradient(120deg,#fffdf6,#fff)}
   .btns{display:flex;gap:10px;margin-top:auto}
   .btn{flex:1;text-align:center;text-decoration:none;font-weight:600;font-size:14px;
        padding:11px 0;border-radius:9px;transition:.15s}
@@ -50,6 +55,7 @@
       <div class="card">
         <span class="tag">Associação</span>
         <h2>ACAB — Junho 2026</h2>
+        <div class="kpi"><span>Lucro Líquido <b>R$ 270.790</b></span><span class="d down">▼ 17,0%</span></div>
         <div class="btns">
           <a class="btn btn-view" href="acab-junho-2026-17734f08.html">Abrir painel</a>
           <a class="btn btn-pdf" href="acab-junho-2026-17734f08.pdf">PDF</a>
@@ -59,6 +65,7 @@
       <div class="card">
         <span class="tag">Posto</span>
         <h2>Posto Carga Pesada — Junho 2026</h2>
+        <div class="kpi"><span>Lucro Líquido <b>R$ 61.576</b></span><span class="d down">▼ 53,1%</span></div>
         <div class="btns">
           <a class="btn btn-view" href="posto-junho-2026-17734f08.html">Abrir painel</a>
           <a class="btn btn-pdf" href="posto-junho-2026-17734f08.pdf">PDF</a>
@@ -68,9 +75,19 @@
       <div class="card">
         <span class="tag">Terminal</span>
         <h2>Terminal Carga Pesada — Junho 2026</h2>
+        <div class="kpi"><span>Operacional <b>R$ 41.441</b> · Caixa <b>−R$ 4.647</b></span><span class="d down">invest.</span></div>
         <div class="btns">
           <a class="btn btn-view" href="terminal-junho-2026-17734f08.html">Abrir painel</a>
           <a class="btn btn-pdf" href="terminal-junho-2026-17734f08.pdf">PDF</a>
+        </div>
+      </div>
+
+      <div class="card full">
+        <span class="tag">Uso interno Finansys</span>
+        <h2>Visão Consolidada — Junho 2026</h2>
+        <div class="kpi"><span>Faturamento <b>R$ 5.344.383</b> · Resultado <b>R$ 327.719</b></span><span class="d down">▼ 36,8% vs maio</span></div>
+        <div class="btns">
+          <a class="btn btn-view" href="finansys-consolidado-junho-2026-17734f08.html">Abrir consolidado</a>
         </div>
       </div>
     </div>

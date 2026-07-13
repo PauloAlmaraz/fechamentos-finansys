@@ -7,6 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/2.2.0/chartjs-plugin-datalabels.min.js"></script>
 <style>
 :root{
   --bg:#0a1628;--card:#112040;--sec:#0d1f3a;--panel:#162d4e;--accent:#5eb3f5;--accent2:#3a8fd4;
@@ -77,6 +78,14 @@ tr:hover td{background:var(--hover)}
 td.r,th.r{text-align:right}
 .tag{font-size:10px;padding:2px 8px;border-radius:6px;font-weight:600;background:var(--panel);color:var(--muted)}
 footer{text-align:center;color:var(--muted);font-size:12px;padding:24px;border-top:1px solid var(--border);margin-top:20px}
+.delta{display:inline-flex;align-items:center;gap:3px;font-weight:800;font-size:11px;padding:2px 8px;border-radius:20px;margin-left:4px;vertical-align:middle}
+.delta.up{background:rgba(78,205,196,.15);color:var(--success)}
+.delta.down{background:rgba(255,107,107,.15);color:var(--danger)}
+.dre td{padding:8px 12px;font-size:13px}
+.dre .tot td{font-weight:800;color:var(--accent);border-top:2px solid var(--border)}
+.dre .neg-v{color:var(--danger)}
+.dre .pos-v{color:var(--success)}
+.print-cover{display:none}
 @media(max-width:900px){.g3,.g4,.g2{grid-template-columns:1fr}.tb-kpis{width:100%}.bar-label{width:120px}}
 .tb-actions{display:flex;gap:8px;align-items:center}
 .btn{display:inline-flex;align-items:center;gap:6px;background:var(--accent);color:#04101f;border:none;
@@ -105,10 +114,35 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:24px;border-t
     -webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
   .chart-box{height:230px!important}.chart-box.tall{height:270px!important}
   #tab-transacoes div[style*="max-height"]{max-height:none!important;overflow:visible!important}
+  .print-cover{display:flex;flex-direction:column;justify-content:space-between;background:linear-gradient(135deg,var(--card),var(--sec))!important;border:1px solid var(--border);border-radius:18px;padding:60px 54px;height:250mm;page-break-after:always;margin:8px;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .print-cover .pc-logo{width:64px;height:64px;border-radius:16px;background:linear-gradient(135deg,#5eb3f5,#3a8fd4);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:30px;color:#04101f}
+  .print-cover h1{font-size:46px;font-weight:700;letter-spacing:-1px;margin-top:22px;line-height:1.1}
+  .print-cover .pc-sub{font-size:17px;color:var(--muted);margin-top:8px;font-weight:500}
+  .print-cover .pc-hl{display:flex;gap:14px;margin-top:40px}
+  .print-cover .pc-box{flex:1;background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:18px;-webkit-print-color-adjust:exact}
+  .print-cover .pc-box .l{font-size:10.5px;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);font-weight:600}
+  .print-cover .pc-box .v{font-size:21px;font-weight:700;margin-top:6px}
+  .print-cover .pc-box .d{font-size:12px;margin-top:4px;font-weight:600}
+  .print-cover .pc-foot{font-size:12px;color:var(--muted);display:flex;justify-content:space-between;border-top:1px solid var(--border);padding-top:16px}
 }
 </style>
 </head>
 <body>
+
+<!-- CAPA (somente PDF/impressão) -->
+<div class="print-cover">
+  <div>
+    <div class="pc-logo">F</div>
+    <h1>Terminal Carga Pesada</h1>
+    <div class="pc-sub">Fechamento Mensal — Junho 2026</div>
+    <div class="pc-hl">
+      <div class="pc-box"><div class="l">Lucro Operacional</div><div class="v" style="color:var(--success)">R$ 41.441</div><div class="d" style="color:var(--danger)">▼ 34,0% vs maio</div></div>
+      <div class="pc-box"><div class="l">Resultado de Caixa</div><div class="v" style="color:var(--danger)">−R$ 4.647</div><div class="d" style="color:var(--muted)">investimento R$ 46.088</div></div>
+      <div class="pc-box"><div class="l">Conteiners</div><div class="v" style="color:var(--gold)">299</div><div class="d" style="color:var(--danger)">▼ 24,1% vs maio</div></div>
+    </div>
+  </div>
+  <div class="pc-foot"><span><b style="color:var(--accent)">Finansys</b> · Assessoria &amp; Consultoria Financeira</span><span>Documento confidencial · Julho/2026</span></div>
+</div>
 
 <div class="topbar">
   <div class="tb-brand">
@@ -158,16 +192,40 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:24px;border-t
   </div>
 
   <div class="grid g4" style="margin-bottom:18px">
-    <div class="card kpi"><div class="lbl">Faturamento Total</div><div class="num blue">R$ 119.464</div><div class="sub">Armazenagem + Transportes</div></div>
-    <div class="card kpi"><div class="lbl">Despesa Total</div><div class="num neg">R$ 78.024</div><div class="sub">Operação do terminal</div></div>
-    <div class="card kpi"><div class="lbl">Lucro Bruto</div><div class="num pos">R$ 41.441</div><div class="sub">Antes do investimento</div></div>
-    <div class="card kpi"><div class="lbl">Resultado Líquido</div><div class="num neg">−R$ 4.647</div><div class="sub">Após investimento</div></div>
+    <div class="card kpi"><div class="lbl">Faturamento Total</div><div class="num blue">R$ 119.464</div><div class="sub">Armazenagem + Transportes <span class="delta up">▲ 3,1%</span></div></div>
+    <div class="card kpi"><div class="lbl">Despesa Total</div><div class="num neg">R$ 78.024</div><div class="sub">Operação do terminal <span class="delta down">▲ 47,2%</span></div></div>
+    <div class="card kpi"><div class="lbl">Lucro Bruto</div><div class="num pos">R$ 41.441</div><div class="sub">Antes do investimento <span class="delta down">▼ 34,0%</span></div></div>
+    <div class="card kpi"><div class="lbl">Resultado Líquido</div><div class="num neg">−R$ 4.647</div><div class="sub">Maio: +R$ 61.103</div></div>
   </div>
 
   <div class="grid g3" style="margin-bottom:18px">
-    <div class="card kpi"><div class="lbl">Conteiners Movimentados</div><div class="num gold">299</div><div class="sub">No mês de junho</div></div>
-    <div class="card kpi"><div class="lbl">Transportes</div><div class="num blue">204</div><div class="sub">Viagens realizadas</div></div>
-    <div class="card kpi"><div class="lbl">Folhas de Impressão</div><div class="num blue">58</div><div class="sub">Serviço acessório</div></div>
+    <div class="card kpi"><div class="lbl">Conteiners Movimentados</div><div class="num gold">299</div><div class="sub">No mês de junho <span class="delta down">▼ 24,1%</span></div></div>
+    <div class="card kpi"><div class="lbl">Transportes</div><div class="num blue">204</div><div class="sub">Viagens realizadas <span class="delta up">▲ 64,5%</span></div></div>
+    <div class="card kpi"><div class="lbl">Folhas de Impressão</div><div class="num blue">58</div><div class="sub">Serviço acessório <span class="delta down">▼ 54,0%</span></div></div>
+  </div>
+
+  <div class="grid g2" style="margin-bottom:18px">
+    <div class="card">
+      <h3>DRE Simplificada — Junho 2026</h3>
+      <table class="dre">
+        <tbody>
+          <tr><td>Receita de Armazenagem</td><td class="r">R$ 109.429,98</td></tr>
+          <tr><td>Receita de Impressão</td><td class="r">R$ 174,38</td></tr>
+          <tr><td>Resultado de Transportes (líq. de motoristas e comissão)</td><td class="r">R$ 9.860,00</td></tr>
+          <tr class="tot"><td>(=) Faturamento</td><td class="r">R$ 119.464,36</td></tr>
+          <tr><td>(−) Despesas operacionais</td><td class="r neg-v">R$ 78.023,85</td></tr>
+          <tr class="tot"><td>(=) Lucro Operacional</td><td class="r pos-v">R$ 41.440,51</td></tr>
+          <tr><td>(−) Investimentos (empilhadeira + ADMC)</td><td class="r neg-v">R$ 46.087,82</td></tr>
+          <tr class="tot"><td>(=) Resultado de Caixa</td><td class="r neg-v">−R$ 4.647,31</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card">
+      <h3>Leitura do Mês</h3>
+      <div class="alert-box info">Operação mais eficiente: a receita por conteiner subiu de R$ 294 para <b>R$ 400 (+36%)</b> e os transportes mais que dobraram a receita (R$ 73,8 mil, lucro R$ 9.860 — margem 13,4% vs 6,3% em maio).</div>
+      <div class="alert-box warn">⚠ O caixa fechou negativo em R$ 4.647 exclusivamente pelo investimento de R$ 44.360 na empilhadeira (T5S, guindaste e montagem). Sem ele, lucro de R$ 41,4 mil (margem 34,7%).</div>
+      <div class="alert-box info">Movimentação caiu 24% (299 conteiners) — compensada em receita pela maior permanência média dos reefers (9,7 dias vs 3,1 dos secos).</div>
+    </div>
   </div>
 
   <div class="grid g2">
@@ -205,6 +263,29 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:24px;border-t
       <div class="alert-box info" style="margin-top:8px">A armazenagem segue como núcleo do faturamento. Transportes melhoraram a margem: lucro de R$ 9.860 sobre R$ 73.840 (13,4% vs 6,3% em maio), já descontada a comissão de R$ 1.020.</div>
     </div>
   </div>
+
+  <div class="grid g2" style="margin-top:16px">
+    <div class="card">
+      <h3>Top Clientes — Receita de Armazenagem</h3>
+      <div class="chart-box tall"><canvas id="transpBar"></canvas></div>
+    </div>
+    <div class="card">
+      <h3>Transportadoras / Clientes</h3>
+      <table>
+        <thead><tr><th>Cliente</th><th class="r">Conteiners</th><th class="r">Receita (R$)</th></tr></thead>
+        <tbody>
+          <tr><td>Natari (hortifrútis / reefer)</td><td class="r">41</td><td class="r">34.239,98</td></tr>
+          <tr><td>Trans Ferrari</td><td class="r">50</td><td class="r">14.210,00</td></tr>
+          <tr><td>Costalog Transportes</td><td class="r">32</td><td class="r">8.800,00</td></tr>
+          <tr><td>Edital Transportes</td><td class="r">13</td><td class="r">6.140,00</td></tr>
+          <tr><td>SUD Transportes</td><td class="r">6</td><td class="r">5.000,00</td></tr>
+          <tr><td>ACL Cargo</td><td class="r">14</td><td class="r">2.850,00</td></tr>
+          <tr><td>Demais (26 clientes)</td><td class="r">143</td><td class="r">38.190,00</td></tr>
+        </tbody>
+      </table>
+      <div class="alert-box info" style="margin-top:14px">A Natari concentra <b>31,3%</b> da receita de armazenagem com apenas 13,7% dos conteiners — efeito da longa permanência dos reefers. Relação comercial a preservar.</div>
+    </div>
+  </div>
 </div>
 
 <!-- ===================== DESPESAS ===================== -->
@@ -240,9 +321,9 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:24px;border-t
 <div id="tab-conteiners" class="section">
   <h2 class="sec-title">Conteiners — Junho 2026</h2>
   <div class="grid g3" style="margin-bottom:18px">
-    <div class="card kpi"><div class="lbl">Total Movimentado</div><div class="num gold">299</div><div class="sub">Conteiners no mês</div></div>
-    <div class="card kpi"><div class="lbl">Transportes</div><div class="num blue">204</div><div class="sub">68,2% dos conteiners</div></div>
-    <div class="card kpi"><div class="lbl">Receita / Conteiner</div><div class="num blue">R$ 400</div><div class="sub">Faturamento ÷ 299</div></div>
+    <div class="card kpi"><div class="lbl">Total Movimentado</div><div class="num gold">299</div><div class="sub">Conteiners no mês <span class="delta down">▼ 24,1%</span></div></div>
+    <div class="card kpi"><div class="lbl">Receita / Conteiner</div><div class="num blue">R$ 400</div><div class="sub">Faturamento ÷ 299 <span class="delta up">▲ 35,9%</span></div></div>
+    <div class="card kpi"><div class="lbl">Permanência Média</div><div class="num blue">5,6 dias</div><div class="sub">Mediana 2 dias · Reefer 9,7 · Seco 3,1</div></div>
   </div>
 
   <div class="grid g2">
@@ -257,6 +338,24 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:24px;border-t
       <div class="bar-row"><span class="bar-label">Somente armazenagem</span><div class="bar-track"><div class="bar-fill" data-w="31.8"></div></div><span class="bar-val">95</span></div>
       <div class="alert-box info" style="margin-top:8px">Dos 299 conteiners movimentados, 204 (68,2%) tiveram transporte associado; os demais 95 geraram receita de armazenagem.</div>
       <div class="alert-box warn">⚠ Folhas de impressão emitidas no mês: 58 (serviço acessório, R$ 174,38).</div>
+    </div>
+  </div>
+
+  <div class="grid g2" style="margin-top:16px">
+    <div class="card">
+      <h3>Permanência no Pátio (dias entre entrada e saída)</h3>
+      <div class="bar-row"><span class="bar-label">Até 3 dias</span><div class="bar-track"><div class="bar-fill" data-w="100"></div></div><span class="bar-val">202 · 68,7%</span></div>
+      <div class="bar-row"><span class="bar-label">4 a 10 dias</span><div class="bar-track"><div class="bar-fill" data-w="24.3"></div></div><span class="bar-val">49 · 16,7%</span></div>
+      <div class="bar-row"><span class="bar-label">11 a 20 dias</span><div class="bar-track"><div class="bar-fill" data-w="8.4"></div></div><span class="bar-val">17 · 5,8%</span></div>
+      <div class="bar-row"><span class="bar-label">Acima de 20 dias</span><div class="bar-track"><div class="bar-fill" data-w="12.9"></div></div><span class="bar-val">26 · 8,8%</span></div>
+      <div class="alert-box info" style="margin-top:8px">Base: 294 conteiners com saída registrada no mês. Média geral de <b>5,6 dias</b>; mediana de 2 dias (giro rápido predomina).</div>
+    </div>
+    <div class="card">
+      <h3>Permanência por Tipo de Carga</h3>
+      <div class="bar-row"><span class="bar-label">40RF (reefer)</span><div class="bar-track"><div class="bar-fill" data-w="100"></div></div><span class="bar-val">9,7 dias</span></div>
+      <div class="bar-row"><span class="bar-label">40HC (seco)</span><div class="bar-track"><div class="bar-fill" data-w="32"></div></div><span class="bar-val">3,1 dias</span></div>
+      <div class="alert-box info" style="margin-top:8px">Reefers permanecem <b>3x mais</b> que carga seca — cada unidade refrigerada gera muito mais receita de armazenagem. Priorizar captação desse perfil.</div>
+      <div class="alert-box warn">⚠ 26 conteiners acima de 20 dias: monitorar risco de inadimplência/abandono nas diárias longas.</div>
     </div>
   </div>
 
@@ -331,6 +430,8 @@ Chart.defaults.color='#7aacda';Chart.defaults.borderColor='#1e3a5f';
 Chart.defaults.font.family="'Inter',sans-serif";
 const brl=v=>'R$ '+v.toLocaleString('pt-BR',{minimumFractionDigits:0,maximumFractionDigits:0});
 Chart.defaults.responsive=true;Chart.defaults.maintainAspectRatio=false;
+if(window.ChartDataLabels){Chart.register(ChartDataLabels);Chart.defaults.set('plugins.datalabels',{display:false});}
+const dlPct=data=>{const tot=data.reduce((a,b)=>a+b,0);return {display:c=>c.dataset.data[c.dataIndex]/tot>0.05,color:'#04101f',font:{weight:700,size:11.5},formatter:v=>(100*v/tot).toFixed(1).replace('.',',')+'%'};};
 
 const TRANS=[{"data":"01/06","tipo":"DÉBITO EM CONTA","desc":"TARIFA BOLETO","qt":1,"vtot":1.04},{"data":"01/06","tipo":"DÉBITO EM CONTA","desc":"TARIFA BOLETO","qt":3,"vtot":4.35},{"data":"01/06","tipo":"PIX","desc":"ALINE MARCHETTI","qt":1,"vtot":2000},{"data":"01/06","tipo":"PIX","desc":"PLUMAS - CONTABILIDADE","qt":1,"vtot":1000},{"data":"01/06","tipo":"PIX","desc":"VR BENEFÍCIOS","qt":1,"vtot":3686.5},{"data":"02/06","tipo":"PIX","desc":"CÉLIO","qt":1,"vtot":200},{"data":"02/06","tipo":"PIX","desc":"MISTER SHIPPING","qt":1,"vtot":150},{"data":"02/06","tipo":"PIX","desc":"RAMOS TRANS","qt":1,"vtot":150},{"data":"02/06","tipo":"PIX","desc":"VICTOR OLIVEIRA ROMÃO","qt":1,"vtot":700},{"data":"03/06","tipo":"DÉBITO EM CONTA","desc":"TARIFA BOLETO","qt":3,"vtot":4.35},{"data":"05/06","tipo":"PIX","desc":"JOSÉ CARLOS DE MELO","qt":1,"vtot":1296},{"data":"05/06","tipo":"PIX","desc":"SALÁRIO - ANDRE LUIZ PEIXOTO","qt":1,"vtot":1680},{"data":"05/06","tipo":"PIX","desc":"SALÁRIO - VICTOR CARLOS","qt":1,"vtot":823},{"data":"05/06","tipo":"PIX","desc":"TRANSF ENTRE CONTAS","qt":1,"vtot":1086},{"data":"05/06","tipo":"PIX","desc":"PENSÃO VICTOR - ADRIANE NAYARA","qt":1,"vtot":730.59},{"data":"08/06","tipo":"DÉBITO EM CONTA","desc":"TARIFA BOLETO","qt":1,"vtot":1.04},{"data":"08/06","tipo":"PIX","desc":"ÚLTIMA PARCELA PATRICK - FERNANDES E PINHO","qt":1,"vtot":2500},{"data":"08/06","tipo":"DÉBITO EM CONTA","desc":"TARIFA BOLETO","qt":1,"vtot":1.45},{"data":"08/06","tipo":"DÉBITO EM CONTA","desc":"TARIFA BOLETO","qt":1,"vtot":1.45},{"data":"08/06","tipo":"DÉBITO EM CONTA","desc":"TARIFA BOLETO","qt":1,"vtot":1.45},{"data":"08/06","tipo":"DÉBITO EM CONTA","desc":"TARIFA BOLETO","qt":1,"vtot":1.45},{"data":"11/06","tipo":"DÉBITO EM CONTA","desc":"TARIFA BOLETO","qt":1,"vtot":1.04},{"data":"11/06","tipo":"PIX","desc":"FINANSYS","qt":1,"vtot":1500},{"data":"11/06","tipo":"PIX","desc":"LUIZ HENRIQUE SENE","qt":1,"vtot":100},{"data":"12/06","tipo":"PIX","desc":"ALUGUEL PÁTIO 1 - NOVO CARGA PESADA","qt":1,"vtot":10000},{"data":"12/06","tipo":"PIX","desc":"PISO - REGIANE DE OLIVEIRA","qt":1,"vtot":173.43},{"data":"12/06","tipo":"DÉBITO EM CONTA","desc":"TARIFA BOLETO","qt":1,"vtot":1.45},{"data":"15/06","tipo":"DÉBITO EM CONTA","desc":"TARIFA BOLETO","qt":1,"vtot":1.04},{"data":"15/06","tipo":"DÉBITO EM CONTA","desc":"TARIFA BOLETO","qt":1,"vtot":1.04},{"data":"15/06","tipo":"PIX","desc":"LAVAGEM EMPILHADEIRA - JOSÉ CARLOS DE MELO","qt":1,"vtot":200},{"data":"15/06","tipo":"PIX","desc":"ÓLEO TRANSMISSÃO","qt":1,"vtot":720},{"data":"15/06","tipo":"PIX","desc":"ALUGUEL PÁTIO 2 + IMPOSTO","qt":1,"vtot":25747.5},{"data":"15/06","tipo":"DÉBITO EM CONTA","desc":"TARIFA BOLETO","qt":1,"vtot":1.45},{"data":"16/06","tipo":"PIX","desc":"DSF EMPILHADEIRAS - CONSERTO","qt":1,"vtot":1060},{"data":"17/06","tipo":"PIX","desc":"VR BENEFÍCIOS","qt":1,"vtot":880},{"data":"17/06","tipo":"PIX","desc":"GÁS LP","qt":1,"vtot":384},{"data":"17/06","tipo":"PIX","desc":"PORTA AÇO - LITORAL PORTAS (2/3)","qt":1,"vtot":1415},{"data":"17/06","tipo":"PIX","desc":"CEF MATRIZ FGTS","qt":1,"vtot":822.33},{"data":"17/06","tipo":"PIX","desc":"PRANCHA DA EMPILHADEIRA - EVANDRO CARLOS COSTA","qt":1,"vtot":4000},{"data":"19/06","tipo":"PIX","desc":"JOSÉ CARLOS DE MELO","qt":1,"vtot":997},{"data":"19/06","tipo":"PIX","desc":"ADIANTAMENTO - WAGNER ALVES","qt":1,"vtot":831},{"data":"19/06","tipo":"PIX","desc":"ADIANTAMENTO - ANDRE LUIZ PEIXOTO","qt":1,"vtot":1122},{"data":"19/06","tipo":"PIX","desc":"ADIANTAMENTO - VICTOR CARLOS","qt":1,"vtot":882},{"data":"19/06","tipo":"PIX","desc":"RECEITA FEDERAL","qt":1,"vtot":832.5},{"data":"19/06","tipo":"DÉBITO EM CONTA","desc":"TARIFA BOLETO","qt":1,"vtot":1.04},{"data":"22/06","tipo":"DÉBITO EM CONTA","desc":"TARIFA BOLETO","qt":1,"vtot":1.04},{"data":"22/06","tipo":"PIX","desc":"TENI COMÉRCIO - SISTEMA","qt":1,"vtot":250},{"data":"22/06","tipo":"PIX","desc":"DÉBITO ARRECADAÇÃO SIMPLES NACIONAL","qt":1,"vtot":3665.78},{"data":"22/06","tipo":"DÉBITO EM CONTA","desc":"TARIFA BOLETO","qt":1,"vtot":1.45},{"data":"23/06","tipo":"PIX","desc":"GÁS LP","qt":1,"vtot":576},{"data":"24/06","tipo":"DÉBITO EM CONTA","desc":"TARIFA BOLETO","qt":1,"vtot":1.45},{"data":"24/06","tipo":"DÉBITO EM CONTA","desc":"TARIFA BOLETO","qt":1,"vtot":1.04},{"data":"25/06","tipo":"DÉBITO EM CONTA","desc":"TARIFA BOLETO","qt":1,"vtot":2.08},{"data":"25/06","tipo":"PIX","desc":"CESTA DE RELACIONAMENTO","qt":1,"vtot":95.88},{"data":"25/06","tipo":"DÉBITO EM CONTA","desc":"TARIFA BOLETO","qt":1,"vtot":1.04},{"data":"26/06","tipo":"DÉBITO EM CONTA","desc":"TARIFA BOLETO","qt":1,"vtot":1.45},{"data":"26/06","tipo":"DÉBITO EM CONTA","desc":"TARIFA BOLETO","qt":1,"vtot":1.04},{"data":"29/06","tipo":"DÉBITO EM CONTA","desc":"TARIFA BOLETO","qt":1,"vtot":1.45},{"data":"29/06","tipo":"PIX","desc":"REBATE MOACIR - CÉLIO FRANCISCO","qt":1,"vtot":1800},{"data":"29/06","tipo":"PIX","desc":"JOSÉ CARLOS DE MELO","qt":1,"vtot":300},{"data":"30/06","tipo":"PIX","desc":"LABORMED","qt":1,"vtot":160},{"data":"30/06","tipo":"PIX","desc":"VR BENEFÍCIOS","qt":1,"vtot":3467.5},{"data":"30/06","tipo":"DÉBITO EM CONTA","desc":"TARIFA BOLETO","qt":2,"vtot":4.16}];
 
@@ -345,12 +446,18 @@ function initCharts(tab){
       scales:{y:{ticks:{callback:v=>brl(v)}}}}});
     mkChart(document.getElementById('ovRev'),{type:'doughnut',data:{labels:['Armazenagem','Transportes','Impressão'],
       datasets:[{data:[109429.98,73840,174.38],backgroundColor:[COLORS.blue,COLORS.gold,COLORS.purple],borderColor:'#112040',borderWidth:2}]},
-      options:{cutout:'62%',plugins:{legend:{position:'bottom'},tooltip:{callbacks:{label:c=>c.label+': '+brl(c.raw)}}}}});
+      options:{cutout:'58%',plugins:{datalabels:dlPct([109429.98,73840,174.38]),legend:{position:'bottom'},tooltip:{callbacks:{label:c=>c.label+': '+brl(c.raw)}}}}});
   }
   if(tab==='receita'){
     mkChart(document.getElementById('revDonut'),{type:'doughnut',data:{labels:['Armazenagem','Transportes','Impressão'],
       datasets:[{data:[109429.98,73840,174.38],backgroundColor:[COLORS.blue,COLORS.gold,COLORS.purple],borderColor:'#112040',borderWidth:2}]},
-      options:{cutout:'58%',plugins:{legend:{position:'bottom'},tooltip:{callbacks:{label:c=>c.label+': '+brl(c.raw)}}}}});
+      options:{cutout:'58%',plugins:{datalabels:dlPct([109429.98,73840,174.38]),legend:{position:'bottom'},tooltip:{callbacks:{label:c=>c.label+': '+brl(c.raw)}}}}});
+    mkChart(document.getElementById('transpBar'),{type:'bar',data:{
+      labels:['Natari','Trans Ferrari','Costalog','Edital','SUD','ACL Cargo','Demais (26)'],
+      datasets:[{data:[34239.98,14210,8800,6140,5000,2850,38190],
+        backgroundColor:[COLORS.teal,COLORS.blue,COLORS.gold,COLORS.orange,COLORS.purple,COLORS.green,COLORS.muted],borderRadius:6}]},
+      options:{indexAxis:'y',plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>brl(c.raw)+' ('+(100*c.raw/109429.98).toFixed(1).replace('.',',')+'% da armazenagem)'}}},
+      scales:{x:{ticks:{callback:v=>brl(v)}},y:{grid:{display:false}}}}});
   }
   if(tab==='despesas'){
     mkChart(document.getElementById('despBar'),{type:'bar',data:{
@@ -363,10 +470,10 @@ function initCharts(tab){
   if(tab==='conteiners'){
     mkChart(document.getElementById('contDonut'),{type:'doughnut',data:{labels:['Com transporte','Somente armazenagem'],
       datasets:[{data:[204,95],backgroundColor:[COLORS.gold,COLORS.blue],borderColor:'#112040',borderWidth:2}]},
-      options:{cutout:'60%',plugins:{legend:{position:'bottom'},tooltip:{callbacks:{label:c=>c.label+': '+c.raw+' conteiners'}}}}});
+      options:{cutout:'58%',plugins:{datalabels:dlPct([204,95]),legend:{position:'bottom'},tooltip:{callbacks:{label:c=>c.label+': '+c.raw+' conteiners'}}}}});
     mkChart(document.getElementById('tipoDonut'),{type:'doughnut',data:{labels:['40HC','40RF (reefer)','20DC','40OT','40DC'],
       datasets:[{data:[151,109,32,5,2],backgroundColor:[COLORS.blue,COLORS.teal,COLORS.gold,COLORS.orange,COLORS.purple],borderColor:'#112040',borderWidth:2}]},
-      options:{cutout:'60%',plugins:{legend:{position:'bottom'},tooltip:{callbacks:{label:c=>c.label+': '+c.raw+' conteiners'}}}}});
+      options:{cutout:'58%',plugins:{datalabels:dlPct([151,109,32,5,2]),legend:{position:'bottom'},tooltip:{callbacks:{label:c=>c.label+': '+c.raw+' conteiners'}}}}});
   }
   if(tab==='operacional'){
     const byDay={};
