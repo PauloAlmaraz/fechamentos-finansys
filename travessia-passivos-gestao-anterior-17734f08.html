@@ -44,7 +44,7 @@ header{position:sticky;top:0;z-index:100;height:72px;background:var(--navy-mid);
 .exec p{font-size:14px;line-height:1.65;font-weight:500}
 .exec b{color:var(--accent2)}
 
-.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.kpi-grid{display:grid;grid-template-columns:minmax(260px,330px);gap:16px}
 .kpi-card{background:var(--navy-card);border:1px solid var(--border);border-radius:16px;padding:22px 20px}
 .kpi-label{font-size:12px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.6px}
 .kpi-val{font-size:26px;font-weight:900;margin-top:8px;letter-spacing:-.5px}
@@ -65,19 +65,6 @@ header{position:sticky;top:0;z-index:100;height:72px;background:var(--navy-mid);
 .bar-fill{height:100%;width:0;border-radius:6px;transition:width 1s cubic-bezier(.4,0,.2,1);background:linear-gradient(90deg,var(--blue),var(--accent))}
 .bar-val{width:118px;text-align:right;font-size:13px;font-weight:700;flex-shrink:0}
 
-.finding{background:var(--navy-card);border:1px solid var(--border);border-radius:14px;padding:18px 22px;margin-bottom:14px;border-left:4px solid var(--accent)}
-.finding.crit{border-left-color:var(--red)}
-.finding.warn{border-left-color:var(--amber)}
-.finding.info{border-left-color:var(--accent)}
-.finding h4{font-size:14.5px;font-weight:800;margin-bottom:6px;display:flex;align-items:center;gap:9px}
-.finding p{font-size:13.5px;color:var(--white);opacity:.9;line-height:1.6}
-.finding b{color:var(--accent2)}
-.sev{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.6px;padding:3px 9px;border-radius:20px}
-.sev.crit{background:rgba(239,68,68,.16);color:#f87171}
-.sev.warn{background:rgba(245,158,11,.16);color:#fbbf24}
-.sev.info{background:rgba(94,179,245,.16);color:var(--accent2)}
-.sev.ok{background:rgba(34,197,94,.16);color:#4ade80}
-.finding.ok{border-left-color:var(--green)}
 
 table{width:100%;border-collapse:collapse;font-size:13px}
 th{text-align:left;color:var(--muted);font-weight:700;text-transform:uppercase;font-size:10.5px;letter-spacing:.5px;padding:10px;border-bottom:1px solid var(--border)}
@@ -93,7 +80,7 @@ tr:hover td{background:rgba(94,179,245,.04)}
 footer{margin:54px 0 40px;text-align:center;font-size:12px;color:var(--muted);padding-top:24px;border-top:1px solid var(--border)}
 .print-cover{display:none}
 
-@media(max-width:980px){.kpi-grid{grid-template-columns:repeat(2,1fr)}.chart-grid{grid-template-columns:1fr}.hero h1{font-size:34px}.bar-label{width:130px}}
+@media(max-width:980px){.kpi-grid{grid-template-columns:1fr}.chart-grid{grid-template-columns:1fr}.hero h1{font-size:34px}.bar-label{width:130px}}
 
 @media print{
  @page{size:A4 portrait;margin:10mm}
@@ -101,7 +88,7 @@ footer{margin:54px 0 40px;text-align:center;font-size:12px;color:var(--muted);pa
  body{background:var(--navy)!important}
  .print-btn,.hdr-right .print-btn{display:none!important}
  header{position:static}
- .kpi-card,.chart-card,.exec,.finding{break-inside:avoid}
+ .kpi-card,.chart-card,.exec{break-inside:avoid}
  tr{break-inside:avoid}
  .chart-box{height:230px!important}
  .print-cover{display:flex;flex-direction:column;justify-content:space-between;background:linear-gradient(150deg,#132952,#0a1628)!important;border:1px solid var(--border);border-radius:18px;padding:56px 50px;height:248mm;page-break-after:always;margin:6px}
@@ -130,11 +117,10 @@ footer{margin:54px 0 40px;text-align:center;font-size:12px;color:var(--muted);pa
   <div>
     <div class="pc-logo">F</div>
     <h1>Passivos<br>Gestão Anterior</h1>
-    <div class="pc-sub">Posto Travessia · Conciliação e auditoria de comprovantes<br>Período: 26/06/2026 a 31/07/2026</div>
+    <div class="pc-sub">Posto Travessia · Pagamentos e conciliação de comprovantes<br>Período: 26/06/2026 a 31/07/2026</div>
     <div class="pc-hl">
       <div class="pc-box"><div class="l">Total Pago</div><div class="v">R$ 277.864</div><div class="d">53 lançamentos</div></div>
-      <div class="pc-box"><div class="l">Conciliado</div><div class="v" style="color:#4ade80">100%</div><div class="d">53 de 53 com comprovante</div></div>
-      <div class="pc-box"><div class="l">Ressalvas</div><div class="v" style="color:#fbbf24">3</div><div class="d">ajustes de cadastro</div></div>
+      <div class="pc-box"><div class="l">Período</div><div class="v">Jun–Jul 2026</div><div class="d">26/06 a 31/07</div></div>
     </div>
   </div>
   <div class="pc-foot"><span><b style="color:#5fb3f5">Finansys</b> · Assessoria &amp; Consultoria Financeira</span><span>Documento confidencial · Agosto/2026</span></div>
@@ -163,13 +149,13 @@ footer{margin:54px 0 40px;text-align:center;font-size:12px;color:var(--muted);pa
 <div class="wrap">
   <div class="hero">
     <h1>Passivos — Gestão Anterior</h1>
-    <p>Posto Travessia · Conciliação e auditoria de comprovantes</p>
+    <p>Posto Travessia · Pagamentos e conciliação de comprovantes</p>
     <p class="cnpj">POSTO DE SERVIÇOS TRAVESSIA DE SANTOS LTDA · CNPJ 08.521.038/0001-11 · Período 26/06/2026 a 31/07/2026</p>
   </div>
 
   <div class="exec">
-    <div class="exec-t">Resumo da Auditoria</div>
-    <p>Foram conferidos <b>53 pagamentos</b> de passivos da gestão anterior, somando <b>R$ 277.864,42</b>, contra os comprovantes arquivados na pasta do cliente. <b>Todos os lançamentos (100%) têm comprovante válido</b> — cada um verificado por valor, data, beneficiário e ID da transação. Dois ajustes já foram aplicados na base: a exclusão de um lançamento duplicado de R$ 1.250,00 em 29/06 (os três arquivos guardados eram cópias da mesma transação) e a correção do beneficiário do acordo de 29/07, que é de <b>Maria Edite</b> e foi creditado na conta de Natalia de Castro. O maior bloco é o aluguel da Ipiranga (<b>R$ 120.615,67</b>, 43,4%), pago com <b>R$ 12.482,68 de juros e multa</b> por atraso — 11,5% sobre o valor nominal. Pagamentos de agosto/2026 ficaram fora deste relatório para manter o controle mensal.</p>
+    <div class="exec-t">Resumo do Período</div>
+    <p>Entre <b>26/06 e 31/07/2026</b> foram quitados <b>53 compromissos</b> da gestão anterior, somando <b>R$ 277.864,42</b>, todos com comprovante conferido por valor, data, beneficiário e ID da transação. O maior bloco é o aluguel da Ipiranga (<b>R$ 120.615,67</b>, 43,4% do total), seguido do passivo trabalhista (<b>R$ 62.230,90</b>, 22,4%) e das contas de consumo (<b>R$ 37.873,94</b>, 13,6%). Pagamentos de agosto/2026 ficaram fora deste relatório para manter o controle mensal.</p>
   </div>
 
   <div class="kpi-grid">
@@ -177,21 +163,6 @@ footer{margin:54px 0 40px;text-align:center;font-size:12px;color:var(--muted);pa
       <div class="kpi-label">Total Pago</div>
       <div class="kpi-val">R$ 277.864</div>
       <div class="kpi-sub">53 lançamentos · jun–jul</div>
-    </div>
-    <div class="kpi-card">
-      <div class="kpi-label">Conciliado</div>
-      <div class="kpi-val green">100%</div>
-      <div class="kpi-sub">53 de 53 com comprovante</div>
-    </div>
-    <div class="kpi-card">
-      <div class="kpi-label">Ressalvas de Cadastro</div>
-      <div class="kpi-val amber">3</div>
-      <div class="kpi-sub">sem impacto em valor</div>
-    </div>
-    <div class="kpi-card">
-      <div class="kpi-label">Encargos por Atraso</div>
-      <div class="kpi-val amber">R$ 12.483</div>
-      <div class="kpi-sub">juros e multa Ipiranga</div>
     </div>
   </div>
 
@@ -215,47 +186,6 @@ footer{margin:54px 0 40px;text-align:center;font-size:12px;color:var(--muted);pa
       <h3>Desembolso por Mês</h3>
       <div class="chart-box"><canvas id="mesBar"></canvas></div>
     </div>
-    <div class="chart-card">
-      <h3>Status da Conciliação</h3>
-      <div class="chart-box"><canvas id="statusDonut"></canvas></div>
-    </div>
-  </div>
-
-  <div class="section-title">Apontamentos da Auditoria</div>
-
-  <div class="finding ok">
-    <h4><span class="sev ok">Ajuste aplicado</span> Duplicidade no acordo de 29/06 — R$ 1.250,00 excluídos</h4>
-    <p>A planilha original trazia <b>dois lançamentos idênticos</b> de R$ 1.250,00 em 29/06/2026 para Natalia de Castro. Os três arquivos guardados na pasta (<i>Acordo trab natalia 29-06</i>, <i>Acordo trabalhista 29-06</i> e <i>Acordo trabalhista 30</i>) reproduzem <b>a mesma transação</b>: ID <b>E60701190202606300014DY5GMTH38FQ</b>, autenticação 520BA618…A95E, controle 000539988488516, efetuada às 21:17:40 — um único pagamento. <b>A linha duplicada foi excluída desta base</b>, reduzindo o total de R$ 279.114,42 para <b>R$ 277.864,42</b>. Ajustar também na planilha de origem.</p>
-  </div>
-
-  <div class="finding ok">
-    <h4><span class="sev ok">Esclarecido</span> Acordo de 29/07 — Maria Edite, creditado a Natalia de Castro</h4>
-    <p>O comprovante recebido está nomeado como acordo trabalhista de <b>Maria Edite</b> e identifica a operação como “Ref 3ª parc acordo trab Maria Edite”, porém a <b>conta creditada é de Natalia de Castro Martin</b> (chave PIX 43988521825, Nu Pagamentos). O lançamento passa a constar como <b>3ª parcela do acordo de Maria Edite, com crédito em conta de Natalia de Castro</b>. As parcelas de 29/06 seguiram para a mesma conta.</p>
-  </div>
-
-  <div class="finding warn">
-    <h4><span class="sev warn">Ressalva</span> Data divergente — FGTS rescisão Anne, R$ 4.984,94</h4>
-    <p>Planilha registra 17/07/2026; o comprovante mostra <b>pagamento em 16/07/2026</b> (17/07 é a data de vencimento da guia). Ajustar a data na planilha para manter o regime de caixa correto.</p>
-  </div>
-
-  <div class="finding warn">
-    <h4><span class="sev warn">Ressalva</span> Forma de pagamento divergente — SABESP 29/06, R$ 4.416,59</h4>
-    <p>A planilha classifica como <b>PIX</b>, mas o comprovante Sicredi mostra <b>pagamento de conta de consumo por código de barras</b>. Sem impacto no valor; corrigir apenas a classificação para não distorcer a análise por meio de pagamento.</p>
-  </div>
-
-  <div class="finding warn">
-    <h4><span class="sev warn">Ressalva</span> Arquivo com nome incorreto — Contabilidade Praxis, R$ 2.970,00</h4>
-    <p>O arquivo <i>Contabilidade 16-06.pdf</i> refere-se a pagamento efetuado em <b>16/07/2026</b> (vencimento 17/07). Renomear para evitar erro de competência em conferências futuras.</p>
-  </div>
-
-  <div class="finding info">
-    <h4><span class="sev info">Atenção</span> Custo do atraso no aluguel Ipiranga — R$ 12.482,68</h4>
-    <p>Os três aluguéis (venc. 10/04, 11/05 e 10/06) foram quitados em 26/06/2026. Valor nominal: <b>R$ 108.132,99</b> (3 × R$ 36.044,33). Encargos: R$ 4.529,20 + R$ 4.156,89 + R$ 3.796,59 = <b>R$ 12.482,68</b>, equivalente a <b>11,5%</b> de acréscimo. É o item de maior impacto evitável do período.</p>
-  </div>
-
-  <div class="finding info">
-    <h4><span class="sev info">Fora do escopo</span> Pagamentos de agosto/2026 — R$ 15.884,13</h4>
-    <p>Três lançamentos posteriores a 31/07 foram excluídos deste relatório para preservar o controle mensal: acordo Bruna Verônica (05/08, R$ 12.000,00), acordo Nayra Santos (06/08, R$ 956,67) e rescisão Wallace (06/08, R$ 2.927,46). <b>A rescisão do Wallace não tem comprovante na pasta</b> — providenciar antes do fechamento de agosto.</p>
   </div>
 
   <div class="section-title">Conciliação Detalhada</div>
@@ -321,18 +251,6 @@ footer{margin:54px 0 40px;text-align:center;font-size:12px;color:var(--muted);pa
     </table>
   </div>
 
-  <div class="section-title">Documentos de Suporte Arquivados</div>
-  <div class="chart-card">
-    <table>
-      <thead><tr><th>Documento</th><th>Natureza</th><th>Observação</th></tr></thead>
-      <tbody>
-        <tr><td>Termo de Homologação — Anne Caroline</td><td>Suporte trabalhista</td><td>Respalda a rescisão de R$ 13.844,91 e o FGTS de R$ 4.984,94</td></tr>
-        <tr><td>Termo de Quitação — Nathalia</td><td>Suporte trabalhista</td><td>Respalda a rescisão de R$ 1.789,60 e o FGTS de R$ 484,99</td></tr>
-        <tr><td>Ipiranga — Pendências e contas vencidas (.xls)</td><td>Posição do fornecedor</td><td>Base para conferência do saldo remanescente com a Ipiranga</td></tr>
-      </tbody>
-    </table>
-  </div>
-
   <footer>Relatório gerado por <b style="color:var(--accent)">Finansys</b> · Assessoria &amp; Consultoria Financeira · Posto Travessia · Agosto 2026</footer>
 </div>
 
@@ -361,12 +279,6 @@ new Chart(document.getElementById('mesBar'),{type:'bar',
  options:{responsive:true,maintainAspectRatio:false,
   plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>' '+BRL(c.parsed.y)}}},
   scales:{y:{ticks:{callback:v=>(v/1000)+'k'}},x:{grid:{display:false}}}}});
-
-const stData=[50,3];
-new Chart(document.getElementById('statusDonut'),{type:'doughnut',
- data:{labels:['Conciliado','Com ressalva de cadastro'],
-  datasets:[{data:stData,backgroundColor:['#22c55e','#f59e0b'],borderColor:'#132952',borderWidth:2}]},
- options:donutOpts(stData)});
 
 function animateBars(){document.querySelectorAll('.bar-fill[data-w]').forEach(b=>{setTimeout(()=>{b.style.width=b.dataset.w+'%'},120)})}
 animateBars();
