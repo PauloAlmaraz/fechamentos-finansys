@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Terminal Carga Pesada — Fechamento Julho 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/2.2.0/chartjs-plugin-datalabels.min.js"></script>
+<style>
+:root{
+  --bg:#0a1628;--card:#112040;--sec:#0d1f3a;--panel:#162d4e;--accent:#5eb3f5;--accent2:#3a8fd4;
+  --text:#e8f4ff;--muted:#7aacda;--danger:#ff6b6b;--success:#4ecdc4;--warn:#ffa756;--gold:#f5c842;
+  --border:#1e3a5f;--hover:#1a3660;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);line-height:1.5;font-size:14px}
+.topbar{background:linear-gradient(135deg,var(--card),var(--sec));border-bottom:3px solid var(--accent);
+  padding:18px 32px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;
+  position:sticky;top:0;z-index:100}
+.tb-brand h1{font-size:20px;font-weight:700;letter-spacing:.3px}
+.tb-brand span{color:var(--muted);font-size:13px;font-weight:500}
+.tb-kpis{display:flex;gap:14px;flex-wrap:wrap}
+.tb-kpi{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:8px 16px;text-align:right;min-width:120px}
+.tb-kpi .lbl{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;font-weight:600}
+.tb-kpi .val{font-size:17px;font-weight:700;margin-top:2px}
+.val.pos{color:var(--success)}.val.neg{color:var(--danger)}
+.tabs{display:flex;gap:6px;background:var(--sec);padding:10px 32px;position:sticky;top:80px;z-index:90;
+  border-bottom:1px solid var(--border);overflow-x:auto}
+.tab{background:transparent;border:1px solid transparent;color:var(--muted);padding:9px 18px;border-radius:8px;
+  font-family:inherit;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;transition:.18s}
+.tab:hover{background:var(--hover);color:var(--text)}
+.tab.active{background:var(--accent);color:#04101f;border-color:var(--accent)}
+.wrap{max-width:1180px;margin:0 auto;padding:28px 32px 60px}
+.section{display:none;animation:fade .3s ease}
+.section.active{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+h2.sec-title{font-size:16px;font-weight:700;margin:6px 0 18px;color:var(--text);display:flex;align-items:center;gap:9px}
+h2.sec-title::before{content:'';width:4px;height:18px;background:var(--accent);border-radius:2px}
+.grid{display:grid;gap:16px}
+.g3{grid-template-columns:repeat(3,1fr)}.g2{grid-template-columns:repeat(2,1fr)}.g4{grid-template-columns:repeat(4,1fr)}
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px}
+.card.kpi .lbl{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;font-weight:600}
+.card.kpi .num{font-size:26px;font-weight:700;margin-top:6px}
+.card.kpi .sub{font-size:12px;color:var(--muted);margin-top:4px}
+.num.pos{color:var(--success)}.num.neg{color:var(--danger)}.num.gold{color:var(--gold)}.num.blue{color:var(--accent)}
+.card h3{font-size:13px;font-weight:600;color:var(--muted);margin-bottom:14px;text-transform:uppercase;letter-spacing:.5px}
+.chart-box{position:relative;height:280px}
+.chart-box.tall{height:340px}
+.pill{display:inline-block;padding:3px 10px;border-radius:20px;font-size:12px;font-weight:600}
+.pill.pos{background:rgba(78,205,196,.15);color:var(--success)}
+.pill.neg{background:rgba(255,107,107,.15);color:var(--danger)}
+.pill.neu{background:rgba(122,172,218,.15);color:var(--muted)}
+.pill.gold{background:rgba(245,200,66,.15);color:var(--gold)}
+.bar-row{display:flex;align-items:center;gap:12px;margin-bottom:13px}
+.bar-label{width:170px;font-size:13px;font-weight:500;flex-shrink:0}
+.bar-track{flex:1;height:22px;background:var(--sec);border-radius:6px;overflow:hidden}
+.bar-fill{height:100%;width:0;border-radius:6px;transition:width 1s cubic-bezier(.4,0,.2,1);
+  background:linear-gradient(90deg,var(--accent2),var(--accent))}
+.bar-val{width:96px;text-align:right;font-size:13px;font-weight:600;color:var(--muted);flex-shrink:0}
+.banner{border-radius:12px;padding:20px 24px;margin-bottom:22px;display:flex;justify-content:space-between;
+  align-items:center;flex-wrap:wrap;gap:12px}
+.banner.pos{border-left:5px solid var(--success);background:linear-gradient(135deg,rgba(78,205,196,.12),var(--card))}
+.banner.neg{border-left:5px solid var(--danger);background:linear-gradient(135deg,rgba(255,107,107,.12),var(--card))}
+.banner .big{font-size:22px;font-weight:700}
+.banner.pos .big{color:var(--success)}
+.banner.neg .big{color:var(--danger)}
+.alert-box{border-radius:10px;padding:13px 18px;font-size:13px;font-weight:500;margin-bottom:14px}
+.alert-box.warn{background:rgba(255,167,86,.12);border:1px solid rgba(255,167,86,.35);color:var(--warn)}
+.alert-box.info{background:rgba(94,179,245,.1);border:1px solid rgba(94,179,245,.3);color:var(--accent)}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{text-align:left;color:var(--muted);font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:.5px;
+  padding:10px 12px;border-bottom:2px solid var(--border)}
+td{padding:9px 12px;border-bottom:1px solid var(--border)}
+tr:hover td{background:var(--hover)}
+td.r,th.r{text-align:right}
+.tag{font-size:10px;padding:2px 8px;border-radius:6px;font-weight:600;background:var(--panel);color:var(--muted)}
+footer{text-align:center;color:var(--muted);font-size:12px;padding:24px;border-top:1px solid var(--border);margin-top:20px}
+.delta{display:inline-flex;align-items:center;gap:3px;font-weight:800;font-size:11px;padding:2px 8px;border-radius:20px;margin-left:4px;vertical-align:middle}
+.delta.up{background:rgba(78,205,196,.15);color:var(--success)}
+.delta.down{background:rgba(255,107,107,.15);color:var(--danger)}
+.dre td{padding:8px 12px;font-size:13px}
+.dre .tot td{font-weight:800;color:var(--accent);border-top:2px solid var(--border)}
+.dre .neg-v{color:var(--danger)}
+.dre .pos-v{color:var(--success)}
+.print-cover{display:none}
+@media(max-width:900px){.g3,.g4,.g2{grid-template-columns:1fr}.tb-kpis{width:100%}.bar-label{width:120px}}
+.tb-actions{display:flex;gap:8px;align-items:center}
+.btn{display:inline-flex;align-items:center;gap:6px;background:var(--accent);color:#04101f;border:none;
+  padding:9px 16px;border-radius:9px;font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;transition:.18s}
+.btn:hover{background:#7cc4ff;transform:translateY(-1px)}
+.btn.ghost{background:transparent;color:var(--accent);border:1px solid var(--accent)}
+.btn.ghost:hover{background:var(--hover);color:var(--text)}
+.btn svg{width:15px;height:15px;fill:currentColor}
+
+/* ===== Impressão / Salvar como PDF — mantém o tema EXATAMENTE como na tela ===== */
+@media print{
+  @page{size:A4;margin:10mm}
+  *,*::before,*::after{animation:none!important;transition:none!important;opacity:1!important;transform:none!important}
+  body{background:var(--bg)!important;-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
+  .tabs,.tb-actions,.no-print{display:none!important}
+  .topbar{position:static!important}
+  .wrap{max-width:100%!important;padding:8px 0 0!important}
+  .section{display:block!important;margin:0 0 10px!important;border:0!important;padding:0!important}
+  .sec-title{margin:6px 0 8px}
+  .card{padding:14px}
+  .chart-box{height:200px!important}.chart-box.tall{height:210px!important}
+  .grid{gap:10px;margin-bottom:10px!important}
+  #tab-transacoes tr{break-inside:avoid}
+  .banner,.bar-row,.card{break-inside:avoid}
+  .card,.tb-kpi,.banner,.bar-track,.bar-fill,.pill,.alert-box,.topbar,.tag{
+    -webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
+  .chart-box{height:230px!important}.chart-box.tall{height:270px!important}
+  #tab-transacoes div[style*="max-height"]{max-height:none!important;overflow:visible!important}
+  .print-cover{display:flex;flex-direction:column;justify-content:space-between;background:linear-gradient(135deg,var(--card),var(--sec))!important;border:1px solid var(--border);border-radius:18px;padding:60px 54px;height:250mm;page-break-after:always;margin:8px;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .print-cover .pc-logo{width:64px;height:64px;border-radius:16px;background:linear-gradient(135deg,#5eb3f5,#3a8fd4);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:30px;color:#04101f}
+  .print-cover h1{font-size:46px;font-weight:700;letter-spacing:-1px;margin-top:22px;line-height:1.1}
+  .print-cover .pc-sub{font-size:17px;color:var(--muted);margin-top:8px;font-weight:500}
+  .print-cover .pc-hl{display:flex;gap:14px;margin-top:40px}
+  .print-cover .pc-box{flex:1;background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:18px;-webkit-print-color-adjust:exact}
+  .print-cover .pc-box .l{font-size:10.5px;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);font-weight:600}
+  .print-cover .pc-box .v{font-size:21px;font-weight:700;margin-top:6px}
+  .print-cover .pc-box .d{font-size:12px;margin-top:4px;font-weight:600}
+  .print-cover .pc-foot{font-size:12px;color:var(--muted);display:flex;justify-content:space-between;border-top:1px solid var(--border);padding-top:16px}
+}
+</style>
+</head>
+<body>
+
+<!-- CAPA (somente PDF/impressão) -->
+<div class="print-cover">
+  <div>
+    <div class="pc-logo">F</div>
+    <h1>Terminal Carga Pesada</h1>
+    <div class="pc-sub">Fechamento Mensal — Julho 2026</div>
+    <div class="pc-hl">
+      <div class="pc-box"><div class="l">Lucro Operacional</div><div class="v" style="color:var(--success)">R$ 157.354</div><div class="d" style="color:var(--success)">▲ 279,7% vs junho</div></div>
+      <div class="pc-box"><div class="l">Resultado de Caixa</div><div class="v" style="color:var(--success)">R$ 105.626</div><div class="d" style="color:var(--muted)">investimento R$ 51.728</div></div>
+      <div class="pc-box"><div class="l">Conteiners</div><div class="v" style="color:var(--gold)">679</div><div class="d" style="color:var(--success)">▲ 127,1% vs junho</div></div>
+    </div>
+  </div>
+  <div class="pc-foot"><span><b style="color:var(--accent)">Finansys</b> · Assessoria &amp; Consultoria Financeira</span><span>Documento confidencial · Agosto/2026</span></div>
+</div>
+
+<div class="topbar">
+  <div class="tb-brand">
+    <h1>Terminal Carga Pesada</h1>
+    <span>Fechamento Mensal — Julho 2026</span>
+  </div>
+  <div class="tb-kpis">
+    <div class="tb-kpi"><div class="lbl">Faturamento</div><div class="val">R$ 224.138</div></div>
+    <div class="tb-kpi"><div class="lbl">Despesas</div><div class="val neg">R$ 66.785</div></div>
+    <div class="tb-kpi"><div class="lbl">Resultado</div><div class="val pos">R$ 105.626</div></div>
+    <div class="tb-kpi"><div class="lbl">Conteiners</div><div class="val" style="color:var(--gold)">679</div></div>
+    <div class="tb-actions">
+      <button class="btn ghost" onclick="window.print()" title="Imprimir">
+        <svg viewBox="0 0 24 24"><path d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"/></svg>
+        Imprimir
+      </button>
+      <button class="btn" onclick="baixarPDF()" title="Baixar PDF">
+        <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+        Baixar PDF
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="tabs">
+  <button class="tab active" data-tab="overview">Visão Geral</button>
+  <button class="tab" data-tab="receita">Receita</button>
+  <button class="tab" data-tab="despesas">Despesas</button>
+  <button class="tab" data-tab="conteiners">Conteiners</button>
+  <button class="tab" data-tab="transacoes">Transações</button>
+  <button class="tab" data-tab="operacional">Operacional</button>
+</div>
+
+<div class="wrap">
+
+<!-- ===================== VISÃO GERAL ===================== -->
+<div id="tab-overview" class="section active">
+  <div class="banner pos">
+    <div>
+      <div style="font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;font-weight:600">Resultado do Mês</div>
+      <div class="big">Resultado de R$ 105.625,74 após investimentos</div>
+    </div>
+    <div style="text-align:right">
+      <span class="pill pos">Lucro operacional R$ 157.354</span>
+      <div style="font-size:12px;color:var(--muted);margin-top:6px">Lucro bruto R$ 157.353,56 · Investimento R$ 51.727,82 (empilhadeira T5S R$ 50.000)</div>
+    </div>
+  </div>
+
+  <div class="grid g4" style="margin-bottom:18px">
+    <div class="card kpi"><div class="lbl">Faturamento Total</div><div class="num blue">R$ 224.138</div><div class="sub">Armazenagem + Transportes <span class="delta up">▲ 87,6%</span></div></div>
+    <div class="card kpi"><div class="lbl">Despesa Total</div><div class="num neg">R$ 66.785</div><div class="sub">Operação do terminal <span class="delta up">▼ 14,4%</span></div></div>
+    <div class="card kpi"><div class="lbl">Lucro Bruto</div><div class="num pos">R$ 157.354</div><div class="sub">Antes do investimento <span class="delta up">▲ 279,7%</span></div></div>
+    <div class="card kpi"><div class="lbl">Resultado Líquido</div><div class="num pos">R$ 105.626</div><div class="sub">Junho: −R$ 4.647</div></div>
+  </div>
+
+  <div class="grid g3" style="margin-bottom:18px">
+    <div class="card kpi"><div class="lbl">Conteiners Movimentados</div><div class="num gold">679</div><div class="sub">No mês de julho <span class="delta up">▲ 127,1%</span></div></div>
+    <div class="card kpi"><div class="lbl">Transportes</div><div class="num blue">133</div><div class="sub">Viagens realizadas <span class="delta down">▼ 34,8%</span></div></div>
+    <div class="card kpi"><div class="lbl">Folhas de Impressão</div><div class="num blue">118</div><div class="sub">Serviço acessório <span class="delta up">▲ 103,4%</span></div></div>
+  </div>
+
+  <div class="grid g2" style="margin-bottom:18px">
+    <div class="card">
+      <h3>DRE Simplificada — Julho 2026</h3>
+      <table class="dre">
+        <tbody>
+          <tr><td>Receita de Armazenagem</td><td class="r">R$ 217.780,00</td></tr>
+          <tr><td>Receita de Impressão</td><td class="r">R$ 358,14</td></tr>
+          <tr><td>Resultado de Transportes (líq. dos motoristas)</td><td class="r">R$ 6.000,00</td></tr>
+          <tr class="tot"><td>(=) Faturamento</td><td class="r">R$ 224.138,14</td></tr>
+          <tr><td>(−) Despesas operacionais</td><td class="r neg-v">R$ 66.784,58</td></tr>
+          <tr class="tot"><td>(=) Lucro Operacional</td><td class="r pos-v">R$ 157.353,56</td></tr>
+          <tr><td>(−) Investimentos (empilhadeira T5S + ADMC)</td><td class="r neg-v">R$ 51.727,82</td></tr>
+          <tr class="tot"><td>(=) Resultado de Caixa</td><td class="r pos-v">R$ 105.625,74</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card">
+      <h3>Leitura do Mês</h3>
+      <div class="alert-box info">Melhor mês do período: faturamento de <b>R$ 224,1 mil (+87,6%)</b> com 679 conteiners movimentados (+127,1%). O salto reflete o fechamento de faturas represadas — conteiners que entraram em meses anteriores tiveram a saída registrada em julho, conforme observação da planilha de movimentação.</div>
+      <div class="alert-box info">Caixa positivo em <b>R$ 105,6 mil</b> mesmo com R$ 51,7 mil investidos (parcela 2/22 da empilhadeira T5S, R$ 50.000). Sem o investimento, lucro de R$ 157,4 mil — margem operacional de 70,2%.</div>
+      <div class="alert-box warn">⚠ Receita por conteiner caiu para R$ 330 (−17,4%): predomínio de carga seca 40HC (69,2% do volume vs 50,5% em junho) e menor participação de reefers. Somente o aluguel do Pátio 2 (R$ 25.747,50) foi lançado no mês.</div>
+    </div>
+  </div>
+
+  <div class="grid g2">
+    <div class="card">
+      <h3>Faturamento × Despesa × Resultado</h3>
+      <div class="chart-box"><canvas id="ovBar"></canvas></div>
+    </div>
+    <div class="card">
+      <h3>Composição da Receita</h3>
+      <div class="chart-box"><canvas id="ovRev"></canvas></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== RECEITA ===================== -->
+<div id="tab-receita" class="section">
+  <h2 class="sec-title">Receita — Julho 2026</h2>
+  <div class="grid g3" style="margin-bottom:18px">
+    <div class="card kpi"><div class="lbl">Armazenagem</div><div class="num blue">R$ 217.780</div><div class="sub">97,2% do faturamento</div></div>
+    <div class="card kpi"><div class="lbl">Receita Transportes</div><div class="num blue">R$ 45.170</div><div class="sub">Custo R$ 39.170 · Lucro R$ 6.000</div></div>
+    <div class="card kpi"><div class="lbl">Impressão</div><div class="num blue">R$ 358</div><div class="sub">118 folhas emitidas</div></div>
+  </div>
+
+  <div class="grid g2">
+    <div class="card">
+      <h3>Distribuição da Receita</h3>
+      <div class="chart-box"><canvas id="revDonut"></canvas></div>
+    </div>
+    <div class="card">
+      <h3>Receita por Linha</h3>
+      <div class="bar-row"><span class="bar-label">Armazenagem</span><div class="bar-track"><div class="bar-fill" data-w="100"></div></div><span class="bar-val">R$ 217.780</span></div>
+      <div class="bar-row"><span class="bar-label">Transportes</span><div class="bar-track"><div class="bar-fill" data-w="20.7"></div></div><span class="bar-val">R$ 45.170</span></div>
+      <div class="bar-row"><span class="bar-label">Impressão</span><div class="bar-track"><div class="bar-fill" data-w="0.2"></div></div><span class="bar-val">R$ 358</span></div>
+      <div class="bar-row"><span class="bar-label">Pernoite</span><div class="bar-track"><div class="bar-fill" data-w="0"></div></div><span class="bar-val">R$ 0</span></div>
+      <div class="alert-box info" style="margin-top:8px">A armazenagem concentrou 97,2% do faturamento no mês. Transportes: 133 viagens, R$ 45.170 cobrados contra R$ 39.170 pagos aos motoristas — lucro de R$ 6.000 (margem 13,3%, estável frente aos 13,4% de junho).</div>
+    </div>
+  </div>
+
+  <div class="grid g2" style="margin-top:16px">
+    <div class="card">
+      <h3>Top Clientes — Receita de Armazenagem</h3>
+      <div class="chart-box tall"><canvas id="transpBar"></canvas></div>
+    </div>
+    <div class="card">
+      <h3>Transportadoras / Clientes</h3>
+      <table>
+        <thead><tr><th>Cliente</th><th class="r">Conteiners</th><th class="r">Receita (R$)</th></tr></thead>
+        <tbody>
+          <tr><td>Costalog Transportes</td><td class="r">130</td><td class="r">45.980,00</td></tr>
+          <tr><td>Trans Ferrari</td><td class="r">85</td><td class="r">24.230,00</td></tr>
+          <tr><td>SUD Transportes de Cargas</td><td class="r">10</td><td class="r">10.000,00</td></tr>
+          <tr><td>David Rodrigues</td><td class="r">4</td><td class="r">8.000,00</td></tr>
+          <tr><td>Natari (hortifrútis / reefer)</td><td class="r">10</td><td class="r">7.460,00</td></tr>
+          <tr><td>Eduardo Barroso Neto</td><td class="r">12</td><td class="r">6.400,00</td></tr>
+          <tr><td>Demais (130 clientes)</td><td class="r">428</td><td class="r">115.710,00</td></tr>
+        </tbody>
+      </table>
+      <div class="alert-box info" style="margin-top:14px">A Costalog concentra <b>21,1%</b> da receita de armazenagem (130 conteiners) e a Trans Ferrari, 11,1% (85). Juntas somam um terço do faturamento da linha — carteira mais pulverizada que em junho, quando a Natari sozinha respondia por 31,3%.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== DESPESAS ===================== -->
+<div id="tab-despesas" class="section">
+  <h2 class="sec-title">Despesas — Julho 2026</h2>
+  <div class="grid g4" style="margin-bottom:18px">
+    <div class="card kpi"><div class="lbl">Aluguel / Pátio</div><div class="num neg">R$ 25.748</div><div class="sub">38,6% das despesas</div></div>
+    <div class="card kpi"><div class="lbl">Salários e Pessoal</div><div class="num neg">R$ 23.426</div><div class="sub">Folha + prestadores</div></div>
+    <div class="card kpi"><div class="lbl">Impostos e Taxas</div><div class="num neg">R$ 7.095</div><div class="sub">Simples, DARF, FGTS, cartório</div></div>
+    <div class="card kpi"><div class="lbl">Manutenção e Operação</div><div class="num neg">R$ 6.662</div><div class="sub">Óleo, lavagem, seguro máquina</div></div>
+  </div>
+
+  <div class="grid g2">
+    <div class="card">
+      <h3>Despesas por Categoria</h3>
+      <div class="chart-box tall"><canvas id="despBar"></canvas></div>
+    </div>
+    <div class="card">
+      <h3>Participação por Categoria</h3>
+      <div class="bar-row"><span class="bar-label">Aluguel / Pátio</span><div class="bar-track"><div class="bar-fill" data-w="100"></div></div><span class="bar-val">38,6%</span></div>
+      <div class="bar-row"><span class="bar-label">Salários e Pessoal</span><div class="bar-track"><div class="bar-fill" data-w="91.0"></div></div><span class="bar-val">35,1%</span></div>
+      <div class="bar-row"><span class="bar-label">Impostos e Taxas</span><div class="bar-track"><div class="bar-fill" data-w="27.6"></div></div><span class="bar-val">10,6%</span></div>
+      <div class="bar-row"><span class="bar-label">Manutenção e Operação</span><div class="bar-track"><div class="bar-fill" data-w="25.9"></div></div><span class="bar-val">10,0%</span></div>
+      <div class="bar-row"><span class="bar-label">Outros / Administrativo</span><div class="bar-track"><div class="bar-fill" data-w="13.4"></div></div><span class="bar-val">5,2%</span></div>
+      <div class="bar-row"><span class="bar-label">Benefícios e Seguros</span><div class="bar-track"><div class="bar-fill" data-w="1.0"></div></div><span class="bar-val">0,4%</span></div>
+      <div class="bar-row"><span class="bar-label">Tarifas e Serviços</span><div class="bar-track"><div class="bar-fill" data-w="0.5"></div></div><span class="bar-val">0,2%</span></div>
+      <div class="alert-box warn" style="margin-top:8px">⚠ Aluguel do Pátio 2 concentra 38,6% das saídas do mês (R$ 25.747,50 de R$ 66.784,58 lançados). O Pátio 1 não teve aluguel lançado em julho.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== CONTEINERS ===================== -->
+<div id="tab-conteiners" class="section">
+  <h2 class="sec-title">Conteiners — Julho 2026</h2>
+  <div class="grid g3" style="margin-bottom:18px">
+    <div class="card kpi"><div class="lbl">Total Movimentado</div><div class="num gold">679</div><div class="sub">Conteiners no mês <span class="delta up">▲ 127,1%</span></div></div>
+    <div class="card kpi"><div class="lbl">Receita / Conteiner</div><div class="num blue">R$ 330</div><div class="sub">Faturamento ÷ 679 <span class="delta down">▼ 17,4%</span></div></div>
+    <div class="card kpi"><div class="lbl">Permanência Média</div><div class="num blue">7,1 dias</div><div class="sub">Mediana 3 dias · 40HC 7,9 · 20DC 3,3</div></div>
+  </div>
+
+  <div class="grid g2">
+    <div class="card">
+      <h3>Movimentação × Transporte</h3>
+      <div class="chart-box"><canvas id="contDonut"></canvas></div>
+    </div>
+    <div class="card">
+      <h3>Indicadores de Conteiners</h3>
+      <div class="bar-row"><span class="bar-label">Total movimentado</span><div class="bar-track"><div class="bar-fill" data-w="100"></div></div><span class="bar-val">679</span></div>
+      <div class="bar-row"><span class="bar-label">Com transporte</span><div class="bar-track"><div class="bar-fill" data-w="19.6"></div></div><span class="bar-val">133</span></div>
+      <div class="bar-row"><span class="bar-label">Somente armazenagem</span><div class="bar-track"><div class="bar-fill" data-w="80.4"></div></div><span class="bar-val">546</span></div>
+      <div class="alert-box info" style="margin-top:8px">Dos 679 conteiners movimentados, 133 (19,6%) tiveram transporte associado; os demais 546 geraram somente receita de armazenagem.</div>
+      <div class="alert-box warn">⚠ Folhas de impressão emitidas no mês: 118 (serviço acessório, R$ 358,14).</div>
+    </div>
+  </div>
+
+  <div class="grid g2" style="margin-top:16px">
+    <div class="card">
+      <h3>Permanência no Pátio (dias entre entrada e saída)</h3>
+      <div class="bar-row"><span class="bar-label">Até 3 dias</span><div class="bar-track"><div class="bar-fill" data-w="100"></div></div><span class="bar-val">422 · 62,2%</span></div>
+      <div class="bar-row"><span class="bar-label">4 a 10 dias</span><div class="bar-track"><div class="bar-fill" data-w="35.8"></div></div><span class="bar-val">151 · 22,3%</span></div>
+      <div class="bar-row"><span class="bar-label">11 a 20 dias</span><div class="bar-track"><div class="bar-fill" data-w="7.1"></div></div><span class="bar-val">30 · 4,4%</span></div>
+      <div class="bar-row"><span class="bar-label">Acima de 20 dias</span><div class="bar-track"><div class="bar-fill" data-w="17.8"></div></div><span class="bar-val">75 · 11,1%</span></div>
+      <div class="alert-box info" style="margin-top:8px">Base: 678 conteiners com saída registrada no mês. Média geral de <b>7,1 dias</b>; mediana de 3 dias. A média sobe por conta das faturas represadas de meses anteriores.</div>
+    </div>
+    <div class="card">
+      <h3>Permanência por Tipo de Carga</h3>
+      <div class="bar-row"><span class="bar-label">40HC (seco)</span><div class="bar-track"><div class="bar-fill" data-w="100"></div></div><span class="bar-val">7,9 dias</span></div>
+      <div class="bar-row"><span class="bar-label">40RF (reefer)</span><div class="bar-track"><div class="bar-fill" data-w="95"></div></div><span class="bar-val">7,5 dias</span></div>
+      <div class="bar-row"><span class="bar-label">20DC (seco 20')</span><div class="bar-track"><div class="bar-fill" data-w="42"></div></div><span class="bar-val">3,3 dias</span></div>
+      <div class="alert-box info" style="margin-top:8px">Inversão frente a junho: a carga seca 40HC passou a permanecer tanto quanto os reefers (7,9 vs 7,5 dias), efeito das faturas fechadas com atraso. O 20DC mantém o giro rápido (3,3 dias).</div>
+      <div class="alert-box warn">⚠ 75 conteiners acima de 20 dias: monitorar risco de inadimplência/abandono nas diárias longas.</div>
+    </div>
+  </div>
+
+  <div class="grid g2" style="margin-top:16px">
+    <div class="card">
+      <h3>Conteiners por Tipo</h3>
+      <div class="chart-box"><canvas id="tipoDonut"></canvas></div>
+    </div>
+    <div class="card">
+      <h3>Distribuição por Tipo</h3>
+      <div class="bar-row"><span class="bar-label">40HC</span><div class="bar-track"><div class="bar-fill" data-w="100"></div></div><span class="bar-val">470 · 69,2%</span></div>
+      <div class="bar-row"><span class="bar-label">40RF (reefer)</span><div class="bar-track"><div class="bar-fill" data-w="21.7"></div></div><span class="bar-val">102 · 15,0%</span></div>
+      <div class="bar-row"><span class="bar-label">20DC</span><div class="bar-track"><div class="bar-fill" data-w="19.6"></div></div><span class="bar-val">92 · 13,5%</span></div>
+      <div class="bar-row"><span class="bar-label">40OT</span><div class="bar-track"><div class="bar-fill" data-w="1.5"></div></div><span class="bar-val">7 · 1,0%</span></div>
+      <div class="bar-row"><span class="bar-label">Outros (40RH/40FR/20RF)</span><div class="bar-track"><div class="bar-fill" data-w="1.7"></div></div><span class="bar-val">8 · 1,2%</span></div>
+      <div class="alert-box info" style="margin-top:8px">A carga seca 40HC dominou o mês (69,2%). Os reefers caíram para 15,0% da movimentação (vs 36,5% em junho) — principal explicação para a queda da receita média por conteiner.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== TRANSAÇÕES ===================== -->
+<div id="tab-transacoes" class="section">
+  <h2 class="sec-title">Transações — Julho 2026</h2>
+  <div class="grid g3" style="margin-bottom:18px">
+    <div class="card kpi"><div class="lbl">Total Lançado</div><div class="num neg">R$ 66.785</div><div class="sub">57 lançamentos</div></div>
+    <div class="card kpi"><div class="lbl">Maior Saída</div><div class="num gold">R$ 25.748</div><div class="sub">Aluguel Pátio 2</div></div>
+    <div class="card kpi"><div class="lbl">Ticket Médio</div><div class="num blue">R$ 1.172</div><div class="sub">Por lançamento</div></div>
+  </div>
+  <div class="card">
+    <h3>Extrato de Pagamentos</h3>
+    <div style="max-height:520px;overflow-y:auto">
+    <table id="transTable">
+      <thead><tr><th>Data</th><th>Tipo</th><th>Descrição</th><th class="r">Valor</th></tr></thead>
+      <tbody></tbody>
+    </table>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== OPERACIONAL ===================== -->
+<div id="tab-operacional" class="section">
+  <h2 class="sec-title">Operacional — Julho 2026</h2>
+  <div class="grid g3" style="margin-bottom:18px">
+    <div class="card kpi"><div class="lbl">Margem Líquida</div><div class="num pos">47,1%</div><div class="sub">Resultado / faturamento</div></div>
+    <div class="card kpi"><div class="lbl">Margem Transportes</div><div class="num gold">13,3%</div><div class="sub">Lucro R$ 6.000 / R$ 45.170</div></div>
+    <div class="card kpi"><div class="lbl">Investimento</div><div class="num blue">R$ 51.728</div><div class="sub">Empilhadeira T5S (2/22) + ADMC</div></div>
+  </div>
+
+  <div class="grid g2">
+    <div class="card">
+      <h3>Saídas por Dia (R$)</h3>
+      <div class="chart-box tall"><canvas id="opLine"></canvas></div>
+    </div>
+    <div class="card">
+      <h3>Indicadores do Mês</h3>
+      <div class="bar-row"><span class="bar-label">Margem operacional</span><div class="bar-track"><div class="bar-fill" data-w="70.2"></div></div><span class="bar-val">70,2%</span></div>
+      <div class="bar-row"><span class="bar-label">Despesa / faturamento</span><div class="bar-track"><div class="bar-fill" data-w="29.8"></div></div><span class="bar-val">29,8%</span></div>
+      <div class="bar-row"><span class="bar-label">Peso dos transportes</span><div class="bar-track"><div class="bar-fill" data-w="20.2"></div></div><span class="bar-val">20,2%</span></div>
+      <div class="alert-box info" style="margin-top:8px">Melhor margem operacional do período: 70,2% (R$ 157.354 sobre R$ 224.138). Mesmo absorvendo R$ 51.728 de investimento, o caixa fechou positivo em R$ 105.626.</div>
+      <div class="alert-box warn">⚠ Pico de pagamentos em 16/07 (R$ 30.120, aluguel do Pátio 2 + óleo e serviços) e 01/07 (R$ 9.799, FGTS e prestadores).</div>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<footer>Finansys | Terminal Carga Pesada | Fechamento Julho 2026 | Gerado em 15/08/2026</footer>
+
+<script>
+const COLORS={blue:'#5eb3f5',teal:'#4ecdc4',gold:'#f5c842',red:'#ff6b6b',orange:'#ffa756',purple:'#a07af5',green:'#6bcf7f',muted:'#7aacda'};
+Chart.defaults.color='#7aacda';Chart.defaults.borderColor='#1e3a5f';
+Chart.defaults.font.family="'Inter',sans-serif";
+const brl=v=>'R$ '+v.toLocaleString('pt-BR',{minimumFractionDigits:0,maximumFractionDigits:0});
+Chart.defaults.responsive=true;Chart.defaults.maintainAspectRatio=false;
+if(window.ChartDataLabels){Chart.register(ChartDataLabels);Chart.defaults.set('plugins.datalabels',{display:false});}
+const dlPct=data=>{const tot=data.reduce((a,b)=>a+b,0);return {display:c=>c.dataset.data[c.dataIndex]/tot>0.05,color:'#04101f',font:{weight:700,size:11.5},formatter:v=>(100*v/tot).toFixed(1).replace('.',',')+'%'};};
+
+const TRANS=[{"data": "01/07", "tipo": "DÉBITO EM CONTA", "desc": "TARIFA", "qt": 1, "vtot": 1.04}, {"data": "01/07", "tipo": "PIX", "desc": "RAFAEL RIBEIRO", "qt": 1, "vtot": 970}, {"data": "01/07", "tipo": "PIX", "desc": "CEF MATRIZ FGTS", "qt": 1, "vtot": 2178.98}, {"data": "01/07", "tipo": "TRANSF ENTRE CONTAS", "desc": "WAGNER ALVES", "qt": 1, "vtot": 6648.95}, {"data": "02/07", "tipo": "PIX", "desc": "KALUNGA", "qt": 1, "vtot": 620}, {"data": "03/07", "tipo": "DÉBITO EM CONTA", "desc": "TARIFA", "qt": 1, "vtot": 1.04}, {"data": "03/07", "tipo": "PIX", "desc": "MAXWELL", "qt": 1, "vtot": 700}, {"data": "06/07", "tipo": "DÉBITO EM CONTA", "desc": "TARIFA", "qt": 1, "vtot": 1.04}, {"data": "06/07", "tipo": "PIX", "desc": "José Carlos de Melo", "qt": 1, "vtot": 100}, {"data": "06/07", "tipo": "PIX", "desc": "JOSÉ VICTOR", "qt": 1, "vtot": 1800}, {"data": "06/07", "tipo": "PIX", "desc": "José Carlos de Melo", "qt": 1, "vtot": 1497}, {"data": "06/07", "tipo": "PIX", "desc": "SALÁRIO ANDRE LUIZ", "qt": 1, "vtot": 2189}, {"data": "06/07", "tipo": "PIX", "desc": "SALÁRIO VICTOR CARLOS", "qt": 1, "vtot": 782}, {"data": "06/07", "tipo": "PIX", "desc": "TREVILUB- ÓLEO RANDO", "qt": 1, "vtot": 1251.88}, {"data": "06/07", "tipo": "PIX", "desc": "PENSAO- ADRIANE NAYARA", "qt": 1, "vtot": 713.14}, {"data": "07/07", "tipo": "PIX", "desc": "ERICK FERREIRA", "qt": 1, "vtot": 1200}, {"data": "08/07", "tipo": "DÉBITO EM CONTA", "desc": "TARIFA", "qt": 1, "vtot": 1.45}, {"data": "10/07", "tipo": "PIX", "desc": "TENI COMERCIO - SISTEMA", "qt": 1, "vtot": 250}, {"data": "10/07", "tipo": "DÉBITO EM CONTA", "desc": "TARIFA", "qt": 2, "vtot": 2.9}, {"data": "13/07", "tipo": "DÉBITO EM CONTA", "desc": "TARIFA BOLETO", "qt": 2, "vtot": 2.08}, {"data": "13/07", "tipo": "PIX", "desc": "José Carlos de Melo - LAVAGEM MÁQUINA", "qt": 1, "vtot": 100}, {"data": "13/07", "tipo": "PIX", "desc": "SEGURO DE VIDA", "qt": 1, "vtot": 269.55}, {"data": "14/07", "tipo": "PIX", "desc": "REGIANE OLIVEIRA- PISO", "qt": 1, "vtot": 173.43}, {"data": "15/07", "tipo": "DÉBITO EM CONTA", "desc": "TARIFA BOLETO", "qt": 2, "vtot": 2.08}, {"data": "15/07", "tipo": "PIX", "desc": "POTTENCIAL- SEGURO MÁQUINA NOVA", "qt": 1, "vtot": 871.87}, {"data": "15/07", "tipo": "PIX", "desc": "PLUMAS - CONTABILIDADE", "qt": 1, "vtot": 1000}, {"data": "16/07", "tipo": "DÉBITO EM CONTA", "desc": "TARIFA BOLETO", "qt": 1, "vtot": 1.45}, {"data": "16/07", "tipo": "PIX", "desc": "LUAN DA CRUZ", "qt": 1, "vtot": 700}, {"data": "16/07", "tipo": "PIX", "desc": "GABRIEL COSTA", "qt": 1, "vtot": 1610}, {"data": "16/07", "tipo": "PIX", "desc": "TREVILUB- ÓLEO RANDO", "qt": 1, "vtot": 1287.06}, {"data": "16/07", "tipo": "PIX", "desc": "TREVILUB- ÓLEO RANDO", "qt": 1, "vtot": 774.36}, {"data": "16/07", "tipo": "PIX", "desc": "ALUGUEL PÁTIO 2 - NOVO CARGA PESADA", "qt": 1, "vtot": 25747.5}, {"data": "17/07", "tipo": "DÉBITO EM CONTA", "desc": "TARIFA BOLETO", "qt": 3, "vtot": 4.35}, {"data": "18/07", "tipo": "DÉBITO EM CONTA", "desc": "TARIFA BOLETO", "qt": 1, "vtot": 1.04}, {"data": "18/07", "tipo": "PIX", "desc": "CARLOS HENRIQUE - MARCIO 07/07", "qt": 1, "vtot": 600}, {"data": "18/07", "tipo": "PIX", "desc": "José Carlos de Melo - LAVAGEM MÁQUINA", "qt": 1, "vtot": 300}, {"data": "18/07", "tipo": "PIX", "desc": "ANTECIPAÇÃO - ANDRE LUIZ", "qt": 1, "vtot": 1122}, {"data": "18/07", "tipo": "PIX", "desc": "ANTECIPAÇÃO - MELO", "qt": 1, "vtot": 997}, {"data": "18/07", "tipo": "PIX", "desc": "ANTECIPAÇÃO - VICTOR CARLOS", "qt": 1, "vtot": 847}, {"data": "18/07", "tipo": "PIX", "desc": "CÉLIO REBATE TOP SEA", "qt": 1, "vtot": 700}, {"data": "18/07", "tipo": "PIX", "desc": "DÉBITO ARRECADAÇÃO - SIMPES NACIONAL", "qt": 1, "vtot": 2409.07}, {"data": "18/07", "tipo": "PIX", "desc": "DARF", "qt": 1, "vtot": 963.28}, {"data": "18/07", "tipo": "PIX", "desc": "TARIFA BOLETO", "qt": 1, "vtot": 2.08}, {"data": "21/07", "tipo": "PIX", "desc": "DIEGO ALMEIDA", "qt": 1, "vtot": 300}, {"data": "22/07", "tipo": "PIX", "desc": "FINANSYS", "qt": 1, "vtot": 1500}, {"data": "22/07", "tipo": "PIX", "desc": "TREVILUB- ÓLEO RANDO", "qt": 1, "vtot": 1283.69}, {"data": "22/07", "tipo": "DÉBITO EM CONTA", "desc": "TARIFA BOLETO", "qt": 3, "vtot": 3.12}, {"data": "23/07", "tipo": "PIX", "desc": "JOSE WELLINGTON (HEBERT)", "qt": 1, "vtot": 600}, {"data": "24/07", "tipo": "DÉBITO EM CONTA", "desc": "TARIFA BOLETO", "qt": 1, "vtot": 1.45}, {"data": "27/07", "tipo": "DÉBITO EM CONTA", "desc": "TARIFA BOLETO", "qt": 4, "vtot": 5.8}, {"data": "27/07", "tipo": "PIX", "desc": "CESTA DE RELACIONAMENTO", "qt": 1, "vtot": 95}, {"data": "28/07", "tipo": "PIX", "desc": "TAMIRES GOMES", "qt": 1, "vtot": 50}, {"data": "28/07", "tipo": "DÉBITO EM CONTA", "desc": "TARIFA BOLETO", "qt": 2, "vtot": 2.08}, {"data": "29/07", "tipo": "DÉBITO EM CONTA", "desc": "TARIFA BOLETO", "qt": 2, "vtot": 2.9}, {"data": "30/07", "tipo": "DÉBITO EM CONTA", "desc": "TARIFA BOLETO", "qt": 1, "vtot": 2.08}, {"data": "31/07", "tipo": "DÉBITO EM CONTA", "desc": "TARIFA BOLETO", "qt": 1, "vtot": 1.45}, {"data": "31/07", "tipo": "PIX", "desc": "1 TABELIÃO - NOTA", "qt": 1, "vtot": 1543.39}];
+
+const chartInited={};
+const CHARTS=[];
+function mkChart(el,cfg){const c=new Chart(el,cfg);CHARTS.push(c);return c;}
+function initCharts(tab){
+  if(tab==='overview'){
+    mkChart(document.getElementById('ovBar'),{type:'bar',data:{labels:['Faturamento','Despesa','Resultado'],
+      datasets:[{data:[224138.14,66784.58,105625.74],backgroundColor:[COLORS.blue,COLORS.orange,COLORS.teal],borderRadius:8,barThickness:64}]},
+      options:{plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>brl(c.raw)}}},
+      scales:{y:{ticks:{callback:v=>brl(v)}}}}});
+    mkChart(document.getElementById('ovRev'),{type:'doughnut',data:{labels:['Armazenagem','Transportes','Impressão'],
+      datasets:[{data:[217780,45170,358.14],backgroundColor:[COLORS.blue,COLORS.gold,COLORS.purple],borderColor:'#112040',borderWidth:2}]},
+      options:{cutout:'58%',plugins:{datalabels:dlPct([217780,45170,358.14]),legend:{position:'bottom'},tooltip:{callbacks:{label:c=>c.label+': '+brl(c.raw)}}}}});
+  }
+  if(tab==='receita'){
+    mkChart(document.getElementById('revDonut'),{type:'doughnut',data:{labels:['Armazenagem','Transportes','Impressão'],
+      datasets:[{data:[217780,45170,358.14],backgroundColor:[COLORS.blue,COLORS.gold,COLORS.purple],borderColor:'#112040',borderWidth:2}]},
+      options:{cutout:'58%',plugins:{datalabels:dlPct([217780,45170,358.14]),legend:{position:'bottom'},tooltip:{callbacks:{label:c=>c.label+': '+brl(c.raw)}}}}});
+    mkChart(document.getElementById('transpBar'),{type:'bar',data:{
+      labels:['Costalog','Trans Ferrari','SUD','David Rodrigues','Natari','Eduardo Barroso','Demais (130)'],
+      datasets:[{data:[45980,24230,10000,8000,7460,6400,115710],
+        backgroundColor:[COLORS.teal,COLORS.blue,COLORS.gold,COLORS.orange,COLORS.purple,COLORS.green,COLORS.muted],borderRadius:6}]},
+      options:{indexAxis:'y',plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>brl(c.raw)+' ('+(100*c.raw/217780).toFixed(1).replace('.',',')+'% da armazenagem)'}}},
+      scales:{x:{ticks:{callback:v=>brl(v)}},y:{grid:{display:false}}}}});
+  }
+  if(tab==='despesas'){
+    mkChart(document.getElementById('despBar'),{type:'bar',data:{
+      labels:['Aluguel / Pátio','Salários e Pessoal','Impostos e Taxas','Manutenção e Operação','Outros / Administrativo','Benefícios e Seguros','Tarifas e Serviços'],
+      datasets:[{data:[25747.50,23426.09,7094.72,6662.29,3450.00,269.55,134.43],
+        backgroundColor:[COLORS.orange,COLORS.gold,COLORS.red,COLORS.teal,COLORS.purple,COLORS.blue,COLORS.muted],borderRadius:6}]},
+      options:{indexAxis:'y',plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>brl(c.raw)}}},
+      scales:{x:{ticks:{callback:v=>brl(v)}}}}});
+  }
+  if(tab==='conteiners'){
+    mkChart(document.getElementById('contDonut'),{type:'doughnut',data:{labels:['Com transporte','Somente armazenagem'],
+      datasets:[{data:[133,546],backgroundColor:[COLORS.gold,COLORS.blue],borderColor:'#112040',borderWidth:2}]},
+      options:{cutout:'58%',plugins:{datalabels:dlPct([133,546]),legend:{position:'bottom'},tooltip:{callbacks:{label:c=>c.label+': '+c.raw+' conteiners'}}}}});
+    mkChart(document.getElementById('tipoDonut'),{type:'doughnut',data:{labels:['40HC','40RF (reefer)','20DC','40OT','Outros'],
+      datasets:[{data:[470,102,92,7,8],backgroundColor:[COLORS.blue,COLORS.teal,COLORS.gold,COLORS.orange,COLORS.purple],borderColor:'#112040',borderWidth:2}]},
+      options:{cutout:'58%',plugins:{datalabels:dlPct([470,102,92,7,8]),legend:{position:'bottom'},tooltip:{callbacks:{label:c=>c.label+': '+c.raw+' conteiners'}}}}});
+  }
+  if(tab==='operacional'){
+    const byDay={};
+    TRANS.forEach(t=>{byDay[t.data]=(byDay[t.data]||0)+t.vtot});
+    const days=Object.keys(byDay).sort((a,b)=>{const[da,ma]=a.split('/');const[db,mb]=b.split('/');return (ma-mb)||(da-db)});
+    mkChart(document.getElementById('opLine'),{type:'line',data:{labels:days,
+      datasets:[{label:'Saídas',data:days.map(d=>byDay[d]),borderColor:COLORS.blue,backgroundColor:'rgba(94,179,245,.15)',
+        fill:true,tension:.3,pointRadius:3,pointBackgroundColor:COLORS.gold}]},
+      options:{plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>brl(c.raw)}}},
+      scales:{y:{ticks:{callback:v=>brl(v)}}}}});
+  }
+}
+
+function animateBars(){document.querySelectorAll('.bar-fill[data-w]').forEach(b=>{setTimeout(()=>{b.style.width=b.dataset.w+'%'},100)})}
+
+function fillTable(){
+  const tb=document.querySelector('#transTable tbody');
+  TRANS.forEach(t=>{
+    const tr=document.createElement('tr');
+    tr.innerHTML=`<td>${t.data}</td><td><span class="tag">${t.tipo}</span></td><td>${t.desc}</td><td class="r">${t.vtot.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2})}</td>`;
+    tb.appendChild(tr);
+  });
+}
+
+document.querySelectorAll('.tab').forEach(tab=>{
+  tab.addEventListener('click',()=>{
+    document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+    document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+    tab.classList.add('active');
+    const sec=document.getElementById('tab-'+tab.dataset.tab);
+    sec.classList.add('active');
+    if(!chartInited[tab.dataset.tab]){initCharts(tab.dataset.tab);chartInited[tab.dataset.tab]=true;}
+    animateBars();
+  });
+});
+
+initCharts('overview');chartInited['overview']=true;
+fillTable();
+animateBars();
+
+// Garante que todos os gráficos estejam renderizados antes de imprimir/salvar PDF
+function prepararImpressao(){
+  document.querySelectorAll('.section').forEach(s=>{s.style.display='block';});
+  ['overview','receita','despesas','conteiners','transacoes','operacional'].forEach(t=>{
+    if(!chartInited[t]){initCharts(t);chartInited[t]=true;}
+  });
+  document.querySelectorAll('.bar-fill[data-w]').forEach(b=>{b.style.width=b.dataset.w+'%';});
+  CHARTS.forEach(c=>{try{c.resize();c.update('none');}catch(e){}});
+}
+window.addEventListener('beforeprint', prepararImpressao);
+window.addEventListener('afterprint', ()=>{
+  document.querySelectorAll('.section').forEach(s=>{s.style.display='';});
+});
+
+function baixarPDF(){
+  prepararImpressao();
+  setTimeout(()=>window.print(), 600);
+}
+</script>
+</body>
+</html>

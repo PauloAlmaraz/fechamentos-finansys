@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Posto Travessia · Passivos Gestão Anterior — Jun/Jul 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/2.2.0/chartjs-plugin-datalabels.min.js"></script>
+<style>
+:root{
+--navy:#0a1628;--navy-mid:#0f2044;--navy-card:#132952;--blue:#1e5fc8;--blue-light:#3a7bd5;
+--accent:#5fb3f5;--accent2:#7dd3fc;--green:#22c55e;--amber:#f59e0b;--red:#ef4444;
+--white:#f0f6ff;--muted:#8ba3c7;--border:rgba(94,179,245,0.15);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
+body{font-family:'Inter',sans-serif;background:var(--navy);color:var(--white);line-height:1.5}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+
+header{position:sticky;top:0;z-index:100;height:72px;background:var(--navy-mid);border-bottom:1px solid var(--border)}
+.hdr-in{max-width:1180px;margin:0 auto;height:100%;padding:0 24px;display:flex;align-items:center;justify-content:space-between}
+.logo-box{display:flex;align-items:center;gap:14px}
+.logo-mark{width:42px;height:42px;border-radius:11px;background:linear-gradient(135deg,var(--accent),var(--blue));display:flex;align-items:center;justify-content:center;font-weight:900;font-size:20px;color:#06101f}
+.logo-txt b{font-size:17px;font-weight:900}
+.logo-txt span{display:block;font-size:11px;color:var(--muted);font-weight:600;letter-spacing:1.5px;text-transform:uppercase}
+.hdr-right{display:flex;align-items:center;gap:12px}
+.period-badge{display:flex;align-items:center;gap:8px;background:rgba(94,179,245,.1);border:1px solid var(--border);padding:8px 16px;border-radius:30px;font-size:13px;font-weight:700;color:var(--accent2)}
+.pulse-dot{width:8px;height:8px;border-radius:50%;background:var(--green);animation:pulse 1.8s infinite}
+@keyframes pulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(34,197,94,.6)}50%{opacity:.6;box-shadow:0 0 0 6px rgba(34,197,94,0)}}
+.print-btn{background:rgba(94,179,245,.12);border:1px solid var(--border);color:var(--accent2);width:42px;height:42px;border-radius:11px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.2s}
+.print-btn:hover{background:rgba(94,179,245,.25)}
+.print-btn.solid{background:linear-gradient(135deg,var(--accent),var(--blue));color:#06101f;border:none}
+
+.hero{padding:50px 0 26px}
+.hero h1{font-size:46px;font-weight:900;line-height:1.05;background:linear-gradient(120deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:-1px}
+.hero p{margin-top:10px;font-size:17px;color:var(--muted);font-weight:600}
+.hero .cnpj{font-size:13px;color:var(--muted);margin-top:4px;opacity:.75}
+
+.exec{margin:6px 0 26px;background:linear-gradient(120deg,rgba(30,95,200,.14),var(--navy-card));border:1px solid var(--border);border-left:4px solid var(--accent);border-radius:14px;padding:20px 24px}
+.exec .exec-t{font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--accent);margin-bottom:8px}
+.exec p{font-size:14px;line-height:1.65;font-weight:500}
+.exec b{color:var(--accent2)}
+
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.kpi-card{background:var(--navy-card);border:1px solid var(--border);border-radius:16px;padding:22px 20px}
+.kpi-label{font-size:12px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.6px}
+.kpi-val{font-size:26px;font-weight:900;margin-top:8px;letter-spacing:-.5px}
+.kpi-sub{font-size:12px;color:var(--accent2);font-weight:600;margin-top:5px}
+.kpi-val.green{color:#4ade80}.kpi-val.amber{color:var(--amber)}.kpi-val.red{color:#f87171}
+
+.section-title{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1.8px;color:var(--muted);margin:42px 0 18px;display:flex;align-items:center;gap:10px}
+.section-title::before{content:'';width:4px;height:16px;border-radius:2px;background:linear-gradient(var(--accent),var(--blue))}
+
+.chart-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.chart-card{background:var(--navy-card);border:1px solid var(--border);border-radius:16px;padding:24px}
+.chart-card h3{font-size:15px;font-weight:700;margin-bottom:18px}
+.chart-box{position:relative;height:290px}
+
+.bar-row{display:flex;align-items:center;gap:12px;margin-bottom:13px}
+.bar-label{width:190px;font-size:13px;font-weight:600;flex-shrink:0;color:var(--muted)}
+.bar-track{flex:1;height:20px;background:rgba(255,255,255,.06);border-radius:6px;overflow:hidden}
+.bar-fill{height:100%;width:0;border-radius:6px;transition:width 1s cubic-bezier(.4,0,.2,1);background:linear-gradient(90deg,var(--blue),var(--accent))}
+.bar-val{width:118px;text-align:right;font-size:13px;font-weight:700;flex-shrink:0}
+
+.finding{background:var(--navy-card);border:1px solid var(--border);border-radius:14px;padding:18px 22px;margin-bottom:14px;border-left:4px solid var(--accent)}
+.finding.crit{border-left-color:var(--red)}
+.finding.warn{border-left-color:var(--amber)}
+.finding.info{border-left-color:var(--accent)}
+.finding h4{font-size:14.5px;font-weight:800;margin-bottom:6px;display:flex;align-items:center;gap:9px}
+.finding p{font-size:13.5px;color:var(--white);opacity:.9;line-height:1.6}
+.finding b{color:var(--accent2)}
+.sev{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.6px;padding:3px 9px;border-radius:20px}
+.sev.crit{background:rgba(239,68,68,.16);color:#f87171}
+.sev.warn{background:rgba(245,158,11,.16);color:#fbbf24}
+.sev.info{background:rgba(94,179,245,.16);color:var(--accent2)}
+.sev.ok{background:rgba(34,197,94,.16);color:#4ade80}
+.finding.ok{border-left-color:var(--green)}
+
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{text-align:left;color:var(--muted);font-weight:700;text-transform:uppercase;font-size:10.5px;letter-spacing:.5px;padding:10px;border-bottom:1px solid var(--border)}
+td{padding:9px 10px;border-bottom:1px solid rgba(255,255,255,.05);font-weight:500}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;font-weight:700}
+tr:hover td{background:rgba(94,179,245,.04)}
+.tot-row td{font-weight:900;color:var(--accent2);border-top:2px solid var(--border);border-bottom:none}
+.st{font-size:10.5px;font-weight:800;padding:3px 9px;border-radius:20px;white-space:nowrap}
+.st.ok{background:rgba(34,197,94,.14);color:#4ade80}
+.st.warn{background:rgba(245,158,11,.16);color:#fbbf24}
+.st.bad{background:rgba(239,68,68,.16);color:#f87171}
+
+footer{margin:54px 0 40px;text-align:center;font-size:12px;color:var(--muted);padding-top:24px;border-top:1px solid var(--border)}
+.print-cover{display:none}
+
+@media(max-width:980px){.kpi-grid{grid-template-columns:repeat(2,1fr)}.chart-grid{grid-template-columns:1fr}.hero h1{font-size:34px}.bar-label{width:130px}}
+
+@media print{
+ @page{size:A4 portrait;margin:10mm}
+ *,*::before,*::after{animation:none!important;transition:none!important}
+ body{background:var(--navy)!important}
+ .print-btn,.hdr-right .print-btn{display:none!important}
+ header{position:static}
+ .kpi-card,.chart-card,.exec,.finding{break-inside:avoid}
+ tr{break-inside:avoid}
+ .chart-box{height:230px!important}
+ .print-cover{display:flex;flex-direction:column;justify-content:space-between;background:linear-gradient(150deg,#132952,#0a1628)!important;border:1px solid var(--border);border-radius:18px;padding:56px 50px;height:248mm;page-break-after:always;margin:6px}
+ .print-cover .pc-logo{width:64px;height:64px;border-radius:16px;background:linear-gradient(135deg,#5fb3f5,#1e5fc8);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:30px;color:#06101f}
+ .print-cover h1{font-size:42px;font-weight:900;color:#f0f6ff;-webkit-text-fill-color:#f0f6ff;letter-spacing:-1px;margin-top:22px;line-height:1.1}
+ .print-cover .pc-sub{font-size:16px;color:#8ba3c7;margin-top:10px;font-weight:600}
+ .print-cover .pc-hl{display:flex;gap:14px;margin-top:38px}
+ .print-cover .pc-box{flex:1;background:#132952;border:1px solid rgba(94,179,245,.25);border-radius:14px;padding:18px}
+ .print-cover .pc-box .l{font-size:10px;text-transform:uppercase;letter-spacing:.6px;color:#8ba3c7;font-weight:700}
+ .print-cover .pc-box .v{font-size:21px;font-weight:900;margin-top:6px;color:#f0f6ff}
+ .print-cover .pc-box .d{font-size:11.5px;margin-top:4px;font-weight:700;color:#8ba3c7}
+ .print-cover .pc-foot{font-size:12px;color:#8ba3c7;display:flex;justify-content:space-between;border-top:1px solid rgba(94,179,245,.2);padding-top:16px}
+}
+</style>
+</head>
+<body>
+
+<div class="print-cover">
+  <div>
+    <div class="pc-logo">F</div>
+    <h1>Passivos<br>Gestão Anterior</h1>
+    <div class="pc-sub">Posto Travessia · Conciliação e auditoria de comprovantes<br>Período: 26/06/2026 a 31/07/2026</div>
+    <div class="pc-hl">
+      <div class="pc-box"><div class="l">Total Pago</div><div class="v">R$ 277.864</div><div class="d">53 lançamentos</div></div>
+      <div class="pc-box"><div class="l">Conciliado</div><div class="v" style="color:#4ade80">100%</div><div class="d">53 de 53 com comprovante</div></div>
+      <div class="pc-box"><div class="l">Ressalvas</div><div class="v" style="color:#fbbf24">3</div><div class="d">ajustes de cadastro</div></div>
+    </div>
+  </div>
+  <div class="pc-foot"><span><b style="color:#5fb3f5">Finansys</b> · Assessoria &amp; Consultoria Financeira</span><span>Documento confidencial · Agosto/2026</span></div>
+</div>
+
+<header>
+  <div class="hdr-in">
+    <div class="logo-box">
+      <div class="logo-mark">F</div>
+      <div class="logo-txt"><b>Finansys</b><span>Posto Travessia</span></div>
+    </div>
+    <div class="hdr-right">
+      <div class="period-badge"><span class="pulse-dot"></span>JUN–JUL 2026</div>
+      <button class="print-btn" onclick="window.print()" title="Imprimir">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+      </button>
+      <button class="print-btn solid" onclick="window.print()" title="Baixar PDF">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="hero">
+    <h1>Passivos — Gestão Anterior</h1>
+    <p>Posto Travessia · Conciliação e auditoria de comprovantes</p>
+    <p class="cnpj">POSTO DE SERVIÇOS TRAVESSIA DE SANTOS LTDA · CNPJ 08.521.038/0001-11 · Período 26/06/2026 a 31/07/2026</p>
+  </div>
+
+  <div class="exec">
+    <div class="exec-t">Resumo da Auditoria</div>
+    <p>Foram conferidos <b>53 pagamentos</b> de passivos da gestão anterior, somando <b>R$ 277.864,42</b>, contra os comprovantes arquivados na pasta do cliente. <b>Todos os lançamentos (100%) têm comprovante válido</b> — cada um verificado por valor, data, beneficiário e ID da transação. Dois ajustes já foram aplicados na base: a exclusão de um lançamento duplicado de R$ 1.250,00 em 29/06 (os três arquivos guardados eram cópias da mesma transação) e a correção do beneficiário do acordo de 29/07, que é de <b>Maria Edite</b> e foi creditado na conta de Natalia de Castro. O maior bloco é o aluguel da Ipiranga (<b>R$ 120.615,67</b>, 43,4%), pago com <b>R$ 12.482,68 de juros e multa</b> por atraso — 11,5% sobre o valor nominal. Pagamentos de agosto/2026 ficaram fora deste relatório para manter o controle mensal.</p>
+  </div>
+
+  <div class="kpi-grid">
+    <div class="kpi-card">
+      <div class="kpi-label">Total Pago</div>
+      <div class="kpi-val">R$ 277.864</div>
+      <div class="kpi-sub">53 lançamentos · jun–jul</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Conciliado</div>
+      <div class="kpi-val green">100%</div>
+      <div class="kpi-sub">53 de 53 com comprovante</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Ressalvas de Cadastro</div>
+      <div class="kpi-val amber">3</div>
+      <div class="kpi-sub">sem impacto em valor</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Encargos por Atraso</div>
+      <div class="kpi-val amber">R$ 12.483</div>
+      <div class="kpi-sub">juros e multa Ipiranga</div>
+    </div>
+  </div>
+
+  <div class="section-title">Composição dos Passivos</div>
+  <div class="chart-grid">
+    <div class="chart-card">
+      <h3>Distribuição por Categoria</h3>
+      <div class="chart-box"><canvas id="catDonut"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <h3>Valor por Categoria</h3>
+      <div class="bar-row"><span class="bar-label">Aluguel Ipiranga</span><div class="bar-track"><div class="bar-fill" data-w="100"></div></div><span class="bar-val">R$ 120.616</span></div>
+      <div class="bar-row"><span class="bar-label">Trabalhista</span><div class="bar-track"><div class="bar-fill" data-w="51.6"></div></div><span class="bar-val">R$ 62.231</span></div>
+      <div class="bar-row"><span class="bar-label">Utilidades</span><div class="bar-track"><div class="bar-fill" data-w="31.4"></div></div><span class="bar-val">R$ 37.874</span></div>
+      <div class="bar-row"><span class="bar-label">Fornec. conveniência</span><div class="bar-track"><div class="bar-fill" data-w="21.5"></div></div><span class="bar-val">R$ 25.953</span></div>
+      <div class="bar-row"><span class="bar-label">Impostos e taxas</span><div class="bar-track"><div class="bar-fill" data-w="20.3"></div></div><span class="bar-val">R$ 24.531</span></div>
+      <div class="bar-row"><span class="bar-label">Serviços e adm.</span><div class="bar-track"><div class="bar-fill" data-w="5.2"></div></div><span class="bar-val">R$ 6.264</span></div>
+      <div class="bar-row"><span class="bar-label">Manutenção</span><div class="bar-track"><div class="bar-fill" data-w="0.3"></div></div><span class="bar-val">R$ 396</span></div>
+    </div>
+    <div class="chart-card">
+      <h3>Desembolso por Mês</h3>
+      <div class="chart-box"><canvas id="mesBar"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <h3>Status da Conciliação</h3>
+      <div class="chart-box"><canvas id="statusDonut"></canvas></div>
+    </div>
+  </div>
+
+  <div class="section-title">Apontamentos da Auditoria</div>
+
+  <div class="finding ok">
+    <h4><span class="sev ok">Ajuste aplicado</span> Duplicidade no acordo de 29/06 — R$ 1.250,00 excluídos</h4>
+    <p>A planilha original trazia <b>dois lançamentos idênticos</b> de R$ 1.250,00 em 29/06/2026 para Natalia de Castro. Os três arquivos guardados na pasta (<i>Acordo trab natalia 29-06</i>, <i>Acordo trabalhista 29-06</i> e <i>Acordo trabalhista 30</i>) reproduzem <b>a mesma transação</b>: ID <b>E60701190202606300014DY5GMTH38FQ</b>, autenticação 520BA618…A95E, controle 000539988488516, efetuada às 21:17:40 — um único pagamento. <b>A linha duplicada foi excluída desta base</b>, reduzindo o total de R$ 279.114,42 para <b>R$ 277.864,42</b>. Ajustar também na planilha de origem.</p>
+  </div>
+
+  <div class="finding ok">
+    <h4><span class="sev ok">Esclarecido</span> Acordo de 29/07 — Maria Edite, creditado a Natalia de Castro</h4>
+    <p>O comprovante recebido está nomeado como acordo trabalhista de <b>Maria Edite</b> e identifica a operação como “Ref 3ª parc acordo trab Maria Edite”, porém a <b>conta creditada é de Natalia de Castro Martin</b> (chave PIX 43988521825, Nu Pagamentos). O lançamento passa a constar como <b>3ª parcela do acordo de Maria Edite, com crédito em conta de Natalia de Castro</b>. As parcelas de 29/06 seguiram para a mesma conta.</p>
+  </div>
+
+  <div class="finding warn">
+    <h4><span class="sev warn">Ressalva</span> Data divergente — FGTS rescisão Anne, R$ 4.984,94</h4>
+    <p>Planilha registra 17/07/2026; o comprovante mostra <b>pagamento em 16/07/2026</b> (17/07 é a data de vencimento da guia). Ajustar a data na planilha para manter o regime de caixa correto.</p>
+  </div>
+
+  <div class="finding warn">
+    <h4><span class="sev warn">Ressalva</span> Forma de pagamento divergente — SABESP 29/06, R$ 4.416,59</h4>
+    <p>A planilha classifica como <b>PIX</b>, mas o comprovante Sicredi mostra <b>pagamento de conta de consumo por código de barras</b>. Sem impacto no valor; corrigir apenas a classificação para não distorcer a análise por meio de pagamento.</p>
+  </div>
+
+  <div class="finding warn">
+    <h4><span class="sev warn">Ressalva</span> Arquivo com nome incorreto — Contabilidade Praxis, R$ 2.970,00</h4>
+    <p>O arquivo <i>Contabilidade 16-06.pdf</i> refere-se a pagamento efetuado em <b>16/07/2026</b> (vencimento 17/07). Renomear para evitar erro de competência em conferências futuras.</p>
+  </div>
+
+  <div class="finding info">
+    <h4><span class="sev info">Atenção</span> Custo do atraso no aluguel Ipiranga — R$ 12.482,68</h4>
+    <p>Os três aluguéis (venc. 10/04, 11/05 e 10/06) foram quitados em 26/06/2026. Valor nominal: <b>R$ 108.132,99</b> (3 × R$ 36.044,33). Encargos: R$ 4.529,20 + R$ 4.156,89 + R$ 3.796,59 = <b>R$ 12.482,68</b>, equivalente a <b>11,5%</b> de acréscimo. É o item de maior impacto evitável do período.</p>
+  </div>
+
+  <div class="finding info">
+    <h4><span class="sev info">Fora do escopo</span> Pagamentos de agosto/2026 — R$ 15.884,13</h4>
+    <p>Três lançamentos posteriores a 31/07 foram excluídos deste relatório para preservar o controle mensal: acordo Bruna Verônica (05/08, R$ 12.000,00), acordo Nayra Santos (06/08, R$ 956,67) e rescisão Wallace (06/08, R$ 2.927,46). <b>A rescisão do Wallace não tem comprovante na pasta</b> — providenciar antes do fechamento de agosto.</p>
+  </div>
+
+  <div class="section-title">Conciliação Detalhada</div>
+  <div class="chart-card">
+    <table>
+      <thead><tr><th>Data</th><th>Beneficiário</th><th>Descrição</th><th class="num">Valor (R$)</th><th>Categoria</th><th>Status</th></tr></thead>
+      <tbody>
+<tr><td>26/06</td><td>IPIRANGA PRODUTOS</td><td>ALUGUEL 10/04</td><td class="num">40.573,53</td><td>Aluguel Ipiranga</td><td><span class="st ok">Conciliado</span></td></tr>
+<tr><td>26/06</td><td>IPIRANGA PRODUTOS</td><td>ALUGUEL 10/05</td><td class="num">40.201,22</td><td>Aluguel Ipiranga</td><td><span class="st ok">Conciliado</span></td></tr>
+<tr><td>26/06</td><td>IPIRANGA PRODUTOS</td><td>ALUGUEL 10/06</td><td class="num">39.840,92</td><td>Aluguel Ipiranga</td><td><span class="st ok">Conciliado</span></td></tr>
+<tr><td>29/06</td><td>MATRIX SERVICES</td><td>LUZ JULIANO</td><td class="num">8.507,99</td><td>Utilidades</td><td><span class="st ok">Conciliado</span></td></tr>
+<tr><td>29/06</td><td>CPFL PIRATININGA</td><td>ENERGIA ELÉTRICA E GÁS JULIANO</td><td class="num">5.107,26</td><td>Utilidades</td><td><span class="st ok">Conciliado</span></td></tr>
+<tr><td>29/06</td><td>SABESP</td><td>ÁGUA JULIANO</td><td class="num">4.416,59</td><td>Utilidades</td><td><span class="st warn">Ressalva</span></td></tr>
+<tr><td>29/06</td><td>NATALIA DE CASTRO</td><td>ACORDO TRABALHISTA</td><td class="num">1.250,00</td><td>Trabalhista</td><td><span class="st ok">Conciliado</span></td></tr>
+<tr><td>30/06</td><td>JOSÉ CARLOS</td><td>ACERTO SALÁRIO VR E VT</td><td class="num">2.840,00</td><td>Trabalhista</td><td><span class="st ok">Conciliado</span></td></tr>
+<tr><td>01/07</td><td>MMFOODS</td><td>SALGADOS</td><td class="num">817,50</td><td>Fornecedores conveniência</td><td><span class="st ok">Conciliado</span></td></tr>
+<tr><td>01/07</td><td>PHILIP</td><td>CIGARROS</td><td class="num">503,31</td><td>Fornecedores conveniência</td><td><span class="st ok">Conciliado</span></td></tr>
+<tr><td>01/07</td><td>J ALVES</td><td>REI DO CAFÉ</td><td class="num">289,47</td><td>Fornecedores conveniência</td><td><span class="st ok">Conciliado</span></td></tr>
+<tr><td>01/07</td><td>J ALVES</td><td>REI DO CAFÉ</td><td class="num">600,02</td><td>Fornecedores conveniência</td><td><span class="st ok">Conciliado</span></td></tr>
+<tr><td>01/07</td><td>D. B. DOS SANTOS</td><td>DENISE SALGADOS</td><td class="num">248,66</td><td>Fornecedores conveniência</td><td><span class="st ok">Conciliado</span></td></tr>
+<tr><td>02/07</td><td>PHILIP</td><td>CIGARROS</td><td class="num">496,31</td><td>Fornecedores conveniência</td><td><span class="st ok">Conciliado</span></td></tr>
+<tr><td>02/07</td><td>SEFAZ</td><td>DARE</td><td class="num">579,07</td><td>Impostos e taxas</td><td><span class="st ok">Conciliado</span></td></tr>
+<tr><td>02/07</td><td>SABESP</td><td>ÁGUA JULIANO</td><td class="num">3.986,32</td><td>Utilidades</td><td><span class="st ok">Conciliado</span></td></tr>
+<tr><td>03/07</td><td>GLOBAL ESTRATEGIAS</td><td>SOUZA CRUZ</td><td class="num">12.269,70</td><td>Fornecedores conveniência</td><td><span class="st ok">Conciliado</span></td></tr>
+<tr><td>03/07</td><td>INST. BRAS. DO MEIO AMB.</td><td>IBAMA 1º TRI</td><td class="num">1.428,20</td><td>Impostos e taxas</td><td><span class="st ok">Conciliado</span></td></tr>
+<tr><td>03/07</td><td>IMPACTO ADM</td><td>PÃO DE QUEIJO</td><td class="num">400,64</td><td>Fornecedores conveniência</td><td><span class="st ok">Conciliado</span></td></tr>
+<tr><td>03/07</td><td>ADRIANA APARECIDA</td><td>PRODUTOS DE LIMPEZA</td><td class="num">476,76</td><td>Fornecedores conveniência</td><td><span class="st ok">Conciliado</span></td></tr>
+<tr><td>06/07</td><td>PHILIP</td><td>CIGARROS</td><td class="num">491,69</td><td>Fornecedores conveniência</td><td><span class="st ok">Conciliado</span></td></tr>
+<tr><td>06/07</td><td>VIVA VIDA</td><td>EMPADAS</td><td class="num">394,24</td><td>Fornecedores conveniência</td><td><span class="st ok">Conciliado</span></td></tr>
+<tr><td>07/07</td><td>NAYRA SANTOS</td><td>ACORDO TEMPO SEM REGISTRO</td><td class="num">956,67</td><td>Trabalhista</td><td><span class="st ok">Conciliado</span></td></tr>
+<tr><td>08/07</td><td>CLARO</td><td>INTERNET</td><td class="num">194,53</td><td>Serviços e administrativo</td><td><span class="st ok">Conciliado</span></td></tr>
+<tr><td>08/07</td><td>ADRIANA APARECIDA</td><td>SACHES</td><td class="num">735,40</td><td>Fornecedores conveniência</td><td><span class="st ok">Conciliado</span></td></tr>
+<tr><td>10/07</td><td>PHILIP</td><td>CIGARROS</td><td class="num">491,69</td><td>Fornecedores conveniência</td><td><span class="st ok">Conciliado</span></td></tr>
+<tr><td>10/07</td><td>LYTEX</td><td>CONTRIBUIÇÃO ASSISTENCIAL</td><td class="num">1.196,15</td><td>Trabalhista</td><td><span class="st ok">Conciliado</span></td></tr>
+<tr><td>10/07</td><td>RMF</td><td>CASA DOS TOLDOS</td><td class="num">1.700,00</td><td>Serviços e administrativo</td><td><span class="st ok">Conciliado</span></td></tr>
+<tr><td>10/07</td><td>ZULEIDE</td><td>ACORDO DOUGLAS 1ª PARC</td><td class="num">15.000,00</td><td>Trabalhista</td><td><span class="st ok">Conciliado</span></td></tr>
+<tr><td>10/07</td><td>ZULEIDE</td><td>ACORDO VALÉRIA ÚLTIMA PARC 10º</td><td class="num">7.000,00</td><td>Trabalhista</td><td><span class="st ok">Conciliado</span></td></tr>
+<tr><td>14/07</td><td>ADRIANA APARECIDA</td><td>SACHES</td><td class="num">452,80</td><td>Fornecedores conveniência</td><td><span class="st ok">Conciliado</span></td></tr>
+<tr><td>16/07</td><td>CAIXA ECONÔMICA</td><td>FGTS NATHALIA RESCISÃO</td><td class="num">484,99</td><td>Trabalhista</td><td><span class="st ok">Conciliado</span></td></tr>
+<tr><td>16/07</td><td>PRAXIS</td><td>CONTABILIDADE</td><td class="num">2.970,00</td><td>Serviços e administrativo</td><td><span class="st warn">Ressalva</span></td></tr>
+<tr><td>17/07</td><td>NATHALIA</td><td>RESCISÃO NATHALIA</td><td class="num">1.789,60</td><td>Trabalhista</td><td><span class="st ok">Conciliado</span></td></tr>
+<tr><td>17/07</td><td>ANNE CAROLINE</td><td>RESCISÃO ANNE</td><td class="num">13.844,91</td><td>Trabalhista</td><td><span class="st ok">Conciliado</span></td></tr>
+<tr><td>17/07</td><td>CAIXA ECONÔMICA</td><td>FGTS ANNE RESCISÃO</td><td class="num">4.984,94</td><td>Trabalhista</td><td><span class="st warn">Ressalva</span></td></tr>
+<tr><td>20/07</td><td>SINELANDE</td><td>ACORDO TEMPO SEM REGISTRO</td><td class="num">548,57</td><td>Trabalhista</td><td><span class="st ok">Conciliado</span></td></tr>
+<tr><td>20/07</td><td>SEFAZ</td><td>DARE</td><td class="num">1.985,42</td><td>Impostos e taxas</td><td><span class="st ok">Conciliado</span></td></tr>
+<tr><td>20/07</td><td>DARF</td><td>DARF</td><td class="num">20.538,63</td><td>Impostos e taxas</td><td><span class="st ok">Conciliado</span></td></tr>
+<tr><td>20/07</td><td>LITORAL SISTEMAS</td><td>WEB POSTO</td><td class="num">1.399,00</td><td>Serviços e administrativo</td><td><span class="st ok">Conciliado</span></td></tr>
+<tr><td>21/07</td><td>ADRIANA APARECIDA</td><td>SACHES</td><td class="num">225,50</td><td>Fornecedores conveniência</td><td><span class="st ok">Conciliado</span></td></tr>
+<tr><td>22/07</td><td>CPFL PIRATININGA</td><td>LUZ REF JUNHO JULIANO</td><td class="num">5.093,38</td><td>Utilidades</td><td><span class="st ok">Conciliado</span></td></tr>
+<tr><td>23/07</td><td>ADRIANA APARECIDA</td><td>PRODUTOS DE LIMPEZA</td><td class="num">398,10</td><td>Fornecedores conveniência</td><td><span class="st ok">Conciliado</span></td></tr>
+<tr><td>23/07</td><td>J. R. CORASSIN</td><td>MANUTENÇÃO BOMBAS</td><td class="num">396,18</td><td>Manutenção</td><td><span class="st ok">Conciliado</span></td></tr>
+<tr><td>27/07</td><td>PEPSICO</td><td>BOLETOS ATRASADOS</td><td class="num">6.263,09</td><td>Fornecedores conveniência</td><td><span class="st ok">Conciliado</span></td></tr>
+<tr><td>27/07</td><td>TRIBUNAL REGIONAL</td><td>PROCESSO BRUNA</td><td class="num">2.500,00</td><td>Trabalhista</td><td><span class="st ok">Conciliado</span></td></tr>
+<tr><td>27/07</td><td>TRIBUNAL REGIONAL</td><td>PROCESSO BRUNA</td><td class="num">2.688,96</td><td>Trabalhista</td><td><span class="st ok">Conciliado</span></td></tr>
+<tr><td>27/07</td><td>TRIBUNAL REGIONAL</td><td>PROCESSO BRUNA</td><td class="num">1.000,00</td><td>Trabalhista</td><td><span class="st ok">Conciliado</span></td></tr>
+<tr><td>28/07</td><td>COMPANHIA PIRATININGA</td><td>LUZ REF SETEMBRO 2023</td><td class="num">5.568,27</td><td>Utilidades</td><td><span class="st ok">Conciliado</span></td></tr>
+<tr><td>28/07</td><td>COMPANHIA PIRATININGA</td><td>LUZ REF AGOSTO 2023</td><td class="num">5.194,13</td><td>Utilidades</td><td><span class="st ok">Conciliado</span></td></tr>
+<tr><td>29/07</td><td>MARIA EDITE (créd. Natalia de Castro)</td><td>3ª PARCELA ACORDO TRABALHISTA</td><td class="num">1.250,00</td><td>Trabalhista</td><td><span class="st ok">Conciliado</span></td></tr>
+<tr><td>30/07</td><td>ADRIANA APARECIDA</td><td>PRODUTOS DE LIMPEZA</td><td class="num">398,00</td><td>Fornecedores conveniência</td><td><span class="st ok">Conciliado</span></td></tr>
+<tr><td>31/07</td><td>CAIXA ECONÔMICA</td><td>FGTS ANNE RESCISÃO ATRASADO</td><td class="num">4.896,11</td><td>Trabalhista</td><td><span class="st ok">Conciliado</span></td></tr>
+        <tr class="tot-row"><td colspan="3">Total do período (26/06 a 31/07)</td><td class="num">277.864,42</td><td colspan="2"></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section-title">Documentos de Suporte Arquivados</div>
+  <div class="chart-card">
+    <table>
+      <thead><tr><th>Documento</th><th>Natureza</th><th>Observação</th></tr></thead>
+      <tbody>
+        <tr><td>Termo de Homologação — Anne Caroline</td><td>Suporte trabalhista</td><td>Respalda a rescisão de R$ 13.844,91 e o FGTS de R$ 4.984,94</td></tr>
+        <tr><td>Termo de Quitação — Nathalia</td><td>Suporte trabalhista</td><td>Respalda a rescisão de R$ 1.789,60 e o FGTS de R$ 484,99</td></tr>
+        <tr><td>Ipiranga — Pendências e contas vencidas (.xls)</td><td>Posição do fornecedor</td><td>Base para conferência do saldo remanescente com a Ipiranga</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <footer>Relatório gerado por <b style="color:var(--accent)">Finansys</b> · Assessoria &amp; Consultoria Financeira · Posto Travessia · Agosto 2026</footer>
+</div>
+
+<script>
+Chart.defaults.color='#8ba3c7';
+Chart.defaults.borderColor='rgba(94,179,245,0.1)';
+Chart.defaults.font.family='Inter';
+if(window.ChartDataLabels){Chart.register(ChartDataLabels);Chart.defaults.set('plugins.datalabels',{display:false});}
+const BRL=v=>'R$ '+v.toLocaleString('pt-BR',{maximumFractionDigits:0});
+const catLabels=['Aluguel Ipiranga','Trabalhista','Utilidades','Fornec. conveniência','Impostos e taxas','Serviços e adm.','Manutenção'];
+const catData=[120615.67,62230.90,37873.94,25952.88,24531.32,6263.53,396.18];
+const catColors=['#1e5fc8','#5fb3f5','#7dd3fc','#f59e0b','#ef4444','#22c55e','#8ba3c7'];
+const donutOpts=data=>{const tot=data.reduce((a,b)=>a+b,0);return{responsive:true,maintainAspectRatio:false,cutout:'58%',
+ plugins:{legend:{position:'bottom',labels:{padding:12,font:{size:11},boxWidth:12,usePointStyle:true,pointStyle:'circle'}},
+  datalabels:{display:c=>c.dataset.data[c.dataIndex]/tot>0.05,color:'#fff',font:{weight:800,size:11.5},
+   formatter:v=>(100*v/tot).toFixed(1).replace('.',',')+'%'},
+  tooltip:{callbacks:{label:c=>' '+c.label+': '+BRL(c.parsed)}}}};};
+
+new Chart(document.getElementById('catDonut'),{type:'doughnut',
+ data:{labels:catLabels,datasets:[{data:catData,backgroundColor:catColors,borderColor:'#132952',borderWidth:2}]},
+ options:donutOpts(catData)});
+
+new Chart(document.getElementById('mesBar'),{type:'bar',
+ data:{labels:['Junho/2026 (26 a 30)','Julho/2026'],
+  datasets:[{data:[142737.51,135126.91],backgroundColor:['#1e5fc8','#5fb3f5'],borderRadius:8,barThickness:80}]},
+ options:{responsive:true,maintainAspectRatio:false,
+  plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>' '+BRL(c.parsed.y)}}},
+  scales:{y:{ticks:{callback:v=>(v/1000)+'k'}},x:{grid:{display:false}}}}});
+
+const stData=[50,3];
+new Chart(document.getElementById('statusDonut'),{type:'doughnut',
+ data:{labels:['Conciliado','Com ressalva de cadastro'],
+  datasets:[{data:stData,backgroundColor:['#22c55e','#f59e0b'],borderColor:'#132952',borderWidth:2}]},
+ options:donutOpts(stData)});
+
+function animateBars(){document.querySelectorAll('.bar-fill[data-w]').forEach(b=>{setTimeout(()=>{b.style.width=b.dataset.w+'%'},120)})}
+animateBars();
+window.addEventListener('beforeprint',()=>{document.querySelectorAll('.bar-fill[data-w]').forEach(b=>{b.style.width=b.dataset.w+'%'})});
+</script>
+</body>
+</html>

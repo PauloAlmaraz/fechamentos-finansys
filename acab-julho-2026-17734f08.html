@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ACAB · Fechamento Julho 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/2.2.0/chartjs-plugin-datalabels.min.js"></script>
+<style>
+:root{
+  --navy:#0a1628; --navy-mid:#0f2044; --navy-card:#132952;
+  --blue:#1e5fc8; --blue-light:#3a7bd5; --accent:#5fb3f5; --accent2:#7dd3fc;
+  --green:#22c55e; --green-soft:#16a34a; --amber:#f59e0b; --red:#ef4444;
+  --white:#f0f6ff; --muted:#8ba3c7; --border:rgba(94,179,245,0.15);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',sans-serif;background:var(--navy);color:var(--white);-webkit-font-smoothing:antialiased}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+
+/* HEADER */
+header{position:sticky;top:0;z-index:100;height:72px;background:var(--navy-mid);border-bottom:1px solid var(--border);display:flex;align-items:center;backdrop-filter:blur(8px)}
+.hdr-inner{max-width:1180px;margin:0 auto;padding:0 24px;width:100%;display:flex;align-items:center;justify-content:space-between}
+.brand{display:flex;align-items:center;gap:13px}
+.logo{width:40px;height:40px;border-radius:11px;background:linear-gradient(135deg,var(--accent),var(--blue));display:flex;align-items:center;justify-content:center;font-weight:900;font-size:19px;color:#fff;box-shadow:0 4px 14px rgba(30,95,200,0.4)}
+.brand-txt b{font-size:16px;font-weight:700;letter-spacing:-.2px}
+.brand-txt span{display:block;font-size:11px;color:var(--muted);margin-top:1px}
+.hdr-right{display:flex;align-items:center;gap:14px}
+.period-badge{display:flex;align-items:center;gap:8px;background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.25);border-radius:30px;padding:7px 15px;font-size:12.5px;font-weight:600;color:#86efac}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--green);animation:pulse 1.8s infinite}
+@keyframes pulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(34,197,94,.5)}50%{opacity:.6;box-shadow:0 0 0 6px rgba(34,197,94,0)}}
+.btns{display:flex;gap:9px}
+.print-btn{display:flex;align-items:center;gap:7px;background:rgba(30,95,200,0.15);border:1px solid var(--border);color:var(--accent);border-radius:9px;padding:9px 14px;font-size:12.5px;font-weight:600;cursor:pointer;font-family:inherit;transition:.2s}
+.print-btn:hover{background:rgba(30,95,200,0.28)}
+.print-btn.solid{background:linear-gradient(135deg,var(--accent),var(--blue));color:#fff;border:none}
+
+/* HERO */
+.hero{padding:54px 0 30px}
+.hero h1{font-size:52px;font-weight:900;line-height:1;letter-spacing:-1.5px;background:linear-gradient(120deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.hero p{margin-top:12px;font-size:16px;color:var(--muted);font-weight:600}
+
+/* KPIs */
+.kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;margin-top:8px}
+.kpi-card{background:var(--navy-card);border:1px solid var(--border);border-radius:16px;padding:22px 20px;cursor:pointer;transition:.25s;position:relative;overflow:hidden}
+.kpi-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--blue));opacity:0;transition:.25s}
+.kpi-card:hover{transform:translateY(-4px);border-color:rgba(94,179,245,0.4);box-shadow:0 12px 30px rgba(0,0,0,0.3)}
+.kpi-card:hover::before{opacity:1}
+.kpi-label{font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--muted)}
+.kpi-val{font-size:27px;font-weight:900;margin-top:11px;letter-spacing:-.8px}
+.kpi-sub{font-size:12px;color:var(--accent);margin-top:6px;font-weight:600;display:flex;align-items:center;gap:5px}
+.kpi-card .tap{position:absolute;bottom:13px;right:15px;font-size:10px;color:var(--muted);opacity:.6}
+
+/* SECTION */
+.section{margin-top:46px}
+.sec-title{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.9px;color:var(--accent);margin-bottom:18px;display:flex;align-items:center;gap:9px}
+.sec-title::before{content:'';width:4px;height:16px;background:linear-gradient(var(--accent),var(--blue));border-radius:3px}
+
+/* FUEL CARD */
+.fuel-grid{display:grid;grid-template-columns:1fr;gap:16px}
+.fuel-card{background:var(--navy-card);border:1px solid var(--border);border-radius:16px;padding:26px 28px}
+.fuel-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
+.fuel-name{font-size:19px;font-weight:700}
+.fuel-badge{background:rgba(34,197,94,0.14);color:#86efac;border:1px solid rgba(34,197,94,0.3);border-radius:24px;padding:6px 14px;font-size:13px;font-weight:700}
+.fuel-metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;margin-bottom:20px}
+.fm{}
+.fm-lbl{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;font-weight:600}
+.fm-val{font-size:21px;font-weight:800;margin-top:6px}
+.fm-val.green{color:#4ade80}
+.bar{height:9px;background:rgba(94,179,245,0.1);border-radius:6px;overflow:hidden}
+.bar-fill{height:100%;background:linear-gradient(90deg,var(--green),var(--accent));border-radius:6px}
+.bar-cap{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-top:8px;font-weight:600}
+
+/* CHARTS */
+.charts{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.chart-card{background:var(--navy-card);border:1px solid var(--border);border-radius:16px;padding:24px}
+.chart-card h3{font-size:14px;font-weight:700;margin-bottom:18px}
+.chart-box{position:relative;height:280px}
+.chart-wide{grid-column:1/-1}
+
+/* PANELS */
+.overlay{position:fixed;inset:0;background:rgba(6,12,25,0.92);backdrop-filter:blur(8px);z-index:200;opacity:0;pointer-events:none;transition:opacity .3s}
+.overlay.open{opacity:1;pointer-events:all}
+.expense-panel{position:fixed;top:0;right:0;bottom:0;width:min(820px,100%);background:linear-gradient(160deg,#0d1f3c 0%,#0a1628 100%);transform:translateX(100%);transition:transform .35s cubic-bezier(.4,0,.2,1);z-index:300;display:flex;flex-direction:column;box-shadow:-20px 0 60px rgba(0,0,0,0.5)}
+.expense-panel.open{transform:translateX(0)}
+.panel-head{display:flex;align-items:center;padding:28px 36px 24px;border-bottom:1px solid var(--border)}
+.back-btn{width:36px;height:36px;background:rgba(30,95,200,0.15);border-radius:9px;border:none;color:var(--accent);cursor:pointer;margin-right:16px;font-size:17px;transition:.2s}
+.back-btn:hover{background:rgba(30,95,200,0.3)}
+.panel-title{font-size:21px;font-weight:800}
+.panel-body{flex:1;overflow-y:auto;padding:32px 36px 40px;scrollbar-width:thin}
+.panel-kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:28px}
+.pk{background:var(--navy-card);border:1px solid var(--border);border-radius:13px;padding:18px}
+.pk-lbl{font-size:10.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;font-weight:600}
+.pk-val{font-size:22px;font-weight:900;margin-top:7px}
+.panel-chart{position:relative;height:300px;margin-bottom:28px}
+.ptable{width:100%;border-collapse:collapse}
+.ptable th{text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);padding:11px 12px;border-bottom:1px solid var(--border);font-weight:700}
+.ptable td{padding:13px 12px;font-size:14px;border-bottom:1px solid rgba(94,179,245,0.07);font-weight:600}
+.ptable td.num{text-align:right;font-variant-numeric:tabular-nums}
+.ptable tr:hover td{background:rgba(94,179,245,0.04)}
+.tag{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:9px;vertical-align:middle}
+
+/* FOOTER */
+footer{margin-top:60px;padding:30px 0 44px;text-align:center;font-size:12.5px;color:var(--muted);border-top:1px solid var(--border)}
+footer b{color:var(--accent)}
+
+/* RESUMO EXECUTIVO */
+.exec{margin-top:26px;background:linear-gradient(120deg,rgba(30,95,200,.14),var(--navy-card));border:1px solid var(--border);border-left:4px solid var(--accent);border-radius:14px;padding:20px 24px}
+.exec .exec-t{font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--accent);margin-bottom:8px}
+.exec p{font-size:14px;line-height:1.65;color:var(--white);font-weight:500}
+.exec b{color:var(--accent2)}
+
+/* DELTAS */
+.delta{display:inline-flex;align-items:center;gap:3px;font-weight:800;font-size:11.5px;padding:2px 8px;border-radius:20px;margin-left:4px}
+.delta.up{background:rgba(34,197,94,.14);color:#4ade80}
+.delta.down{background:rgba(239,68,68,.14);color:#f87171}
+.delta.neu{background:rgba(139,163,199,.14);color:var(--muted)}
+
+/* CAPA E ANEXO (somente impressão) */
+.print-cover,.print-annex{display:none}
+
+@media (max-width:980px){.kpis{grid-template-columns:repeat(2,1fr)}.charts{grid-template-columns:1fr}.fuel-metrics{grid-template-columns:repeat(2,1fr)}.panel-kpis{grid-template-columns:1fr}}
+
+@media print{
+  @page{size:A4 portrait;margin:11mm}
+  .expense-panel,.overlay,.btns,.print-btn,.kpi-card .tap{display:none !important}
+  body{background:#fff;color:#0a1628}
+  header{position:static;height:auto;background:#fff;border-bottom:2px solid #1e5fc8}
+  .brand-txt b,.panel-title{color:#0a1628}
+  .hero{padding:18px 0 10px}
+  .hero h1{-webkit-text-fill-color:#0f2044;color:#0f2044;font-size:34px}
+  .hero p{color:#475569}
+  .kpi-card,.fuel-card,.chart-card{background:#fff;border:1px solid #cbd5e1;box-shadow:none;break-inside:avoid}
+  .kpi-val,.fm-val,.fuel-name{color:#0a1628}
+  .fm-val.green{color:#16a34a}
+  .kpi-label,.kpi-sub,.fm-lbl,.sec-title{color:#1e5fc8}
+  .sec-title{-webkit-text-fill-color:#1e5fc8}
+  .charts{grid-template-columns:1fr 1fr}
+  .chart-box{height:240px}
+  .section{margin-top:20px;break-inside:avoid}
+  footer{color:#475569;border-top:1px solid #cbd5e1}
+  footer b{color:#1e5fc8}
+  .exec{background:#eef4fd;border:1px solid #cbd5e1;border-left:4px solid #1e5fc8}
+  .exec p{color:#0f2044}
+  .exec b{color:#1e5fc8}
+  .delta.up{background:#dcfce7;color:#15803d}
+  .delta.down{background:#fee2e2;color:#b91c1c}
+  .print-cover{display:flex;flex-direction:column;justify-content:space-between;background:#0a1628 !important;color:#f0f6ff;border-radius:18px;padding:60px 54px;height:255mm;page-break-after:always;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .print-cover .pc-logo{width:64px;height:64px;border-radius:16px;background:linear-gradient(135deg,#5fb3f5,#1e5fc8);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:30px;color:#fff}
+  .print-cover h1{font-size:54px;font-weight:900;color:#f0f6ff;-webkit-text-fill-color:#f0f6ff;letter-spacing:-1px;margin-top:22px}
+  .print-cover .pc-sub{font-size:17px;color:#8ba3c7;margin-top:8px;font-weight:600}
+  .print-cover .pc-hl{display:flex;gap:14px;margin-top:40px}
+  .print-cover .pc-box{flex:1;background:#132952;border:1px solid rgba(94,179,245,.25);border-radius:14px;padding:18px;-webkit-print-color-adjust:exact}
+  .print-cover .pc-box .l{font-size:10.5px;text-transform:uppercase;letter-spacing:.6px;color:#8ba3c7;font-weight:700}
+  .print-cover .pc-box .v{font-size:23px;font-weight:900;margin-top:6px;color:#f0f6ff}
+  .print-cover .pc-box .d{font-size:12px;margin-top:4px;font-weight:700}
+  .print-cover .pc-foot{font-size:12px;color:#8ba3c7;display:flex;justify-content:space-between;border-top:1px solid rgba(94,179,245,.2);padding-top:16px}
+  .print-annex{display:block;page-break-before:always}
+  .print-annex h2{font-size:18px;color:#0f2044;margin:8px 0 12px}
+  .print-annex .ptable th{color:#1e5fc8;border-bottom:1px solid #cbd5e1;padding:8px 12px}
+  .print-annex .ptable td{border-bottom:1px solid #e2e8f0;color:#0f2044;padding:4px 12px;font-size:11.5px}
+  .print-annex tr{break-inside:avoid}
+}
+</style>
+</head>
+<body>
+
+<!-- CAPA (somente PDF/impressão) -->
+<div class="print-cover">
+  <div>
+    <div class="pc-logo">F</div>
+    <h1>ACAB</h1>
+    <div class="pc-sub">Assoc. dos Caminhoneiros do Brasil<br>Fechamento Mensal — Julho 2026</div>
+    <div class="pc-hl">
+      <div class="pc-box"><div class="l">Lucro Líquido</div><div class="v">R$ 235.829</div><div class="d" style="color:#f87171">▼ 12,9% vs junho</div></div>
+      <div class="pc-box"><div class="l">Litros Vendidos</div><div class="v">390.873 L</div><div class="d" style="color:#f87171">▼ 20,5% vs junho</div></div>
+      <div class="pc-box"><div class="l">Margem Líquida</div><div class="v">9,80%</div><div class="d" style="color:#4ade80">▲ 1,11 p.p. vs junho</div></div>
+    </div>
+  </div>
+  <div class="pc-foot"><span><b style="color:#5fb3f5">Finansys</b> · Assessoria &amp; Consultoria Financeira</span><span>Documento confidencial · Agosto/2026</span></div>
+</div>
+
+<header>
+  <div class="hdr-inner">
+    <div class="brand">
+      <div class="logo">F</div>
+      <div class="brand-txt"><b>Finansys</b><span>Assessoria &amp; Consultoria Financeira</span></div>
+    </div>
+    <div class="hdr-right">
+      <div class="period-badge"><span class="dot"></span>Julho 2026</div>
+      <div class="btns">
+        <button class="print-btn" onclick="window.print()">🖨️ Imprimir</button>
+        <button class="print-btn solid" onclick="window.print()">⬇️ Baixar PDF</button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <div class="hero">
+    <h1>ACAB</h1>
+    <p>Assoc. dos Caminhoneiros do Brasil · Fechamento Mensal — Julho 2026</p>
+  </div>
+
+  <!-- RESUMO EXECUTIVO -->
+  <div class="exec">
+    <div class="exec-t">Resumo do Mês</div>
+    <p>Julho fechou com lucro líquido de <b>R$ 235.829</b> (margem 9,80%), queda de <b>12,9%</b> frente a junho — explicada pelo volume: <b>390,9 mil litros</b> em 24 dias de operação (−20,5%). A rentabilidade, porém, foi a melhor do trimestre: o lucro por litro subiu de R$ 0,718 para <b>R$ 0,780</b> (+8,6%) e a margem bruta passou de 11,33% para <b>12,68%</b>, porque o custo de compra caiu 4,3% (R$ 5,374/L) contra queda de apenas 2,8% no preço de venda. Despesas 16,1% menores (<b>R$ 69,1 mil</b>), com aluguel e folha concentrando 66% do total.</p>
+  </div>
+
+  <!-- KPIs -->
+  <div class="kpis">
+    <div class="kpi-card" onclick="openPanel('litersPanel')">
+      <div class="kpi-label">Litros Vendidos</div>
+      <div class="kpi-val">390.873 L</div>
+      <div class="kpi-sub">24 dias <span class="delta down">▼ 20,5%</span></div>
+      <span class="tap">clique ↗</span>
+    </div>
+    <div class="kpi-card" onclick="openPanel('revenuePanel')">
+      <div class="kpi-label">Faturamento</div>
+      <div class="kpi-val">R$ 2,41 mi</div>
+      <div class="kpi-sub">R$ 6,154/L <span class="delta down">▼ 22,8%</span></div>
+      <span class="tap">clique ↗</span>
+    </div>
+    <div class="kpi-card" onclick="openPanel('expensePanel')">
+      <div class="kpi-label">Despesas Totais</div>
+      <div class="kpi-val">R$ 69.082</div>
+      <div class="kpi-sub">35 lançtos. <span class="delta up">▼ 16,1%</span></div>
+      <span class="tap">clique ↗</span>
+    </div>
+    <div class="kpi-card" onclick="openPanel('profitPanel')">
+      <div class="kpi-label">Lucro Líquido</div>
+      <div class="kpi-val">R$ 235.829</div>
+      <div class="kpi-sub">Bruto R$ 304.911 <span class="delta down">▼ 12,9%</span></div>
+      <span class="tap">clique ↗</span>
+    </div>
+    <div class="kpi-card" onclick="openPanel('profitPanel')">
+      <div class="kpi-label">Margem Líquida</div>
+      <div class="kpi-val">9,80%</div>
+      <div class="kpi-sub">Bruta 12,68% <span class="delta up">▲ 1,11 p.p.</span></div>
+      <span class="tap">clique ↗</span>
+    </div>
+  </div>
+
+  <!-- FUEL -->
+  <div class="section">
+    <div class="sec-title">Combustível</div>
+    <div class="fuel-grid">
+      <div class="fuel-card">
+        <div class="fuel-head">
+          <div class="fuel-name">⛽ Combustível (Diesel)</div>
+          <div class="fuel-badge">Lucro R$ 0,780 / L</div>
+        </div>
+        <div class="fuel-metrics">
+          <div class="fm"><div class="fm-lbl">Preço de Venda</div><div class="fm-val">R$ 6,154</div></div>
+          <div class="fm"><div class="fm-lbl">Custo (Compra)</div><div class="fm-val">R$ 5,374</div></div>
+          <div class="fm"><div class="fm-lbl">Margem / Litro</div><div class="fm-val green">R$ 0,780</div></div>
+          <div class="fm"><div class="fm-lbl">Margem %</div><div class="fm-val green">12,68%</div></div>
+        </div>
+        <div class="bar"><div class="bar-fill" style="width:12.68%"></div></div>
+        <div class="bar-cap"><span>Custo R$ 5,37</span><span>Margem 12,68%</span><span>Venda R$ 6,15</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CHARTS -->
+  <div class="section">
+    <div class="sec-title">Análise Gráfica</div>
+    <div class="charts">
+      <div class="chart-card">
+        <h3>Faturamento por Forma de Pagamento</h3>
+        <div class="chart-box"><canvas id="revenueDonutChart"></canvas></div>
+      </div>
+      <div class="chart-card">
+        <h3>Composição do Resultado</h3>
+        <div class="chart-box"><canvas id="profitBarChart"></canvas></div>
+      </div>
+      <div class="chart-card chart-wide">
+        <h3>Evolução Diária — Litros Vendidos (24 dias)</h3>
+        <div class="chart-box"><canvas id="litersLineChart"></canvas></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ANEXOS (somente PDF/impressão) -->
+  <div class="print-annex">
+    <h2>Anexo 1 — Demonstrativo do Resultado</h2>
+    <table class="ptable">
+      <tbody>
+        <tr><td>Faturamento</td><td class="num">R$ 2.405.433,87</td></tr>
+        <tr><td>(−) Custo do combustível</td><td class="num">R$ 2.100.522,94</td></tr>
+        <tr><td><b>(=) Lucro Bruto</b></td><td class="num"><b>R$ 304.910,93</b></td></tr>
+        <tr><td>(−) Despesas Totais</td><td class="num">R$ 69.081,91</td></tr>
+        <tr><td><b>(=) Lucro Líquido</b></td><td class="num"><b>R$ 235.829,02</b></td></tr>
+        <tr><td>Margem Bruta / Líquida</td><td class="num">12,68% / 9,80%</td></tr>
+      </tbody>
+    </table>
+    <h2 style="margin-top:26px">Anexo 2 — Faturamento por Forma de Pagamento</h2>
+    <table class="ptable">
+      <thead><tr><th>Forma de Pagamento</th><th class="num">Valor</th><th class="num">%</th></tr></thead>
+      <tbody>
+        <tr><td>PIX</td><td class="num">R$ 1.722.674,91</td><td class="num">71,6%</td></tr>
+        <tr><td>Saldo</td><td class="num">R$ 274.408,31</td><td class="num">11,4%</td></tr>
+        <tr><td>Crédito (Visa/Master/Elo)</td><td class="num">R$ 263.121,90</td><td class="num">10,9%</td></tr>
+        <tr><td>Débito (Visa/Master/Elo/Maestro)</td><td class="num">R$ 145.228,75</td><td class="num">6,0%</td></tr>
+      </tbody>
+    </table>
+    <h2 style="margin-top:26px">Anexo 3 — Despesas do Mês (agrupadas)</h2>
+    <table class="ptable">
+      <thead><tr><th>Descrição</th><th class="num">Valor</th></tr></thead>
+      <tbody id="expRowsPrint"></tbody>
+    </table>
+  </div>
+
+  <footer>Relatório gerado por <b>Finansys</b> · Assessoria &amp; Consultoria Financeira · Julho 2026</footer>
+</div>
+
+<!-- OVERLAY + PANELS -->
+<div class="overlay" id="overlay" onclick="closeAll()"></div>
+
+<!-- LITROS -->
+<div class="expense-panel" id="litersPanel">
+  <div class="panel-head"><button class="back-btn" onclick="closeAll()">←</button><h2 class="panel-title">Litros Vendidos</h2></div>
+  <div class="panel-body">
+    <div class="panel-kpis">
+      <div class="pk"><div class="pk-lbl">Total de Litros</div><div class="pk-val">390.873 L</div></div>
+      <div class="pk"><div class="pk-lbl">Média Diária</div><div class="pk-val">16.286 L</div></div>
+      <div class="pk"><div class="pk-lbl">Dias Trabalhados</div><div class="pk-val">24</div></div>
+    </div>
+    <div class="panel-chart"><canvas id="litersPanelChart"></canvas></div>
+    <table class="ptable">
+      <thead><tr><th>Indicador</th><th class="num">Valor</th></tr></thead>
+      <tbody>
+        <tr><td>Maior dia</td><td class="num">23.039 L</td></tr>
+        <tr><td>Menor dia</td><td class="num">1.751 L</td></tr>
+        <tr><td>Preço médio venda</td><td class="num">R$ 6,154 / L</td></tr>
+        <tr><td>Custo médio compra</td><td class="num">R$ 5,374 / L</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- FATURAMENTO -->
+<div class="expense-panel" id="revenuePanel">
+  <div class="panel-head"><button class="back-btn" onclick="closeAll()">←</button><h2 class="panel-title">Faturamento e Receitas</h2></div>
+  <div class="panel-body">
+    <div class="panel-kpis">
+      <div class="pk"><div class="pk-lbl">Faturamento Total</div><div class="pk-val">R$ 2,41 mi</div></div>
+      <div class="pk"><div class="pk-lbl">Ticket Médio/Litro</div><div class="pk-val">R$ 6,154</div></div>
+      <div class="pk"><div class="pk-lbl">Média Diária</div><div class="pk-val">R$ 100.226</div></div>
+    </div>
+    <div class="panel-chart"><canvas id="revenuePanelChart"></canvas></div>
+    <table class="ptable">
+      <thead><tr><th>Forma de Pagamento</th><th class="num">Valor</th><th class="num">%</th></tr></thead>
+      <tbody>
+        <tr><td><span class="tag" style="background:#1e5fc8"></span>PIX</td><td class="num">R$ 1.722.675</td><td class="num">71,6%</td></tr>
+        <tr><td><span class="tag" style="background:#f59e0b"></span>Saldo</td><td class="num">R$ 274.408</td><td class="num">11,4%</td></tr>
+        <tr><td><span class="tag" style="background:#5fb3f5"></span>Crédito (Visa/Master/Elo)</td><td class="num">R$ 263.122</td><td class="num">10,9%</td></tr>
+        <tr><td><span class="tag" style="background:#22c55e"></span>Débito (Visa/Master/Elo/Maestro)</td><td class="num">R$ 145.229</td><td class="num">6,0%</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- DESPESAS -->
+<div class="expense-panel" id="expensePanel">
+  <div class="panel-head"><button class="back-btn" onclick="closeAll()">←</button><h2 class="panel-title">Despesas Detalhadas</h2></div>
+  <div class="panel-body">
+    <div class="panel-kpis">
+      <div class="pk"><div class="pk-lbl">Despesas Totais</div><div class="pk-val">R$ 69.082</div></div>
+      <div class="pk"><div class="pk-lbl">Operacionais</div><div class="pk-val">R$ 68.507</div></div>
+      <div class="pk"><div class="pk-lbl">Taxa Cartão</div><div class="pk-val">R$ 575</div></div>
+    </div>
+    <div class="panel-chart"><canvas id="expensePanelChart"></canvas></div>
+    <table class="ptable">
+      <thead><tr><th>Descrição</th><th class="num">Valor</th></tr></thead>
+      <tbody id="expRows"></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- LUCRO -->
+<div class="expense-panel" id="profitPanel">
+  <div class="panel-head"><button class="back-btn" onclick="closeAll()">←</button><h2 class="panel-title">Lucro e Margens</h2></div>
+  <div class="panel-body">
+    <div class="panel-kpis">
+      <div class="pk"><div class="pk-lbl">Lucro Bruto</div><div class="pk-val">R$ 304.911</div></div>
+      <div class="pk"><div class="pk-lbl">Lucro Líquido</div><div class="pk-val">R$ 235.829</div></div>
+      <div class="pk"><div class="pk-lbl">Lucro por Litro</div><div class="pk-val">R$ 0,780</div></div>
+    </div>
+    <div class="panel-chart"><canvas id="profitPanelChart"></canvas></div>
+    <table class="ptable">
+      <thead><tr><th>Item</th><th class="num">Valor</th></tr></thead>
+      <tbody>
+        <tr><td>Faturamento</td><td class="num">R$ 2.405.434</td></tr>
+        <tr><td>(−) Custo do combustível</td><td class="num">R$ 2.100.523</td></tr>
+        <tr><td>(=) Lucro Bruto</td><td class="num">R$ 304.911</td></tr>
+        <tr><td>(−) Despesas Totais</td><td class="num">R$ 69.082</td></tr>
+        <tr><td><b>(=) Lucro Líquido</b></td><td class="num"><b>R$ 235.829</b></td></tr>
+        <tr><td>Margem Bruta</td><td class="num">12,68%</td></tr>
+        <tr><td>Margem Líquida</td><td class="num">9,80%</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<script>
+Chart.defaults.color='#8ba3c7';
+Chart.defaults.borderColor='rgba(94,179,245,0.1)';
+Chart.defaults.font.family="'Inter',sans-serif";
+if(window.ChartDataLabels){Chart.register(ChartDataLabels);Chart.defaults.set('plugins.datalabels',{display:false});}
+
+const BRL=v=>'R$ '+v.toLocaleString('pt-BR',{maximumFractionDigits:0});
+const payLabels=['PIX','Saldo','Crédito (Visa/Master/Elo)','Débito (Visa/Master/Elo/Maestro)'];
+const payData=[1722674.91,274408.31,263121.90,145228.75];
+const payColors=['#1e5fc8','#f59e0b','#5fb3f5','#22c55e'];
+const dailyLiters=[16520.8,16249.1,21251.2,23038.8,13314.9,15529.8,11410.7,1751.1,1854.0,21767.3,18690.9,18829.8,13668.0,20976.7,18842.5,20913.7,20571.5,13564.3,10047.8,19494.4,21679.7,16200.8,18715.1,15990.8];
+const dayLabels=dailyLiters.map((_,i)=>'D'+(i+1));
+
+const expenses=[
+ ['ALUGUEL',25000],['Salários (6 colab.)',8969.25],['Adiantamentos (7 colab.)',7580.56],
+ ['Receita Federal',7372.64],['Vale Refeição',6426],['Férias (Robson)',3876.07],
+ ['Vale Alimentação',2070],['FGTS',1560.82],['FINANSYS — Financeiro',1500],
+ ['Contabilidade',1200],['Litoral Sistemas',1066.83],['Taxa Cartão SICOOB',575.3],
+ ['Contribuição Assistencial',525.33],['Mangueira de Bomba',475],['Botas (EPI)',269.7],
+ ['Certificado Digital',193.41],['Internet',142.92],['Não identificado',84.99],
+ ['Integral Substrato',60],['Aplicação RDC',50],['Transferência Poupança',50],['Raízen — Encargos',33.09]
+];
+
+function donut(id,labels,data,colors){
+ const tot=data.reduce((a,b)=>a+b,0);
+ new Chart(document.getElementById(id),{type:'doughnut',
+  data:{labels,datasets:[{data,backgroundColor:colors,borderColor:'#0a1628',borderWidth:2,hoverOffset:8}]},
+  options:{responsive:true,maintainAspectRatio:false,cutout:'58%',
+   plugins:{legend:{position:'bottom',labels:{padding:14,font:{size:11.5},boxWidth:13,usePointStyle:true,pointStyle:'circle'}},
+    datalabels:{display:c=>c.dataset.data[c.dataIndex]/tot>0.05,color:'#fff',font:{weight:800,size:12},
+     formatter:v=>(100*v/tot).toFixed(1).replace('.',',')+'%'},
+    tooltip:{callbacks:{label:c=>' '+c.label+': '+BRL(c.parsed)}}}}});
+}
+donut('revenueDonutChart',payLabels,payData,payColors);
+donut('revenuePanelChart',payLabels,payData,payColors);
+
+// cascata do resultado (waterfall)
+function profitBar(id){
+ const wf=[[0,2405434],[304911,2405434],[0,304911],[235829,304911],[0,235829]];
+ const vals=[2405434,2100523,304911,69082,235829];
+ new Chart(document.getElementById(id),{type:'bar',
+  data:{labels:['Faturamento','(−) Custo','(=) Bruto','(−) Despesas','(=) Líquido'],
+   datasets:[{data:wf,backgroundColor:['#1e5fc8','rgba(239,68,68,.75)','#5fb3f5','#ef4444','#22c55e'],borderRadius:6,borderSkipped:false}]},
+  options:{responsive:true,maintainAspectRatio:false,
+   plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>' '+BRL(vals[c.dataIndex])}}},
+   scales:{y:{ticks:{callback:v=>(v/1e6).toLocaleString('pt-BR',{maximumFractionDigits:1})+' mi'}},x:{grid:{display:false},ticks:{font:{size:10.5}}}}}});
+}
+profitBar('profitBarChart');
+profitBar('profitPanelChart');
+
+// liters line
+function litersLine(id){
+ new Chart(document.getElementById(id),{type:'line',
+  data:{labels:dayLabels,datasets:[
+   {data:dailyLiters,borderColor:'#5fb3f5',backgroundColor:'rgba(95,179,245,0.12)',
+    fill:true,tension:.35,pointRadius:3,pointBackgroundColor:'#7dd3fc',borderWidth:2.5,label:'Litros/dia'},
+   {data:dailyLiters.map(()=>16286),borderColor:'#f59e0b',borderDash:[6,5],borderWidth:1.8,pointRadius:0,fill:false,label:'Média (16.286 L)'}]},
+  options:{responsive:true,maintainAspectRatio:false,
+   plugins:{legend:{display:true,position:'bottom',labels:{boxWidth:14,font:{size:11}}},tooltip:{callbacks:{label:c=>' '+c.parsed.y.toLocaleString('pt-BR')+' L'}}},
+   scales:{y:{ticks:{callback:v=>(v/1000)+'k'}},x:{grid:{display:false}}}}});
+}
+litersLine('litersLineChart');
+litersLine('litersPanelChart');
+
+// expenses bar
+new Chart(document.getElementById('expensePanelChart'),{type:'bar',
+ data:{labels:expenses.slice(0,8).map(e=>e[0].split(' — ')[0].split('(')[0].trim()),
+  datasets:[{data:expenses.slice(0,8).map(e=>e[1]),backgroundColor:'#3a7bd5',borderRadius:5}]},
+ options:{responsive:true,maintainAspectRatio:false,indexAxis:'y',
+  plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>' '+BRL(c.parsed.x)}}},
+  scales:{x:{ticks:{callback:v=>BRL(v)}},y:{grid:{display:false},ticks:{font:{size:10.5}}}}}});
+
+// expense rows
+const expHTML=expenses.map(e=>
+ `<tr><td>${e[0]}</td><td class="num">${BRL(e[1])}</td></tr>`).join('')+
+ `<tr><td><b>TOTAL</b></td><td class="num"><b>R$ 69.082</b></td></tr>`;
+document.getElementById('expRows').innerHTML=expHTML;
+document.getElementById('expRowsPrint').innerHTML=expHTML;
+
+function openPanel(id){
+ document.querySelectorAll('.expense-panel').forEach(p=>p.classList.remove('open'));
+ document.getElementById(id).classList.add('open');
+ document.getElementById('overlay').classList.add('open');
+}
+function closeAll(){
+ document.querySelectorAll('.expense-panel').forEach(p=>p.classList.remove('open'));
+ document.getElementById('overlay').classList.remove('open');
+}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeAll()});
+</script>
+</body>
+</html>
