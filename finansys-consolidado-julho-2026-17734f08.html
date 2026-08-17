@@ -40,7 +40,7 @@ header{position:sticky;top:0;z-index:100;height:72px;background:var(--navy-mid);
 .section{margin-top:44px}
 .sec-t{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.9px;color:var(--accent);margin-bottom:18px;display:flex;align-items:center;gap:9px}
 .sec-t::before{content:'';width:4px;height:16px;background:linear-gradient(var(--accent),var(--blue));border-radius:3px}
-.emp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.emp-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
 .emp{background:var(--navy-card);border:1px solid var(--border);border-radius:16px;padding:24px;display:flex;flex-direction:column;gap:12px}
 .emp h3{font-size:17px;font-weight:800}
 .emp .tag{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--amber)}
@@ -95,18 +95,18 @@ footer b{color:var(--accent)}
 <div class="wrap">
   <div class="hero">
     <h1>Visão Consolidada</h1>
-    <p>Fechamentos Finansys · Julho 2026 — ACAB · Posto Carga Pesada · Terminal Carga Pesada</p>
+    <p>Fechamentos Finansys · Julho 2026 — ACAB · Posto Carga Pesada · Terminal Carga Pesada · Posto Travessia</p>
   </div>
 
   <div class="exec">
     <div class="t">Leitura Consolidada do Mês</div>
-    <p>O grupo faturou <b>R$ 5,09 milhões</b> em julho (−4,7% vs junho) e gerou <b>R$ 303,3 mil</b> de resultado de caixa (−7,5%). O resultado mudou de composição: o Terminal saltou para <b>R$ 105,6 mil</b> de caixa (era negativo em junho) e passou a responder por 35% do consolidado, enquanto o <b>Posto fechou no prejuízo de R$ 38,2 mil</b> — vendeu 23,5% mais litros, mas absorveu R$ 54,8 mil em rescisões e R$ 92,3 mil em DARF/DARE. A ACAB segue como âncora (<b>R$ 235,8 mil</b>, 78% do resultado) com a melhor margem do trimestre: 9,80%.</p>
+    <p>Julho é o primeiro mês com o <b>Posto Travessia</b> consolidado. Com ele, o grupo faturou <b>R$ 5,42 milhões</b> e gerou <b>R$ 225,0 mil</b> de resultado de caixa. Nas mesmas três empresas de junho, o faturamento seria de R$ 5,09 milhões (−4,7%) e o resultado, R$ 303,3 mil (−7,5%) — a diferença é o Travessia, que entra com R$ 322,3 mil de faturamento e <b>prejuízo de R$ 78,3 mil</b>. A ACAB segue como âncora (<b>R$ 235,8 mil</b>, margem de 9,80%) e o Terminal virou o segundo gerador de caixa (<b>R$ 105,6 mil</b>, contra negativo em junho). Os dois postos fecharam no vermelho: Carga Pesada com −R$ 38,2 mil (rescisões e DARF) e Travessia com −R$ 78,3 mil, onde o aluguel de R$ 36,0 mil consome 76% da margem.</p>
   </div>
 
   <div class="kpis">
-    <div class="kpi"><div class="l">Faturamento Consolidado</div><div class="v">R$ 5.093.778</div><div class="s">Junho: R$ 5.344.383 <span class="delta down">▼ 4,7%</span></div></div>
-    <div class="kpi"><div class="l">Resultado de Caixa</div><div class="v">R$ 303.286</div><div class="s">Junho: R$ 327.719 <span class="delta down">▼ 7,5%</span></div></div>
-    <div class="kpi"><div class="l">Resultado Operacional</div><div class="v">R$ 355.014</div><div class="s">Antes de investimentos (Terminal R$ 51,7 mil)</div></div>
+    <div class="kpi"><div class="l">Faturamento Consolidado</div><div class="v">R$ 5.416.038</div><div class="s">Sem Travessia: R$ 5.093.778 <span class="delta down">▼ 4,7% vs junho</span></div></div>
+    <div class="kpi"><div class="l">Resultado de Caixa</div><div class="v">R$ 224.981</div><div class="s">Sem Travessia: R$ 303.286 <span class="delta down">▼ 7,5% vs junho</span></div></div>
+    <div class="kpi"><div class="l">Resultado Operacional</div><div class="v">R$ 276.709</div><div class="s">Antes de investimentos (Terminal R$ 51,7 mil)</div></div>
   </div>
 
   <div class="section">
@@ -136,6 +136,14 @@ footer b{color:var(--accent)}
         <div class="row"><span class="k">Conteiners</span><span class="v">679</span></div>
         <a href="terminal-julho-2026-17734f08.html">Abrir painel completo</a>
       </div>
+      <div class="emp">
+        <div class="tag">Posto Travessia</div><h3>Posto Travessia</h3>
+        <div class="row"><span class="k">Faturamento</span><span class="v">R$ 322.260</span></div>
+        <div class="row"><span class="k">Resultado</span><span class="v neg">−R$ 78.304 <span class="delta down">1º mês</span></span></div>
+        <div class="row"><span class="k">Pista / Conveniência</span><span class="v">58,2% / 41,8%</span></div>
+        <div class="row"><span class="k">Litros</span><span class="v">29.413 L</span></div>
+        <a href="travessia-julho-2026-17734f08.html">Abrir painel completo</a>
+      </div>
     </div>
   </div>
 
@@ -156,7 +164,9 @@ footer b{color:var(--accent)}
         <tr><td>ACAB</td><td class="num">R$ 2.405.433,87</td><td class="num neg">−22,8%</td><td class="num pos">R$ 235.829,02</td><td class="num neg">−12,9%</td></tr>
         <tr><td>Posto Carga Pesada</td><td class="num">R$ 2.464.206,47</td><td class="num pos">+16,9%</td><td class="num neg">−R$ 38.168,95</td><td class="num neg">(junho +61.576)</td></tr>
         <tr><td>Terminal Carga Pesada</td><td class="num">R$ 224.138,14</td><td class="num pos">+87,6%</td><td class="num pos">R$ 105.625,74</td><td class="num pos">(junho −4.647)</td></tr>
-        <tr class="tot"><td>Consolidado</td><td class="num">R$ 5.093.778,48</td><td class="num neg">−4,7%</td><td class="num">R$ 303.285,81</td><td class="num neg">−7,5%</td></tr>
+        <tr><td>Posto Travessia</td><td class="num">R$ 322.259,92</td><td class="num">1º mês</td><td class="num neg">−R$ 78.304,42</td><td class="num">1º mês</td></tr>
+        <tr class="tot"><td>Consolidado</td><td class="num">R$ 5.416.038,40</td><td class="num pos">+1,3%</td><td class="num">R$ 224.981,39</td><td class="num neg">−31,3%</td></tr>
+        <tr><td style="color:var(--muted)">Comparável (sem Travessia)</td><td class="num" style="color:var(--muted)">R$ 5.093.778,48</td><td class="num neg">−4,7%</td><td class="num" style="color:var(--muted)">R$ 303.285,81</td><td class="num neg">−7,5%</td></tr>
       </tbody>
     </table>
     </div>
@@ -169,16 +179,16 @@ footer b{color:var(--accent)}
 Chart.defaults.color='#8ba3c7';Chart.defaults.borderColor='rgba(94,179,245,0.1)';Chart.defaults.font.family='Inter';
 const brl=v=>'R$ '+v.toLocaleString('pt-BR',{maximumFractionDigits:0});
 new Chart(document.getElementById('lucroChart'),{type:'bar',
- data:{labels:['ACAB','Posto','Terminal'],datasets:[
-  {label:'Junho',data:[270790.08,61575.99,-4647.31],backgroundColor:'rgba(139,163,199,.55)',borderRadius:6},
-  {label:'Julho',data:[235829.02,-38168.95,105625.74],backgroundColor:['#5fb3f5','#ef4444','#5fb3f5'],borderRadius:6}]},
+ data:{labels:['ACAB','Posto','Terminal','Travessia'],datasets:[
+  {label:'Junho',data:[270790.08,61575.99,-4647.31,null],backgroundColor:'rgba(139,163,199,.55)',borderRadius:6},
+  {label:'Julho',data:[235829.02,-38168.95,105625.74,-78304.42],backgroundColor:['#5fb3f5','#ef4444','#5fb3f5','#ef4444'],borderRadius:6}]},
  options:{responsive:true,maintainAspectRatio:false,
   plugins:{legend:{position:'bottom'},tooltip:{callbacks:{label:c=>' '+c.dataset.label+': '+brl(c.parsed.y)}}},
   scales:{y:{ticks:{callback:v=>(v/1000)+'k'}},x:{grid:{display:false}}}}});
 new Chart(document.getElementById('fatChart'),{type:'bar',
- data:{labels:['ACAB','Posto','Terminal'],datasets:[
-  {label:'Junho',data:[3116939.13,2107979.56,119464.36],backgroundColor:'rgba(139,163,199,.55)',borderRadius:6},
-  {label:'Julho',data:[2405433.87,2464206.47,224138.14],backgroundColor:'#1e5fc8',borderRadius:6}]},
+ data:{labels:['ACAB','Posto','Terminal','Travessia'],datasets:[
+  {label:'Junho',data:[3116939.13,2107979.56,119464.36,null],backgroundColor:'rgba(139,163,199,.55)',borderRadius:6},
+  {label:'Julho',data:[2405433.87,2464206.47,224138.14,322259.92],backgroundColor:'#1e5fc8',borderRadius:6}]},
  options:{responsive:true,maintainAspectRatio:false,
   plugins:{legend:{position:'bottom'},tooltip:{callbacks:{label:c=>' '+c.dataset.label+': '+brl(c.parsed.y)}}},
   scales:{y:{ticks:{callback:v=>(v/1e6).toLocaleString('pt-BR',{maximumFractionDigits:1})+' mi'}},x:{grid:{display:false}}}}});
