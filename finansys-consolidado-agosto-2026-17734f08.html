@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Finansys · Consolidado Agosto 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+:root{
+--navy:#0a1628;--navy-mid:#0f2044;--navy-card:#132952;--blue:#1e5fc8;--accent:#5fb3f5;--accent2:#7dd3fc;
+--green:#22c55e;--amber:#f59e0b;--red:#ef4444;--white:#f0f6ff;--muted:#8ba3c7;--border:rgba(94,179,245,0.15);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',sans-serif;background:var(--navy);color:var(--white);-webkit-font-smoothing:antialiased;line-height:1.5}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+header{position:sticky;top:0;z-index:100;height:72px;background:var(--navy-mid);border-bottom:1px solid var(--border);display:flex;align-items:center}
+.hdr-in{max-width:1180px;margin:0 auto;padding:0 24px;width:100%;display:flex;align-items:center;justify-content:space-between}
+.brand{display:flex;align-items:center;gap:13px}
+.logo{width:40px;height:40px;border-radius:11px;background:linear-gradient(135deg,var(--accent),var(--blue));display:flex;align-items:center;justify-content:center;font-weight:900;font-size:19px;color:#fff}
+.brand b{font-size:16px;font-weight:700}
+.brand span{display:block;font-size:11px;color:var(--muted)}
+.badge{background:rgba(245,158,11,.12);border:1px solid rgba(245,158,11,.35);color:#fbbf24;border-radius:30px;padding:7px 15px;font-size:12px;font-weight:700}
+.hero{padding:50px 0 26px}
+.hero h1{font-size:44px;font-weight:900;letter-spacing:-1px;background:linear-gradient(120deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.hero p{margin-top:10px;font-size:16px;color:var(--muted);font-weight:600}
+.exec{margin-top:22px;background:linear-gradient(120deg,rgba(30,95,200,.14),var(--navy-card));border:1px solid var(--border);border-left:4px solid var(--accent);border-radius:14px;padding:20px 24px}
+.exec .t{font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--accent);margin-bottom:8px}
+.exec p{font-size:14px;line-height:1.65;font-weight:500}
+.exec b{color:var(--accent2)}
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:26px}
+.kpi{background:var(--navy-card);border:1px solid var(--border);border-radius:16px;padding:22px}
+.kpi .l{font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--muted)}
+.kpi .v{font-size:27px;font-weight:900;margin-top:10px;letter-spacing:-.5px}
+.kpi .s{font-size:12px;color:var(--accent);margin-top:6px;font-weight:600}
+.delta{display:inline-flex;font-weight:800;font-size:11px;padding:2px 8px;border-radius:20px;margin-left:4px}
+.delta.up{background:rgba(34,197,94,.14);color:#4ade80}
+.delta.down{background:rgba(239,68,68,.14);color:#f87171}
+.section{margin-top:44px}
+.sec-t{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.9px;color:var(--accent);margin-bottom:18px;display:flex;align-items:center;gap:9px}
+.sec-t::before{content:'';width:4px;height:16px;background:linear-gradient(var(--accent),var(--blue));border-radius:3px}
+.emp-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.emp{background:var(--navy-card);border:1px solid var(--border);border-radius:16px;padding:24px;display:flex;flex-direction:column;gap:12px}
+.emp h3{font-size:17px;font-weight:800}
+.emp .tag{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--amber)}
+.emp .row{display:flex;justify-content:space-between;font-size:13.5px;padding:7px 0;border-bottom:1px solid rgba(94,179,245,.08)}
+.emp .row .k{color:var(--muted)}
+.emp .row .v{font-weight:700;font-variant-numeric:tabular-nums}
+.emp a{margin-top:auto;text-align:center;text-decoration:none;font-weight:700;font-size:13px;padding:11px 0;border-radius:9px;background:rgba(30,95,200,.18);color:var(--accent2);border:1px solid var(--border);transition:.2s}
+.emp a:hover{background:rgba(30,95,200,.35)}
+.charts{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.chart-card{background:var(--navy-card);border:1px solid var(--border);border-radius:16px;padding:24px}
+.chart-card h3{font-size:14px;font-weight:700;margin-bottom:18px}
+.chart-box{position:relative;height:300px}
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+th{text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);padding:11px 12px;border-bottom:1px solid var(--border);font-weight:700}
+td{padding:12px;border-bottom:1px solid rgba(94,179,245,.07);font-weight:600}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+tr.tot td{font-weight:900;color:var(--accent2);border-top:2px solid var(--border)}
+.pos{color:#4ade80}.neg{color:#f87171}
+footer{margin-top:56px;padding:28px 0 44px;text-align:center;font-size:12.5px;color:var(--muted);border-top:1px solid var(--border)}
+footer b{color:var(--accent)}
+@media(max-width:980px){.kpis,.emp-grid,.charts{grid-template-columns:1fr}.hero h1{font-size:32px}}
+@media print{
+ @page{size:A4 portrait;margin:11mm}
+ body{background:#fff;color:#0a1628}
+ header{position:static;background:#fff;border-bottom:2px solid #1e5fc8}
+ .brand b{color:#0a1628}
+ .hero h1{-webkit-text-fill-color:#0f2044;color:#0f2044;font-size:30px}
+ .kpi,.emp,.chart-card,.exec{background:#fff;border:1px solid #cbd5e1;break-inside:avoid}
+ .kpi .v,.emp h3{color:#0a1628}
+ .exec p{color:#0f2044}
+ .emp a{display:none}
+ footer{color:#475569}
+}
+
+/* Botão voltar à página principal */
+.back-home{display:inline-flex;align-items:center;gap:7px;text-decoration:none;font-family:inherit;
+  font-size:13px;font-weight:700;padding:8px 15px;border-radius:30px;white-space:nowrap;
+  border:1px solid rgba(94,179,245,.35);background:rgba(94,179,245,.12);color:#7dd3fc;transition:.18s}
+.back-home:hover{background:rgba(94,179,245,.28);color:#f0f6ff}
+@media print{.back-home{display:none!important}}
+</style>
+</head>
+<body>
+<header>
+  <div class="hdr-in">
+    <div class="brand"><div class="logo">F</div><div><b>Finansys</b><span>Assessoria &amp; Consultoria Financeira</span></div></div>
+    <a class="back-home" href="index.html" title="Voltar para a página principal">← Início</a>
+      <div class="badge">AGOSTO 2026</div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="hero">
+    <h1>Visão Consolidada</h1>
+    <p>Fechamentos Finansys · Agosto 2026 — ACAB · Posto Carga Pesada · Terminal Carga Pesada · Posto Travessia</p>
+  </div>
+
+  <div class="exec">
+    <div class="t">Leitura Consolidada do Mês</div>
+    <p>Agosto fechou com faturamento consolidado de <b>R$ 5,47 milhões</b> (+0,9% vs julho), mas resultado de apenas <b>R$ 179,6 mil</b>, queda de <b>20,2%</b> — o grupo cresceu em receita e perdeu em rentabilidade. O <b>Posto Travessia</b> é o principal motivo: o prejuízo mais que dobrou, para <b>R$ 166,9 mil</b> (julho: R$ 78,3 mil), por uma distorção de custo no grupo Bebidas Alcoólicas da conveniência (margem de −R$ 29,9 mil nesse grupo isolado, provável erro de cadastro). A <b>ACAB</b> também recuou (<b>R$ 201,1 mil</b>, −14,7%), com despesas 5,0% maiores e margem bruta menor. Já o <b>Posto Carga Pesada</b> reverteu o prejuízo de julho e fechou positivo (<b>R$ 20,7 mil</b>, vs −R$ 38,2 mil), e o <b>Terminal</b> manteve a melhora (<b>R$ 124,7 mil</b>, +18,1%), puxado pelo aumento de transportes.</p>
+  </div>
+
+  <div class="kpis">
+    <div class="kpi"><div class="l">Faturamento Consolidado</div><div class="v">R$ 5.465.114</div><div class="s">julho: R$ 5.416.038 <span class="delta up">▲ 0,9%</span></div></div>
+    <div class="kpi"><div class="l">Resultado de Caixa</div><div class="v">R$ 179.627</div><div class="s">julho: R$ 224.981 <span class="delta down">▼ 20,2%</span></div></div>
+    <div class="kpi"><div class="l">Empresas no Vermelho</div><div class="v" style="color:#f87171">1 de 4</div><div class="s">Posto Travessia: −R$ 166,9 mil</div></div>
+  </div>
+
+  <div class="section">
+    <div class="sec-t">Empresas</div>
+    <div class="emp-grid">
+      <div class="emp">
+        <div class="tag">Associação</div><h3>ACAB</h3>
+        <div class="row"><span class="k">Faturamento</span><span class="v">R$ 2.346.546</span></div>
+        <div class="row"><span class="k">Lucro Líquido</span><span class="v pos">R$ 201.097 <span class="delta down">▼14,7%</span></span></div>
+        <div class="row"><span class="k">Margem Líquida</span><span class="v">8,57%</span></div>
+        <div class="row"><span class="k">Litros</span><span class="v">387.996 L</span></div>
+        <a href="acab-agosto-2026-17734f08.html">Abrir painel completo</a>
+      </div>
+      <div class="emp">
+        <div class="tag">Posto</div><h3>Posto Carga Pesada</h3>
+        <div class="row"><span class="k">Faturamento</span><span class="v">R$ 2.444.199</span></div>
+        <div class="row"><span class="k">Resultado Líquido</span><span class="v pos">R$ 20.677 <span class="delta up">julho: −38.169</span></span></div>
+        <div class="row"><span class="k">Margem Bruta</span><span class="v">7,99%</span></div>
+        <div class="row"><span class="k">Litros</span><span class="v">393.804 L</span></div>
+        <a href="posto-agosto-2026-17734f08.html">Abrir painel completo</a>
+      </div>
+      <div class="emp">
+        <div class="tag">Terminal</div><h3>Terminal Carga Pesada</h3>
+        <div class="row"><span class="k">Faturamento</span><span class="v">R$ 248.901</span></div>
+        <div class="row"><span class="k">Lucro Operacional</span><span class="v pos">R$ 176.445 <span class="delta up">▲12,1%</span></span></div>
+        <div class="row"><span class="k">Resultado de Caixa</span><span class="v pos">R$ 124.718</span></div>
+        <div class="row"><span class="k">Conteiners</span><span class="v">639</span></div>
+        <a href="terminal-agosto-2026-17734f08.html">Abrir painel completo</a>
+      </div>
+      <div class="emp">
+        <div class="tag">Posto Travessia</div><h3>Posto Travessia</h3>
+        <div class="row"><span class="k">Faturamento</span><span class="v">R$ 425.468</span></div>
+        <div class="row"><span class="k">Resultado</span><span class="v neg">−R$ 166.865 <span class="delta down">julho: −78.304</span></span></div>
+        <div class="row"><span class="k">Pista / Conveniência</span><span class="v">50,4% / 49,6%</span></div>
+        <div class="row"><span class="k">Litros</span><span class="v">34.442 L</span></div>
+        <a href="travessia-agosto-2026-17734f08.html">Abrir painel completo</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="sec-t">Comparativo Julho × Agosto</div>
+    <div class="charts">
+      <div class="chart-card"><h3>Resultado por Empresa (R$)</h3><div class="chart-box"><canvas id="lucroChart"></canvas></div></div>
+      <div class="chart-card"><h3>Faturamento por Empresa (R$)</h3><div class="chart-box"><canvas id="fatChart"></canvas></div></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="sec-t">Tabela Consolidada</div>
+    <div class="chart-card">
+    <table>
+      <thead><tr><th>Empresa</th><th class="num">Faturamento</th><th class="num">Δ Fat.</th><th class="num">Resultado</th><th class="num">Δ Result.</th></tr></thead>
+      <tbody>
+        <tr><td>ACAB</td><td class="num">R$ 2.346.545,80</td><td class="num neg">−2,4%</td><td class="num pos">R$ 201.097,44</td><td class="num neg">−14,7%</td></tr>
+        <tr><td>Posto Carga Pesada</td><td class="num">R$ 2.444.199,47</td><td class="num neg">−0,8%</td><td class="num pos">R$ 20.676,79</td><td class="num pos">(julho −38.169)</td></tr>
+        <tr><td>Terminal Carga Pesada</td><td class="num">R$ 248.901,23</td><td class="num pos">+11,0%</td><td class="num pos">R$ 124.717,54</td><td class="num pos">+18,1%</td></tr>
+        <tr><td>Posto Travessia</td><td class="num">R$ 425.467,70</td><td class="num pos">+32,0%</td><td class="num neg">−R$ 166.864,97</td><td class="num neg">(julho −78.304)</td></tr>
+        <tr class="tot"><td>Consolidado</td><td class="num">R$ 5.465.114,20</td><td class="num pos">+0,9%</td><td class="num">R$ 179.626,80</td><td class="num neg">−20,2%</td></tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+
+  <footer>Relatório gerado por <b>Finansys</b> · Assessoria &amp; Consultoria Financeira · Agosto 2026</footer>
+</div>
+
+<script>
+Chart.defaults.color='#8ba3c7';Chart.defaults.borderColor='rgba(94,179,245,0.1)';Chart.defaults.font.family='Inter';
+const brl=v=>'R$ '+v.toLocaleString('pt-BR',{maximumFractionDigits:0});
+new Chart(document.getElementById('lucroChart'),{type:'bar',
+ data:{labels:['ACAB','Posto','Terminal','Travessia'],datasets:[
+  {label:'Julho',data:[235829.02,-38168.95,105625.74,-78304.42],backgroundColor:'rgba(139,163,199,.55)',borderRadius:6},
+  {label:'Agosto',data:[201097.44,20676.79,124717.54,-166864.97],backgroundColor:['#5fb3f5','#5fb3f5','#5fb3f5','#ef4444'],borderRadius:6}]},
+ options:{responsive:true,maintainAspectRatio:false,
+  plugins:{legend:{position:'bottom'},tooltip:{callbacks:{label:c=>' '+c.dataset.label+': '+brl(c.parsed.y)}}},
+  scales:{y:{ticks:{callback:v=>(v/1000)+'k'}},x:{grid:{display:false}}}}});
+new Chart(document.getElementById('fatChart'),{type:'bar',
+ data:{labels:['ACAB','Posto','Terminal','Travessia'],datasets:[
+  {label:'Julho',data:[2405433.87,2464206.47,224138.14,322259.92],backgroundColor:'rgba(139,163,199,.55)',borderRadius:6},
+  {label:'Agosto',data:[2346545.80,2444199.47,248901.23,425467.70],backgroundColor:'#1e5fc8',borderRadius:6}]},
+ options:{responsive:true,maintainAspectRatio:false,
+  plugins:{legend:{position:'bottom'},tooltip:{callbacks:{label:c=>' '+c.dataset.label+': '+brl(c.parsed.y)}}},
+  scales:{y:{ticks:{callback:v=>(v/1e6).toLocaleString('pt-BR',{maximumFractionDigits:1})+' mi'}},x:{grid:{display:false}}}}});
+</script>
+</body>
+</html>
