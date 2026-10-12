@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Posto Travessia — Fechamento Setembro 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/2.2.0/chartjs-plugin-datalabels.min.js"></script>
+<style>
+:root{
+--navy:#0a1628;--navy-mid:#0f2044;--navy-card:#132952;--blue:#1e5fc8;--blue-light:#3a7bd5;
+--accent:#5fb3f5;--accent2:#7dd3fc;--green:#22c55e;--amber:#f59e0b;--red:#ef4444;--purple:#a07af5;
+--white:#f0f6ff;--muted:#8ba3c7;--border:rgba(94,179,245,0.15);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
+body{font-family:'Inter',sans-serif;background:var(--navy);color:var(--white);line-height:1.5}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+
+header{position:sticky;top:0;z-index:100;height:72px;background:var(--navy-mid);border-bottom:1px solid var(--border)}
+.hdr-in{max-width:1180px;margin:0 auto;height:100%;padding:0 24px;display:flex;align-items:center;justify-content:space-between}
+.logo-box{display:flex;align-items:center;gap:14px}
+.logo-mark{width:42px;height:42px;border-radius:11px;background:linear-gradient(135deg,var(--accent),var(--blue));display:flex;align-items:center;justify-content:center;font-weight:900;font-size:20px;color:#06101f}
+.logo-txt b{font-size:17px;font-weight:900}
+.logo-txt span{display:block;font-size:11px;color:var(--muted);font-weight:600;letter-spacing:1.5px;text-transform:uppercase}
+.hdr-right{display:flex;align-items:center;gap:12px}
+.back-home{display:inline-flex;align-items:center;gap:7px;text-decoration:none;font-family:inherit;font-size:13px;font-weight:700;
+  padding:8px 15px;border-radius:30px;white-space:nowrap;border:1px solid rgba(94,179,245,.35);background:rgba(94,179,245,.12);color:#7dd3fc;transition:.18s}
+.back-home:hover{background:rgba(94,179,245,.28);color:#f0f6ff}
+.period-badge{display:flex;align-items:center;gap:8px;background:rgba(94,179,245,.1);border:1px solid var(--border);padding:8px 16px;border-radius:30px;font-size:13px;font-weight:700;color:var(--accent2)}
+.pulse-dot{width:8px;height:8px;border-radius:50%;background:var(--amber);animation:pulse 1.8s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+.print-btn{background:rgba(94,179,245,.12);border:1px solid var(--border);color:var(--accent2);width:42px;height:42px;border-radius:11px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.2s}
+.print-btn:hover{background:rgba(94,179,245,.25)}
+.print-btn.solid{background:linear-gradient(135deg,var(--accent),var(--blue));color:#06101f;border:none}
+
+.hero{padding:48px 0 22px}
+.hero h1{font-size:48px;font-weight:900;line-height:1.05;background:linear-gradient(120deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:-1px}
+.hero p{margin-top:10px;font-size:17px;color:var(--muted);font-weight:600}
+.hero .cnpj{font-size:13px;color:var(--muted);margin-top:4px;opacity:.75}
+
+.warn-banner{margin:6px 0 24px;background:linear-gradient(120deg,rgba(245,158,11,.14),var(--navy-card));border:1px solid rgba(245,158,11,.35);border-left:4px solid var(--amber);border-radius:14px;padding:18px 22px}
+.warn-banner .t{font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:#fbbf24;margin-bottom:7px}
+.warn-banner p{font-size:14px;line-height:1.6;font-weight:500}
+.warn-banner b{color:#fcd34d}
+
+.kpi-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:15px}
+.kpi-card{background:var(--navy-card);border:1px solid var(--border);border-radius:16px;padding:20px 18px;cursor:pointer;transition:.25s;position:relative;overflow:hidden}
+.kpi-card::after{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--blue));opacity:0;transition:.25s}
+.kpi-card:hover{transform:translateY(-4px);border-color:rgba(94,179,245,.4)}
+.kpi-card:hover::after{opacity:1}
+.kpi-label{font-size:11.5px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.6px}
+.kpi-val{font-size:24px;font-weight:900;margin-top:8px;letter-spacing:-.5px}
+.kpi-val.red{color:#f87171}.kpi-val.green{color:#4ade80}
+.kpi-sub{font-size:12px;color:var(--accent2);font-weight:600;margin-top:5px}
+.kpi-tap{font-size:10px;color:var(--muted);margin-top:9px;opacity:.65}
+
+.section-title{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1.8px;color:var(--muted);margin:44px 0 18px;display:flex;align-items:center;gap:10px}
+.section-title::before{content:'';width:4px;height:16px;border-radius:2px;background:linear-gradient(var(--accent),var(--blue))}
+
+.unit-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.unit{background:var(--navy-card);border:1px solid var(--border);border-radius:16px;padding:24px 26px}
+.unit.pista{border-top:3px solid var(--accent)}
+.unit.conv{border-top:3px solid var(--purple)}
+.unit h3{font-size:19px;font-weight:900;display:flex;align-items:center;justify-content:space-between;margin-bottom:4px}
+.unit .share{font-size:12px;font-weight:800;padding:3px 10px;border-radius:20px;background:rgba(94,179,245,.16);color:var(--accent2)}
+.unit.conv .share{background:rgba(160,122,245,.18);color:#c4b5fd}
+.unit .sub{font-size:12.5px;color:var(--muted);margin-bottom:16px}
+.dre-row{display:flex;justify-content:space-between;font-size:13.5px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.05)}
+.dre-row .k{color:var(--muted)}
+.dre-row .v{font-weight:700;font-variant-numeric:tabular-nums}
+.dre-row.tot{border-top:2px solid var(--border);border-bottom:none;margin-top:4px;padding-top:11px}
+.dre-row.tot .k{color:var(--white);font-weight:800}
+.dre-row.tot .v{font-size:17px;font-weight:900;color:#f87171}
+.dre-row .v.neg{color:#f87171}.dre-row .v.pos{color:#4ade80}
+
+.chart-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.chart-card{background:var(--navy-card);border:1px solid var(--border);border-radius:16px;padding:24px}
+.chart-card h3{font-size:15px;font-weight:700;margin-bottom:18px}
+.chart-box{position:relative;height:290px}
+
+.fuel-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.fuel-card{background:var(--navy-card);border:1px solid var(--border);border-radius:16px;padding:22px}
+.fuel-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.fuel-name{font-size:16px;font-weight:900}
+.fuel-badge{font-size:12px;font-weight:700;padding:5px 11px;border-radius:20px}
+.fuel-rows{display:flex;flex-direction:column;gap:10px}
+.fuel-row{display:flex;justify-content:space-between;font-size:13.5px}
+.fuel-row .k{color:var(--muted)}
+.fuel-row .v{font-weight:700}
+.fuel-row .v.green{color:#4ade80}
+.bar{height:7px;border-radius:4px;background:rgba(255,255,255,.07);margin-top:15px;overflow:hidden}
+.bar i{display:block;height:100%;border-radius:4px;background:linear-gradient(90deg,var(--accent),var(--blue))}
+
+.bar-row{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.bar-label{width:200px;font-size:13px;font-weight:600;flex-shrink:0;color:var(--muted)}
+.bar-track{flex:1;height:20px;background:rgba(255,255,255,.06);border-radius:6px;overflow:hidden}
+.bar-fill{height:100%;width:0;border-radius:6px;transition:width 1s cubic-bezier(.4,0,.2,1);background:linear-gradient(90deg,var(--blue),var(--accent))}
+.bar-val{width:120px;text-align:right;font-size:13px;font-weight:700;flex-shrink:0}
+
+.alert{border-radius:12px;padding:15px 18px;font-size:13.5px;line-height:1.6;font-weight:500;margin-top:14px}
+.alert.warn{background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.3);color:#fcd34d}
+.alert.info{background:rgba(94,179,245,.09);border:1px solid rgba(94,179,245,.28);color:var(--accent2)}
+.alert b{color:#fff}
+
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{text-align:left;color:var(--muted);font-weight:700;text-transform:uppercase;font-size:10.5px;letter-spacing:.5px;padding:10px;border-bottom:1px solid var(--border)}
+td{padding:9px 10px;border-bottom:1px solid rgba(255,255,255,.05);font-weight:500}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;font-weight:700}
+tr:hover td{background:rgba(94,179,245,.04)}
+.tot-row td{font-weight:900;color:var(--accent2);border-top:2px solid var(--border);border-bottom:none}
+.neg{color:#f87171}.pos{color:#4ade80}
+
+.result-banner{margin-top:42px;background:linear-gradient(120deg,var(--navy-card),var(--navy-mid));border:1px solid rgba(239,68,68,.3);border-radius:18px;padding:28px 32px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px}
+.result-banner .lbl{font-size:12.5px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:1px}
+.result-banner .big{font-size:38px;font-weight:900;color:#f87171;letter-spacing:-1px;margin-top:4px}
+.result-mini{display:flex;gap:30px;flex-wrap:wrap}
+.result-mini .lbl{font-size:11px}
+.result-mini .num{font-size:19px;font-weight:800;margin-top:3px}
+
+footer{margin:54px 0 40px;text-align:center;font-size:12px;color:var(--muted);padding-top:24px;border-top:1px solid var(--border)}
+.print-cover,.print-annex{display:none}
+
+/* Painéis */
+.overlay{position:fixed;inset:0;background:rgba(6,12,25,.92);backdrop-filter:blur(8px);z-index:200;opacity:0;pointer-events:none;transition:opacity .3s}
+.overlay.open{opacity:1;pointer-events:all}
+.panel{position:fixed;top:0;right:0;bottom:0;width:min(820px,100%);background:linear-gradient(160deg,#0d1f3c,#0a1628);transform:translateX(100%);transition:transform .35s cubic-bezier(.4,0,.2,1);z-index:300;display:flex;flex-direction:column;border-left:1px solid var(--border)}
+.panel.open{transform:translateX(0)}
+.panel-hd{display:flex;align-items:center;gap:18px;padding:26px 34px 22px;border-bottom:1px solid var(--border)}
+.back-btn{width:42px;height:42px;border-radius:11px;background:rgba(94,179,245,.12);border:1px solid var(--border);color:var(--accent2);font-size:20px;cursor:pointer}
+.panel-title{font-size:20px;font-weight:900}
+.panel-body{flex:1;overflow-y:auto;padding:28px 34px 40px}
+.panel-chart{height:290px;position:relative;margin-bottom:26px}
+
+@media(max-width:1100px){.fuel-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:980px){.kpi-grid{grid-template-columns:repeat(2,1fr)}.unit-grid,.chart-grid{grid-template-columns:1fr}.hero h1{font-size:34px}.bar-label{width:130px}}
+
+@media print{
+ @page{size:A4 portrait;margin:10mm}
+ *,*::before,*::after{animation:none!important;transition:none!important}
+ body{background:var(--navy)!important}
+ .print-btn,.back-home,.panel,.overlay,.kpi-tap{display:none!important}
+ header{position:static}
+ .kpi-card,.chart-card,.unit,.fuel-card,.warn-banner,.result-banner{break-inside:avoid}
+ tr{break-inside:avoid}
+ .chart-box{height:230px!important}
+ .chart-box.tall{height:330px!important}
+ .alert{break-inside:avoid}
+ .print-cover{display:flex;flex-direction:column;justify-content:space-between;background:linear-gradient(150deg,#132952,#0a1628)!important;border:1px solid var(--border);border-radius:18px;padding:56px 50px;height:248mm;page-break-after:always;margin:6px}
+ .print-cover .pc-logo{width:64px;height:64px;border-radius:16px;background:linear-gradient(135deg,#5fb3f5,#1e5fc8);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:30px;color:#06101f}
+ .print-cover h1{font-size:44px;font-weight:900;color:#f0f6ff;-webkit-text-fill-color:#f0f6ff;letter-spacing:-1px;margin-top:22px;line-height:1.1}
+ .print-cover .pc-sub{font-size:16px;color:#8ba3c7;margin-top:10px;font-weight:600}
+ .print-cover .pc-hl{display:flex;gap:14px;margin-top:36px}
+ .print-cover .pc-box{flex:1;background:#132952;border:1px solid rgba(94,179,245,.25);border-radius:14px;padding:18px}
+ .print-cover .pc-box .l{font-size:10px;text-transform:uppercase;letter-spacing:.6px;color:#8ba3c7;font-weight:700}
+ .print-cover .pc-box .v{font-size:20px;font-weight:900;margin-top:6px;color:#f0f6ff}
+ .print-cover .pc-box .d{font-size:11.5px;margin-top:4px;font-weight:700;color:#8ba3c7}
+ .print-cover .pc-foot{font-size:12px;color:#8ba3c7;display:flex;justify-content:space-between;border-top:1px solid rgba(94,179,245,.2);padding-top:16px}
+ .print-annex{display:block;page-break-before:always}
+ .print-annex h2{font-size:18px;margin:8px 0 12px;color:var(--accent2)}
+ .print-annex td{padding:5px 10px;font-size:11.5px}
+}
+</style>
+</head>
+<body>
+
+<div class="print-cover">
+  <div>
+    <div class="pc-logo">F</div>
+    <h1>Posto Travessia</h1>
+    <div class="pc-sub">POSTO DE SERVIÇOS TRAVESSIA DE SANTOS LTDA<br>Fechamento Mensal — Setembro 2026</div>
+    <div class="pc-hl">
+      <div class="pc-box"><div class="l">Vendas Totais</div><div class="v">R$ 446.463</div><div class="d">Pista 53,9% · Conveniência 46,1%</div></div>
+      <div class="pc-box"><div class="l">Margem Líquida</div><div class="v">R$ 30.972</div><div class="d">6,94% sobre vendas</div></div>
+      <div class="pc-box"><div class="l">Resultado</div><div class="v" style="color:#f87171">−R$ 160.577</div><div class="d">Pista −64,4 mil · Conveniência −96,1 mil</div></div>
+    </div>
+  </div>
+  <div class="pc-foot"><span><b style="color:#5fb3f5">Finansys</b> · Assessoria &amp; Consultoria Financeira</span><span>Documento confidencial · Setembro/2026</span></div>
+</div>
+
+<header>
+  <div class="hdr-in">
+    <div class="logo-box">
+      <div class="logo-mark">F</div>
+      <div class="logo-txt"><b>Finansys</b><span>Posto Travessia</span></div>
+    </div>
+    <div class="hdr-right">
+      <a class="back-home" href="index.html" title="Voltar para a página principal">← Início</a>
+      <div class="period-badge"><span class="pulse-dot" style="background:var(--green)"></span>SETEMBRO 2026</div>
+      <button class="print-btn" onclick="baixarPDF()" title="Imprimir">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+      </button>
+      <button class="print-btn solid" onclick="baixarPDF()" title="Baixar PDF">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="hero">
+    <h1>Fechamento Mensal</h1>
+    <p>Posto Travessia · Setembro de 2026 — Pista e Conveniência</p>
+    <p class="cnpj">POSTO DE SERVIÇOS TRAVESSIA DE SANTOS LTDA · CNPJ 08.521.038/0001-11</p>
+  </div>
+
+  <div class="warn-banner">
+    <div class="t">⚠ Ponto de atenção — custo errado no cadastro</div>
+    <p>O cadastro de custo da conveniência segue com distorções. No Resumo de Vendas, <b>43 itens</b> aparecem com CMV acima da venda e somam <b>−R$ 81.185,74</b> de margem, concentrados em Food Service (−R$ 55,6 mil), Cervejas, Bomboniere e Não carbonatados. Exemplo: Mini Pão Francês com CMV de R$ 18.868 para R$ 1.599 de venda. O padrão é de <b>custo médio errado no cadastro</b>, e não de venda abaixo do custo: a margem real da conveniência deve ser maior que a exibida. O fechamento foi publicado com este alerta. Os passivos da gestão anterior <b>não</b> entram nesta base — estão no relatório próprio.</p>
+  </div>
+
+  <div class="kpi-grid">
+    <div class="kpi-card" onclick="openPanel('pVendas')">
+      <div class="kpi-label">Vendas Totais</div>
+      <div class="kpi-val" style="font-size:21px">R$ 446.463</div>
+      <div class="kpi-sub">+4,9% vs agosto</div>
+      <div class="kpi-tap">▸ pista × conveniência</div>
+    </div>
+    <div class="kpi-card" onclick="openPanel('pLitros')">
+      <div class="kpi-label">Litros (Pista)</div>
+      <div class="kpi-val">38.665</div>
+      <div class="kpi-sub">+12,3% vs agosto</div>
+      <div class="kpi-tap">▸ por combustível</div>
+    </div>
+    <div class="kpi-card" onclick="openPanel('pMargem')">
+      <div class="kpi-label">Margem Líquida</div>
+      <div class="kpi-val" style="font-size:21px">R$ 30.972</div>
+      <div class="kpi-sub">6,94% · bruta 10,94%</div>
+      <div class="kpi-tap">▸ ver composição</div>
+    </div>
+    <div class="kpi-card" onclick="openPanel('pDespesas')">
+      <div class="kpi-label">Despesas</div>
+      <div class="kpi-val" style="font-size:21px">R$ 191.549</div>
+      <div class="kpi-sub">103 lançtos. + taxas de cartão</div>
+      <div class="kpi-tap">▸ ver detalhes</div>
+    </div>
+    <div class="kpi-card" onclick="openPanel('pResultado')">
+      <div class="kpi-label">Resultado</div>
+      <div class="kpi-val red" style="font-size:21px">−R$ 160.577</div>
+      <div class="kpi-sub">agosto: −R$ 166.865</div>
+      <div class="kpi-tap">▸ ver cascata</div>
+    </div>
+  </div>
+
+  <!-- PISTA x CONVENIÊNCIA -->
+  <div class="section-title">Pista × Conveniência</div>
+  <div class="unit-grid">
+    <div class="unit pista">
+      <h3>⛽ Pista <span class="share">53,9% das vendas</span></h3>
+      <div class="sub">Combustíveis · 38.665 litros</div>
+      <div class="dre-row"><span class="k">Vendas</span><span class="v">R$ 240.749,00</span></div>
+      <div class="dre-row"><span class="k">(−) CMV</span><span class="v">R$ 207.053,07</span></div>
+      <div class="dre-row"><span class="k">(=) Margem Bruta</span><span class="v pos">R$ 33.695,93</span></div>
+      <div class="dre-row"><span class="k">(−) Tributos sobre vendas</span><span class="v">R$ 0,00</span></div>
+      <div class="dre-row"><span class="k">(=) Margem Líquida</span><span class="v pos">R$ 33.695,93</span></div>
+      <div class="dre-row"><span class="k">(−) Despesas diretas</span><span class="v">R$ 61.949,11</span></div>
+      <div class="dre-row"><span class="k">(−) Rateio (conforme planilha)</span><span class="v">R$ 30.192,28</span></div>
+      <div class="dre-row"><span class="k">(−) VR/VA (6 colaboradores)</span><span class="v">R$ 3.711,00</span></div>
+      <div class="dre-row"><span class="k">(−) Taxas de cartão</span><span class="v">R$ 2.272,26</span></div>
+      <div class="dre-row tot"><span class="k">(=) Resultado</span><span class="v">− R$ 64.428,72</span></div>
+    </div>
+    <div class="unit conv">
+      <h3>🏪 Conveniência <span class="share">46,1% das vendas</span></h3>
+      <div class="sub">Padaria, tabaco, bebidas, bomboniere e demais grupos · 14.272 cupons</div>
+      <div class="dre-row"><span class="k">Vendas</span><span class="v">R$ 205.714,32</span></div>
+      <div class="dre-row"><span class="k">(−) CMV</span><span class="v">R$ 190.580,35</span></div>
+      <div class="dre-row"><span class="k">(=) Margem Bruta</span><span class="v pos">R$ 15.133,97</span></div>
+      <div class="dre-row"><span class="k">(−) Tributos sobre vendas</span><span class="v">R$ 17.858,02</span></div>
+      <div class="dre-row"><span class="k">(=) Margem Líquida</span><span class="v neg">− R$ 2.724,05</span></div>
+      <div class="dre-row"><span class="k">(−) Despesas diretas</span><span class="v">R$ 45.912,82</span></div>
+      <div class="dre-row"><span class="k">(−) Rateio (conforme planilha)</span><span class="v">R$ 37.203,00</span></div>
+      <div class="dre-row"><span class="k">(−) VR/VA (12 colaboradores)</span><span class="v">R$ 8.367,00</span></div>
+      <div class="dre-row"><span class="k">(−) Taxas de cartão</span><span class="v">R$ 1.941,59</span></div>
+      <div class="dre-row tot"><span class="k">(=) Resultado</span><span class="v">− R$ 96.148,46</span></div>
+    </div>
+  </div>
+
+  <div class="chart-grid" style="margin-top:18px">
+    <div class="chart-card"><h3>Vendas × Margem × Despesas</h3><div class="chart-box"><canvas id="unitBar"></canvas></div></div>
+    <div class="chart-card">
+      <h3>Leitura das duas unidades</h3>
+      <div class="alert info">A <b>Pista</b> vendeu 38.665 litros (+12,3% vs agosto), mas a margem caiu para <b>14,00%</b> (agosto: 16,40%) e somou R$ 33.695,93, abaixo dos R$ 35.177,19 de agosto. As despesas da unidade (R$ 98.124,65 com taxas de cartão) — puxadas por R$ 32.194,59 em impostos (DARF e DARE) e metade do aluguel — resultam em <b>− R$ 64.428,72</b> (agosto: − R$ 53.377,53).</div>
+      <div class="alert warn">A <b>Conveniência</b> voltou a ter margem bruta positiva (R$ 15.133,97, contra − R$ 10.810,08 em agosto), mas após os tributos sobre vendas fica em − R$ 2.724,05. O resultado da unidade é <b>− R$ 96.148,46</b> (agosto: − R$ 113.487,44). Como o cadastro ainda tem itens com custo errado (−R$ 81.185,74 de margem em itens com CMV acima da venda), a margem real da conveniência deve ser maior que a exibida.</div>
+      <div class="alert info">Resultado total do mês: <b>− R$ 160.577,18</b>, melhora de R$ 6.287,79 frente a agosto (− R$ 166.864,97). A margem líquida subiu de R$ 5.279,03 para R$ 30.971,88, mas as despesas também cresceram (R$ 191.549,06, +11,3% vs agosto), com destaque para a folha (R$ 57.513,02, contra R$ 47.193,31 em agosto). Após o investimento em eletrodomésticos da conveniência (R$ 4.403,00), o resultado do mês fica em <b>− R$ 164.980,18</b>.</div>
+    </div>
+  </div>
+
+  <!-- PISTA -->
+  <div class="section-title">Pista · Combustíveis — Preços e Margens</div>
+  <div class="fuel-grid">
+    <div class="fuel-card">
+      <div class="fuel-head"><div class="fuel-name">Gasolina Comum</div><div class="fuel-badge" style="background:rgba(34,197,94,.15);color:var(--green)">13,41%</div></div>
+      <div class="fuel-rows">
+        <div class="fuel-row"><span class="k">Preço de Venda</span><span class="v">R$ 6,750</span></div>
+        <div class="fuel-row"><span class="k">Preço de Custo</span><span class="v">R$ 5,845</span></div>
+        <div class="fuel-row"><span class="k">Margem / Litro</span><span class="v green">R$ 0,905</span></div>
+        <div class="fuel-row"><span class="k">Litros Vendidos</span><span class="v">17.310 L</span></div>
+        <div class="fuel-row"><span class="k">Receita</span><span class="v">R$ 116.841</span></div>
+      </div>
+      <div class="bar"><i style="width:69%"></i></div>
+    </div>
+    <div class="fuel-card">
+      <div class="fuel-head"><div class="fuel-name">Etanol Comum</div><div class="fuel-badge" style="background:rgba(34,197,94,.15);color:var(--green)">19,47%</div></div>
+      <div class="fuel-rows">
+        <div class="fuel-row"><span class="k">Preço de Venda</span><span class="v">R$ 4,550</span></div>
+        <div class="fuel-row"><span class="k">Preço de Custo</span><span class="v">R$ 3,664</span></div>
+        <div class="fuel-row"><span class="k">Margem / Litro</span><span class="v green">R$ 0,886</span></div>
+        <div class="fuel-row"><span class="k">Litros Vendidos</span><span class="v">9.649 L</span></div>
+        <div class="fuel-row"><span class="k">Receita</span><span class="v">R$ 43.899</span></div>
+      </div>
+      <div class="bar"><i style="width:100%"></i></div>
+    </div>
+    <div class="fuel-card">
+      <div class="fuel-head"><div class="fuel-name">Gasolina Aditivada</div><div class="fuel-badge" style="background:rgba(34,197,94,.15);color:var(--green)">11,82%</div></div>
+      <div class="fuel-rows">
+        <div class="fuel-row"><span class="k">Preço de Venda</span><span class="v">R$ 6,771</span></div>
+        <div class="fuel-row"><span class="k">Preço de Custo</span><span class="v">R$ 5,971</span></div>
+        <div class="fuel-row"><span class="k">Margem / Litro</span><span class="v green">R$ 0,801</span></div>
+        <div class="fuel-row"><span class="k">Litros Vendidos</span><span class="v">10.373 L</span></div>
+        <div class="fuel-row"><span class="k">Receita</span><span class="v">R$ 70.238</span></div>
+      </div>
+      <div class="bar"><i style="width:61%"></i></div>
+    </div>
+    <div class="fuel-card">
+      <div class="fuel-head"><div class="fuel-name">Diesel S10</div><div class="fuel-badge" style="background:rgba(34,197,94,.15);color:var(--green)">12,02%</div></div>
+      <div class="fuel-rows">
+        <div class="fuel-row"><span class="k">Preço de Venda</span><span class="v">R$ 7,330</span></div>
+        <div class="fuel-row"><span class="k">Preço de Custo</span><span class="v">R$ 6,449</span></div>
+        <div class="fuel-row"><span class="k">Margem / Litro</span><span class="v green">R$ 0,881</span></div>
+        <div class="fuel-row"><span class="k">Litros Vendidos</span><span class="v">1.333 L</span></div>
+        <div class="fuel-row"><span class="k">Receita</span><span class="v">R$ 9.771</span></div>
+      </div>
+      <div class="bar"><i style="width:62%"></i></div>
+    </div>
+  </div>
+
+  <div class="chart-grid" style="margin-top:18px">
+    <div class="chart-card"><h3>Faturamento por Combustível</h3><div class="chart-box"><canvas id="fuelRev"></canvas></div></div>
+    <div class="chart-card"><h3>Litros por Combustível</h3><div class="chart-box"><canvas id="fuelLit"></canvas></div></div>
+  </div>
+  <div class="alert info">Volume de <b>38.664,86 litros</b> no mês (+12,3% vs agosto), com margem média de <b>R$ 0,871/L</b> (14,00%), abaixo de agosto (R$ 1,021/L; 16,40%). Os preços de bomba ficaram praticamente estáveis, enquanto o custo médio subiu — etanol de R$ 3,381 para R$ 3,664 e gasolina comum de R$ 5,711 para R$ 5,845. A <b>gasolina aditivada teve reajuste no mês</b>: 8.133 L vendidos a R$ 6,750 e 2.240 L a R$ 6,850, preço médio de R$ 6,771. O etanol segue com a melhor margem percentual (19,47%).</div>
+
+  <!-- CONVENIÊNCIA -->
+  <div class="section-title">Conveniência · Resultado por Grupo</div>
+  <div class="chart-grid">
+    <div class="chart-card">
+      <h3>Vendas por Grupo</h3>
+      <div class="bar-row"><span class="bar-label">Padaria</span><div class="bar-track"><div class="bar-fill" data-w="100"></div></div><span class="bar-val">R$ 83.141</span></div>
+      <div class="bar-row"><span class="bar-label">Bebidas não alcoólicas</span><div class="bar-track"><div class="bar-fill" data-w="47.0"></div></div><span class="bar-val">R$ 39.064</span></div>
+      <div class="bar-row"><span class="bar-label">Tabaco</span><div class="bar-track"><div class="bar-fill" data-w="42.7"></div></div><span class="bar-val">R$ 35.498</span></div>
+      <div class="bar-row"><span class="bar-label">Bomboniere</span><div class="bar-track"><div class="bar-fill" data-w="26.0"></div></div><span class="bar-val">R$ 21.614</span></div>
+      <div class="bar-row"><span class="bar-label">Bebidas alcoólicas</span><div class="bar-track"><div class="bar-fill" data-w="21.5"></div></div><span class="bar-val">R$ 17.863</span></div>
+      <div class="bar-row"><span class="bar-label">Demais 10 grupos</span><div class="bar-track"><div class="bar-fill" data-w="10.3"></div></div><span class="bar-val">R$ 8.534</span></div>
+    </div>
+    <div class="chart-card"><h3>Margem Bruta por Grupo</h3><div class="chart-box tall" style="height:330px"><canvas id="convBar"></canvas></div></div>
+  </div>
+
+  <div class="chart-card" style="margin-top:18px">
+    <h3>Detalhamento por Grupo</h3>
+    <table>
+      <thead><tr><th>Grupo</th><th class="num">Vendas (R$)</th><th class="num">CMV (R$)</th><th class="num">Margem Bruta</th><th class="num">Margem %</th></tr></thead>
+      <tbody>
+        <tr><td>Padaria</td><td class="num">83.141,23</td><td class="num">74.789,97</td><td class="num pos">8.351,26</td><td class="num pos">10,0%</td></tr>
+        <tr><td>Bebidas não alcoólicas</td><td class="num">39.064,32</td><td class="num">35.573,78</td><td class="num pos">3.490,54</td><td class="num pos">8,9%</td></tr>
+        <tr><td>Tabaco</td><td class="num">35.497,80</td><td class="num">31.198,23</td><td class="num pos">4.299,57</td><td class="num pos">12,1%</td></tr>
+        <tr><td>Bomboniere</td><td class="num">21.613,72</td><td class="num">20.173,79</td><td class="num pos">1.439,94</td><td class="num pos">6,7%</td></tr>
+        <tr><td>Bebidas alcoólicas</td><td class="num">17.863,36</td><td class="num">20.972,82</td><td class="num neg">−3.109,46</td><td class="num neg">−17,4%</td></tr>
+        <tr><td>Laticínios</td><td class="num">3.712,24</td><td class="num">2.056,36</td><td class="num pos">1.655,88</td><td class="num pos">44,6%</td></tr>
+        <tr><td>Lubrificantes</td><td class="num">1.339,94</td><td class="num">1.546,68</td><td class="num neg">−206,74</td><td class="num neg">−15,4%</td></tr>
+        <tr><td>Eletrônicos</td><td class="num">1.104,32</td><td class="num">670,46</td><td class="num pos">433,86</td><td class="num pos">39,3%</td></tr>
+        <tr><td>Sorvetes</td><td class="num">659,92</td><td class="num">2.396,17</td><td class="num neg">−1.736,25</td><td class="num neg">−263,1%</td></tr>
+        <tr><td>Serviços</td><td class="num">637,00</td><td class="num">637,00</td><td class="num">0,00</td><td class="num">0,0%</td></tr>
+        <tr><td>Mercearia</td><td class="num">444,65</td><td class="num">250,56</td><td class="num pos">194,09</td><td class="num pos">43,6%</td></tr>
+        <tr><td>Mercado automotivo</td><td class="num">294,96</td><td class="num">187,94</td><td class="num pos">107,03</td><td class="num pos">36,3%</td></tr>
+        <tr><td>Biscoitos / Snacks</td><td class="num">151,88</td><td class="num">67,67</td><td class="num pos">84,21</td><td class="num pos">55,4%</td></tr>
+        <tr><td>Almoço</td><td class="num">105,00</td><td class="num">13,93</td><td class="num pos">91,07</td><td class="num pos">86,7%</td></tr>
+        <tr><td>Aditivos</td><td class="num">83,98</td><td class="num">45,00</td><td class="num pos">38,98</td><td class="num pos">46,4%</td></tr>
+        <tr class="tot-row"><td>Total Conveniência</td><td class="num">205.714,32</td><td class="num">190.580,35</td><td class="num pos">15.133,97</td><td class="num pos">7,4%</td></tr>
+      </tbody>
+    </table>
+    <div class="alert info"><b>Bebidas Alcoólicas</b> melhoraram muito frente a agosto: margem bruta de −R$ 3.109,46 contra −R$ 29.897,67 em agosto — a distorção que dominou o resultado de agosto praticamente desapareceu neste grupo. Ainda fecham no negativo Bebidas Alcoólicas, Sorvetes (−R$ 1.736,25, CMV de R$ 2.396,17 para R$ 659,92 de venda) e Lubrificantes (−R$ 206,74).</div>
+    <div class="alert warn">⚠ <b>Custo errado no cadastro.</b> No Resumo de Vendas (por produto), 43 itens têm CMV acima da venda e somam <b>−R$ 81.185,74</b> de margem: Food Service −R$ 55.602,98, Cervejas −R$ 11.095,52, Bomboniere −R$ 8.851,15 e Não carbonatados −R$ 2.474,10, entre outros. São quantidades pequenas com custo desproporcional — o Café AMPM com Leite, por exemplo, tem CMV de R$ 17.518,25 para 75 unidades vendidas por R$ 674,25. O padrão é de custo médio errado no cadastro (nota de compra lançada com quantidade, unidade ou valor incorreto), e não de venda abaixo do custo. Por isso, <b>a margem real da conveniência deve ser maior que a exibida</b>. Recomendo revisar o cadastro desses itens antes do fechamento de outubro.</div>
+    <h3 style="margin-top:20px">Os 8 itens com maior distorção</h3>
+    <table>
+      <thead><tr><th>Produto</th><th>Grupo</th><th class="num">Qtde.</th><th class="num">Venda (R$)</th><th class="num">CMV (R$)</th><th class="num">Margem (R$)</th></tr></thead>
+      <tbody>
+        <tr><td>Mini Pão Francês 40 g</td><td>Food Service</td><td class="num">178</td><td class="num">1.599,32</td><td class="num">18.868,00</td><td class="num neg">−17.268,68</td></tr>
+        <tr><td>Café AMPM com Leite</td><td>Food Service</td><td class="num">75</td><td class="num">674,25</td><td class="num">17.518,25</td><td class="num neg">−16.844,00</td></tr>
+        <tr><td>Doce AMPM Base Torta (kg)</td><td>Food Service</td><td class="num">77</td><td class="num">1.539,23</td><td class="num">11.650,10</td><td class="num neg">−10.110,87</td></tr>
+        <tr><td>Cerveja Corona 330 ml</td><td>Cervejas</td><td class="num">56</td><td class="num">895,44</td><td class="num">9.261,28</td><td class="num neg">−8.365,84</td></tr>
+        <tr><td>Bolo AMPM Recheado (kg)</td><td>Food Service</td><td class="num">96</td><td class="num">1.917,04</td><td class="num">8.544,00</td><td class="num neg">−6.626,96</td></tr>
+        <tr><td>Chocolate Chok Crocante 32 g</td><td>Bomboniere</td><td class="num">31</td><td class="num">154,69</td><td class="num">2.912,76</td><td class="num neg">−2.758,07</td></tr>
+        <tr><td>Drops Halls Uva Verde 28 g</td><td>Bomboniere</td><td class="num">100</td><td class="num">348,82</td><td class="num">2.730,00</td><td class="num neg">−2.381,18</td></tr>
+        <tr><td>Torta de Frango (fatia)</td><td>Food Service</td><td class="num">17</td><td class="num">305,83</td><td class="num">2.572,10</td><td class="num neg">−2.266,27</td></tr>
+        <tr class="tot-row"><td>8 piores itens</td><td></td><td></td><td class="num">7.434,62</td><td class="num">74.056,49</td><td class="num neg">−66.621,87</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- DESPESAS -->
+  <div class="section-title">Despesas — Setembro 2026</div>
+  <div class="chart-grid">
+    <div class="chart-card"><h3>Por Centro de Custo</h3><div class="chart-box"><canvas id="ccDonut"></canvas></div></div>
+    <div class="chart-card">
+      <h3>Por Categoria</h3>
+      <div class="bar-row"><span class="bar-label">Folha (salários e adiant.)</span><div class="bar-track"><div class="bar-fill" data-w="100"></div></div><span class="bar-val">R$ 57.513</span></div>
+      <div class="bar-row"><span class="bar-label">Aluguel</span><div class="bar-track"><div class="bar-fill" data-w="69.0"></div></div><span class="bar-val">R$ 39.661</span></div>
+      <div class="bar-row"><span class="bar-label">Impostos (DARE/DARF)</span><div class="bar-track"><div class="bar-fill" data-w="56.0"></div></div><span class="bar-val">R$ 32.195</span></div>
+      <div class="bar-row"><span class="bar-label">Utilidades</span><div class="bar-track"><div class="bar-fill" data-w="31.1"></div></div><span class="bar-val">R$ 17.902</span></div>
+      <div class="bar-row"><span class="bar-label">Benefícios (VR/VA/VT)</span><div class="bar-track"><div class="bar-fill" data-w="29.6"></div></div><span class="bar-val">R$ 17.007</span></div>
+      <div class="bar-row"><span class="bar-label">Encargos e sindicato</span><div class="bar-track"><div class="bar-fill" data-w="13.8"></div></div><span class="bar-val">R$ 7.957</span></div>
+      <div class="bar-row"><span class="bar-label">Outros</span><div class="bar-track"><div class="bar-fill" data-w="9.6"></div></div><span class="bar-val">R$ 5.499</span></div>
+      <div class="bar-row"><span class="bar-label">Sistemas e adm.</span><div class="bar-track"><div class="bar-fill" data-w="9.4"></div></div><span class="bar-val">R$ 5.378</span></div>
+      <div class="bar-row"><span class="bar-label">Manutenção e obras</span><div class="bar-track"><div class="bar-fill" data-w="7.3"></div></div><span class="bar-val">R$ 4.224</span></div>
+      <div class="alert info" style="margin-top:8px">O rateio segue a coluna de alocação da própria planilha (PISTA, CONVENIÊNCIA, 50% cada, ou 70% conveniência / 30% pista para água e luz). O <b>VR/VA de R$ 12.078,00</b> foi distribuído pelo pedido nominal nº 20260929017639: 6 colaboradores na Pista (R$ 3.711,00) e 12 na Conveniência (R$ 8.367,00). A compra de <b>eletrodomésticos da conveniência (Dulchapel, R$ 4.403,00) foi tratada como investimento</b> e aparece separada, após o resultado.</div>
+    </div>
+  </div>
+
+  <!-- RESULTADO -->
+  <div class="section-title">Formação do Resultado</div>
+  <div class="chart-card"><h3>Cascata do Resultado</h3><div class="chart-box"><canvas id="waterfall"></canvas></div></div>
+
+  <div class="result-banner">
+    <div>
+      <div class="lbl">Resultado do Mês</div>
+      <div class="big">− R$ 160.577,18</div>
+      <div class="lbl" style="margin-top:8px;text-transform:none;letter-spacing:0">Após investimento (R$ 4.403,00): <b style="color:#f87171">− R$ 164.980,18</b></div>
+    </div>
+    <div class="result-mini">
+      <div><div class="lbl">Margem Líquida</div><div class="num">R$ 30.971,88</div></div>
+      <div><div class="lbl">Despesas</div><div class="num" style="color:var(--red)">− R$ 191.549,06</div></div>
+      <div><div class="lbl">Pista</div><div class="num" style="color:var(--red)">− R$ 64.428,72</div></div>
+      <div><div class="lbl">Conveniência</div><div class="num" style="color:var(--red)">− R$ 96.148,46</div></div>
+    </div>
+  </div>
+
+  <!-- ANEXOS (impressão) -->
+  <div class="print-annex">
+    <h2>Anexo 1 — Demonstrativo do Resultado</h2>
+    <table>
+      <thead><tr><th>Item</th><th class="num">Pista</th><th class="num">Conveniência</th><th class="num">Total</th></tr></thead>
+      <tbody>
+        <tr><td>Vendas</td><td class="num">240.749,00</td><td class="num">205.714,32</td><td class="num">446.463,32</td></tr>
+        <tr><td>(−) CMV</td><td class="num">207.053,07</td><td class="num">190.580,35</td><td class="num">397.633,42</td></tr>
+        <tr><td><b>(=) Margem Bruta</b></td><td class="num">33.695,93</td><td class="num">15.133,97</td><td class="num">48.829,90</td></tr>
+        <tr><td>(−) Tributos sobre vendas</td><td class="num">0,00</td><td class="num">17.858,02</td><td class="num">17.858,02</td></tr>
+        <tr><td><b>(=) Margem Líquida</b></td><td class="num">33.695,93</td><td class="num">−2.724,05</td><td class="num">30.971,88</td></tr>
+        <tr><td>(−) Despesas diretas</td><td class="num">61.949,11</td><td class="num">45.912,82</td><td class="num">107.861,93</td></tr>
+        <tr><td>(−) Rateio (conforme planilha)</td><td class="num">30.192,28</td><td class="num">37.203,00</td><td class="num">67.395,28</td></tr>
+        <tr><td>(−) VR/VA (pedido nominal)</td><td class="num">3.711,00</td><td class="num">8.367,00</td><td class="num">12.078,00</td></tr>
+        <tr><td>(−) Taxas de cartão</td><td class="num">2.272,26</td><td class="num">1.941,59</td><td class="num">4.213,85</td></tr>
+        <tr class="tot-row"><td>(=) Resultado</td><td class="num">−64.428,72</td><td class="num">−96.148,46</td><td class="num">−160.577,18</td></tr>
+        <tr><td>(−) Investimento (eletrodomésticos conveniência)</td><td class="num">—</td><td class="num">4.403,00</td><td class="num">4.403,00</td></tr>
+        <tr class="tot-row"><td>(=) Resultado após investimento</td><td class="num">−64.428,72</td><td class="num">−100.551,46</td><td class="num">−164.980,18</td></tr>
+      </tbody>
+    </table>
+
+    <h2 style="margin-top:24px">Anexo 2 — Despesas por Categoria e Centro de Custo</h2>
+    <table>
+      <thead><tr><th>Categoria</th><th class="num">Pista</th><th class="num">Conveniência</th><th class="num">Total</th></tr></thead>
+      <tbody>
+        <tr><td>Folha (salários e adiantamentos)</td><td class="num">18.571,46</td><td class="num">38.941,56</td><td class="num">57.513,02</td></tr>
+        <tr><td>Aluguel</td><td class="num">19.830,38</td><td class="num">19.830,39</td><td class="num">39.660,77</td></tr>
+        <tr><td>Impostos (DARE/DARF)</td><td class="num">32.194,59</td><td class="num">—</td><td class="num">32.194,59</td></tr>
+        <tr><td>Utilidades</td><td class="num">5.390,50</td><td class="num">12.511,55</td><td class="num">17.902,05</td></tr>
+        <tr><td>Benefícios (VR/VA/VT)</td><td class="num">4.713,10</td><td class="num">12.293,60</td><td class="num">17.006,70</td></tr>
+        <tr><td>Encargos e sindicato</td><td class="num">7.149,92</td><td class="num">807,00</td><td class="num">7.956,92</td></tr>
+        <tr><td>Outros</td><td class="num">4.138,04</td><td class="num">1.361,09</td><td class="num">5.499,13</td></tr>
+        <tr><td>Sistemas e administrativo</td><td class="num">2.776,52</td><td class="num">2.601,94</td><td class="num">5.378,46</td></tr>
+        <tr><td>Manutenção e obras</td><td class="num">1.087,88</td><td class="num">3.135,69</td><td class="num">4.223,57</td></tr>
+        <tr class="tot-row"><td>Total</td><td class="num">95.852,39</td><td class="num">91.482,82</td><td class="num">187.335,21</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:11.5px;color:var(--muted);margin-top:8px">Rateio por linha, conforme coluna de alocação da planilha DESPESAS (PISTA / CONVENIÊNCIA / 50% cada / 70% conveniência e 30% pista para água e luz); o único lançamento sem centro de custo (salário de colaborador da pista) foi alocado à Pista. O VR/VA (R$ 12.078,00, já incluído em Benefícios) foi distribuído pelo pedido nominal: R$ 3.711,00 na Pista (6 colaboradores) e R$ 8.367,00 na Conveniência (12 colaboradores). As taxas de cartão (R$ 4.213,85) entram à parte, rateadas pelas vendas. Ficam fora desta base o investimento em eletrodomésticos da conveniência (R$ 4.403,00) e os passivos da gestão anterior pagos em setembro (R$ 31.774,02), que estão no relatório próprio.</p>
+
+    <h2 style="margin-top:24px">Anexo 3 — Combustíveis</h2>
+    <table>
+      <thead><tr><th>Combustível</th><th class="num">Litros</th><th class="num">Venda méd.</th><th class="num">Custo méd.</th><th class="num">Margem/L</th><th class="num">Receita</th></tr></thead>
+      <tbody>
+        <tr><td>Gasolina Comum</td><td class="num">17.310,40</td><td class="num">6,750</td><td class="num">5,845</td><td class="num">0,905</td><td class="num">116.841,01</td></tr>
+        <tr><td>Etanol Comum</td><td class="num">9.648,63</td><td class="num">4,550</td><td class="num">3,664</td><td class="num">0,886</td><td class="num">43.899,27</td></tr>
+        <tr><td>Gasolina Aditivada</td><td class="num">10.372,77</td><td class="num">6,771</td><td class="num">5,971</td><td class="num">0,801</td><td class="num">70.237,62</td></tr>
+        <tr><td>Diesel S10</td><td class="num">1.333,06</td><td class="num">7,330</td><td class="num">6,449</td><td class="num">0,881</td><td class="num">9.771,10</td></tr>
+        <tr class="tot-row"><td>Total</td><td class="num">38.664,86</td><td class="num">6,227</td><td class="num">5,355</td><td class="num">0,871</td><td class="num">240.749,00</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:11.5px;color:var(--muted);margin-top:8px">Gasolina Aditivada: o relatório traz duas linhas por causa do reajuste no mês (8.133,12 L a R$ 6,750 e 2.239,66 L a R$ 6,850); aqui aparecem somadas, com preço médio.</p>
+  </div>
+
+  <footer>Relatório gerado por <b style="color:var(--accent)">Finansys</b> · Assessoria &amp; Consultoria Financeira · Posto Travessia · Setembro 2026</footer>
+</div>
+
+<div class="overlay" id="overlay" onclick="closeAll()"></div>
+
+<div class="panel" id="pVendas">
+  <div class="panel-hd"><button class="back-btn" onclick="closeAll()">←</button><h2 class="panel-title">Vendas — Pista × Conveniência</h2></div>
+  <div class="panel-body">
+    <div class="panel-chart"><canvas id="pcVendas"></canvas></div>
+    <table>
+      <thead><tr><th>Unidade</th><th class="num">Vendas (R$)</th><th class="num">%</th><th class="num">Margem Bruta</th><th class="num">Margem %</th></tr></thead>
+      <tbody>
+        <tr><td>Pista</td><td class="num">240.749,00</td><td class="num">53,9%</td><td class="num">33.695,93</td><td class="num">14,00%</td></tr>
+        <tr><td>Conveniência</td><td class="num">205.714,32</td><td class="num">46,1%</td><td class="num">15.133,97</td><td class="num">7,36%</td></tr>
+        <tr class="tot-row"><td>Total</td><td class="num">446.463,32</td><td class="num">100%</td><td class="num">48.829,90</td><td class="num">10,94%</td></tr>
+      </tbody>
+    </table>
+    <table style="margin-top:24px">
+      <thead><tr><th>Indicador</th><th class="num">Setembro</th><th class="num">Agosto</th><th class="num">Variação</th></tr></thead>
+      <tbody>
+        <tr><td>Vendas totais</td><td class="num">R$ 446.463,32</td><td class="num">R$ 425.467,70</td><td class="num">+4,9%</td></tr>
+        <tr><td>Cupons emitidos</td><td class="num">14.272</td><td class="num">14.698</td><td class="num">−2,9%</td></tr>
+        <tr><td>Ticket médio por cupom</td><td class="num">R$ 31,28</td><td class="num">R$ 28,95</td><td class="num">+8,0%</td></tr>
+        <tr><td>Itens por cupom</td><td class="num">4,28</td><td class="num">4,02</td><td class="num">+6,5%</td></tr>
+        <tr><td>Itens vendidos</td><td class="num">61.142,19</td><td class="num">59.052,70</td><td class="num">+3,5%</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="panel" id="pLitros">
+  <div class="panel-hd"><button class="back-btn" onclick="closeAll()">←</button><h2 class="panel-title">Litros por Combustível</h2></div>
+  <div class="panel-body">
+    <div class="panel-chart"><canvas id="pcLitros"></canvas></div>
+    <table>
+      <thead><tr><th>Combustível</th><th class="num">Litros</th><th class="num">% do Total</th><th class="num">Margem/L</th></tr></thead>
+      <tbody>
+        <tr><td>Gasolina Comum</td><td class="num">17.310,40</td><td class="num">44,8%</td><td class="num">R$ 0,905</td></tr>
+        <tr><td>Etanol Comum</td><td class="num">9.648,63</td><td class="num">25,0%</td><td class="num">R$ 0,886</td></tr>
+        <tr><td>Gasolina Aditivada</td><td class="num">10.372,77</td><td class="num">26,8%</td><td class="num">R$ 0,801</td></tr>
+        <tr><td>Diesel S10</td><td class="num">1.333,06</td><td class="num">3,4%</td><td class="num">R$ 0,881</td></tr>
+        <tr class="tot-row"><td>Total</td><td class="num">38.664,86</td><td class="num">100%</td><td class="num">R$ 0,871</td></tr>
+      </tbody>
+    </table>
+    <div class="alert info" style="margin-top:18px">Volume +12,3% vs agosto (34.441,87 L). Margem média de R$ 0,871/L, contra R$ 1,021/L em agosto.</div>
+  </div>
+</div>
+
+<div class="panel" id="pMargem">
+  <div class="panel-hd"><button class="back-btn" onclick="closeAll()">←</button><h2 class="panel-title">Composição da Margem</h2></div>
+  <div class="panel-body">
+    <table>
+      <thead><tr><th>Item</th><th class="num">Pista</th><th class="num">Conveniência</th><th class="num">Total</th></tr></thead>
+      <tbody>
+        <tr><td>Vendas</td><td class="num">240.749,00</td><td class="num">205.714,32</td><td class="num">446.463,32</td></tr>
+        <tr><td>(−) CMV</td><td class="num">207.053,07</td><td class="num">190.580,35</td><td class="num">397.633,42</td></tr>
+        <tr><td>(=) Margem Bruta</td><td class="num">33.695,93</td><td class="num">15.133,97</td><td class="num">48.829,90</td></tr>
+        <tr><td>(−) Tributos sobre vendas</td><td class="num">0,00</td><td class="num">17.858,02</td><td class="num">17.858,02</td></tr>
+        <tr class="tot-row"><td>(=) Margem Líquida</td><td class="num">33.695,93</td><td class="num">−2.724,05</td><td class="num">30.971,88</td></tr>
+      </tbody>
+    </table>
+    <div class="alert info" style="margin-top:18px">Margem líquida de R$ 30.971,88 (6,94% das vendas), contra R$ 5.279,03 (1,24%) em agosto. A diferença entre margem bruta e líquida é a dedução que o sistema aplica sobre a venda de mercadorias e que praticamente não incide sobre combustível — comportamento compatível com <b>tributos sobre vendas</b> (ICMS próprio, PIS e COFINS), já que o combustível é tributado por substituição na origem. <b>A confirmar com a contabilidade.</b></div>
+    <div class="alert warn">⚠ A margem da conveniência está subestimada por custo errado no cadastro: 43 itens com CMV acima da venda somam −R$ 81.185,74 de margem no Resumo de Vendas.</div>
+  </div>
+</div>
+
+<div class="panel" id="pDespesas">
+  <div class="panel-hd"><button class="back-btn" onclick="closeAll()">←</button><h2 class="panel-title">Despesas · Setembro 2026</h2></div>
+  <div class="panel-body">
+    <div class="panel-chart"><canvas id="pcDesp"></canvas></div>
+    <table>
+      <thead><tr><th>Categoria</th><th class="num">Pista</th><th class="num">Conveniência</th><th class="num">Total</th></tr></thead>
+      <tbody>
+        <tr><td>Folha (salários e adiantamentos)</td><td class="num">18.571,46</td><td class="num">38.941,56</td><td class="num">57.513,02</td></tr>
+        <tr><td>Aluguel</td><td class="num">19.830,38</td><td class="num">19.830,39</td><td class="num">39.660,77</td></tr>
+        <tr><td>Impostos (DARE/DARF)</td><td class="num">32.194,59</td><td class="num">—</td><td class="num">32.194,59</td></tr>
+        <tr><td>Utilidades</td><td class="num">5.390,50</td><td class="num">12.511,55</td><td class="num">17.902,05</td></tr>
+        <tr><td>Benefícios (VR/VA/VT)</td><td class="num">4.713,10</td><td class="num">12.293,60</td><td class="num">17.006,70</td></tr>
+        <tr><td>Encargos e sindicato</td><td class="num">7.149,92</td><td class="num">807,00</td><td class="num">7.956,92</td></tr>
+        <tr><td>Outros</td><td class="num">4.138,04</td><td class="num">1.361,09</td><td class="num">5.499,13</td></tr>
+        <tr><td>Sistemas e administrativo</td><td class="num">2.776,52</td><td class="num">2.601,94</td><td class="num">5.378,46</td></tr>
+        <tr><td>Manutenção e obras</td><td class="num">1.087,88</td><td class="num">3.135,69</td><td class="num">4.223,57</td></tr>
+        <tr class="tot-row"><td>Total</td><td class="num">95.852,39</td><td class="num">91.482,82</td><td class="num">187.335,21</td></tr>
+      </tbody>
+    </table>
+    <div class="alert info" style="margin-top:18px">Despesas operacionais de R$ 187.335,21 (103 lançamentos), contra R$ 168.587,14 em agosto. Somadas às taxas de cartão (R$ 4.213,85), chegam a R$ 191.549,06 (+11,3% vs agosto).</div>
+    <div class="alert warn">Os <b>passivos da gestão anterior pagos em setembro (R$ 31.774,02) não estão nesta base</b> — são acompanhados no relatório "Passivos Gestão Anterior", sem lançamento em duplicidade entre as duas listas. A compra de eletrodomésticos da conveniência (Dulchapel, R$ 4.403,00) também ficou fora: foi classificada como investimento.</div>
+  </div>
+</div>
+
+<div class="panel" id="pResultado">
+  <div class="panel-hd"><button class="back-btn" onclick="closeAll()">←</button><h2 class="panel-title">Formação do Resultado</h2></div>
+  <div class="panel-body">
+    <div class="panel-chart"><canvas id="pcWater"></canvas></div>
+    <table>
+      <thead><tr><th>Item</th><th class="num">Valor (R$)</th></tr></thead>
+      <tbody>
+        <tr><td>Margem Bruta</td><td class="num">48.829,90</td></tr>
+        <tr><td>(−) Tributos sobre vendas</td><td class="num">17.858,02</td></tr>
+        <tr><td>(=) Margem Líquida</td><td class="num">30.971,88</td></tr>
+        <tr><td>(−) Despesas operacionais</td><td class="num">187.335,21</td></tr>
+        <tr><td>(−) Taxas de cartão</td><td class="num">4.213,85</td></tr>
+        <tr class="tot-row"><td>(=) Resultado</td><td class="num">−160.577,18</td></tr>
+        <tr><td>(−) Investimento (eletrodomésticos conveniência)</td><td class="num">4.403,00</td></tr>
+        <tr class="tot-row"><td>(=) Resultado após investimento</td><td class="num">−164.980,18</td></tr>
+      </tbody>
+    </table>
+    <div class="alert info" style="margin-top:18px">Em agosto o resultado foi de − R$ 166.864,97; em setembro, − R$ 160.577,18 — melhora de R$ 6.287,79.</div>
+  </div>
+</div>
+
+<script>
+Chart.defaults.color='#8ba3c7';
+Chart.defaults.borderColor='rgba(94,179,245,0.1)';
+Chart.defaults.font.family='Inter';
+if(window.ChartDataLabels){Chart.register(ChartDataLabels);Chart.defaults.set('plugins.datalabels',{display:false});}
+const BRL=v=>'R$ '+v.toLocaleString('pt-BR',{maximumFractionDigits:0});
+const COL=['#1e5fc8','#5fb3f5','#7dd3fc','#f59e0b','#a07af5','#22c55e','#ef4444','#8ba3c7'];
+const donut=(data,labels)=>{const t=data.reduce((a,b)=>a+b,0);return{responsive:true,maintainAspectRatio:false,cutout:'58%',
+ plugins:{legend:{position:'bottom',labels:{padding:12,font:{size:11.5},boxWidth:12,usePointStyle:true,pointStyle:'circle'}},
+  datalabels:{display:c=>c.dataset.data[c.dataIndex]/t>0.04,color:'#fff',font:{weight:800,size:11.5},
+   formatter:v=>(100*v/t).toFixed(1).replace('.',',')+'%'},
+  tooltip:{callbacks:{label:c=>' '+c.label+': '+BRL(c.parsed)}}}};};
+
+new Chart(document.getElementById('unitBar'),{type:'bar',
+ data:{labels:['Vendas','Margem Líquida','Despesas','Resultado'],datasets:[
+  {label:'Pista',data:[240749.00,33695.93,98124.65,-64428.72],backgroundColor:'#5fb3f5',borderRadius:6},
+  {label:'Conveniência',data:[205714.32,-2724.05,93424.41,-96148.46],backgroundColor:'#a07af5',borderRadius:6}]},
+ options:{responsive:true,maintainAspectRatio:false,
+  plugins:{legend:{position:'bottom'},tooltip:{callbacks:{label:c=>' '+c.dataset.label+': '+BRL(c.parsed.y)}}},
+  scales:{y:{ticks:{callback:v=>(v/1000)+'k'}},x:{grid:{display:false}}}}});
+
+const fuelL=['Gasolina Comum','Etanol Comum','Gasolina Aditivada','Diesel S10'];
+const fuelRev=[116841.01,43899.27,70237.62,9771.10];
+const fuelLit=[17310.402,9648.631,10372.773,1333.056];
+new Chart(document.getElementById('fuelRev'),{type:'doughnut',data:{labels:fuelL,datasets:[{data:fuelRev,backgroundColor:COL,borderColor:'#132952',borderWidth:2}]},options:donut(fuelRev)});
+new Chart(document.getElementById('fuelLit'),{type:'doughnut',data:{labels:fuelL,datasets:[{data:fuelLit,backgroundColor:COL,borderColor:'#132952',borderWidth:2}]},options:donut(fuelLit)});
+
+new Chart(document.getElementById('convBar'),{type:'bar',
+ data:{labels:['Padaria','Tabaco','Beb.não alc.','Laticínios','Bomboniere','Eletrônicos','Mercearia','Merc.autom.','Almoço','Biscoitos','Aditivos','Serviços','Lubrific.','Sorvetes','Alcoólicas'],
+  datasets:[{data:[8351.26,4299.57,3490.54,1655.88,1439.93,433.86,194.09,107.03,91.07,84.21,38.98,0.00,-206.74,-1736.25,-3109.45],
+   backgroundColor:c=>c.raw<0?'#ef4444':'#5fb3f5',borderRadius:5}]},
+ options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,layout:{padding:{left:6}},
+  plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>' '+BRL(c.parsed.x)}}},
+  scales:{x:{ticks:{callback:v=>(v/1000)+'k'}},y:{grid:{display:false},ticks:{font:{size:11},autoSkip:false}}}}});
+
+const ccData=[98124.65,93424.41];
+new Chart(document.getElementById('ccDonut'),{type:'doughnut',
+ data:{labels:['Pista','Conveniência'],datasets:[{data:ccData,backgroundColor:['#5fb3f5','#a07af5'],borderColor:'#132952',borderWidth:2}]},
+ options:donut(ccData)});
+
+function waterfall(id){
+ new Chart(document.getElementById(id),{type:'bar',
+  data:{labels:['Margem\nBruta','(−) Tributos','(=) Margem\nLíquida','(−) Despesas','(=) Resultado','(−) Investim.','(=) Após\ninvestim.'],
+   datasets:[{data:[[0,48830],[30972,48830],[0,30972],[-160577,30972],[-160577,0],[-164980,-160577],[-164980,0]],
+    backgroundColor:['#1e5fc8','#f59e0b','#5fb3f5','#ef4444','#ef4444','#a07af5','#ef4444'],borderRadius:6,borderSkipped:false}]},
+  options:{responsive:true,maintainAspectRatio:false,
+   plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>' '+BRL([48829.90,17858.02,30971.88,191549.06,-160577.18,4403.00,-164980.18][c.dataIndex])}}},
+   scales:{y:{ticks:{callback:v=>(v/1000)+'k'}},x:{grid:{display:false},ticks:{font:{size:10}}}}}});
+}
+waterfall('waterfall');
+
+let built=false;
+function buildPanels(){
+ if(built) return; built=true;
+ const pv=[240749.00,205714.32];
+ new Chart(document.getElementById('pcVendas'),{type:'doughnut',data:{labels:['Pista','Conveniência'],datasets:[{data:pv,backgroundColor:['#5fb3f5','#a07af5'],borderColor:'#132952',borderWidth:2}]},options:donut(pv)});
+ new Chart(document.getElementById('pcLitros'),{type:'doughnut',data:{labels:fuelL,datasets:[{data:fuelLit,backgroundColor:COL,borderColor:'#132952',borderWidth:2}]},options:donut(fuelLit)});
+ const dc=[57513.02,39660.77,32194.59,17902.05,17006.70,7956.92,5499.13,5378.46,4223.57];
+ new Chart(document.getElementById('pcDesp'),{type:'bar',
+  data:{labels:['Folha','Aluguel','Impostos','Utilidades','Benefícios','Encargos','Outros','Sistemas','Manutenção'],
+   datasets:[{data:dc,backgroundColor:COL.concat(['#64748b']),borderRadius:5}]},
+  options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,
+   plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>' '+BRL(c.parsed.x)}}},
+   scales:{x:{ticks:{callback:v=>(v/1000)+'k'}},y:{grid:{display:false},ticks:{font:{size:11}}}}}});
+ waterfall('pcWater');
+}
+function animateBars(){document.querySelectorAll('.bar-fill[data-w]').forEach(b=>{setTimeout(()=>{b.style.width=b.dataset.w+'%'},120)})}
+animateBars();
+function openPanel(id){buildPanels();document.querySelectorAll('.panel').forEach(p=>p.classList.remove('open'));document.getElementById(id).classList.add('open');document.getElementById('overlay').classList.add('open');}
+function closeAll(){document.querySelectorAll('.panel').forEach(p=>p.classList.remove('open'));document.getElementById('overlay').classList.remove('open');}
+function baixarPDF(){closeAll();buildPanels();document.querySelectorAll('.bar-fill[data-w]').forEach(b=>{b.style.width=b.dataset.w+'%'});setTimeout(()=>window.print(),450);}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeAll()});
+window.addEventListener('beforeprint',()=>{document.querySelectorAll('.bar-fill[data-w]').forEach(b=>{b.style.width=b.dataset.w+'%'})});
+</script>
+</body>
+</html>
