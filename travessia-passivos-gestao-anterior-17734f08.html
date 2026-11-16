@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
-<title>Posto Travessia — Passivos Gestão Anterior · Out 2026</title>
+<title>Posto Travessia — Passivos Gestão Anterior · Acumulado até Out 2026</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
@@ -109,6 +109,20 @@ footer{margin:54px 0 40px;text-align:center;font-size:12px;color:var(--muted);pa
 .back-home:hover{background:rgba(94,179,245,.28);color:#f0f6ff}
 @media print{.back-home{display:none!important}}
 </style>
+<style>
+.kpi-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+@media(max-width:900px){.kpi-grid{grid-template-columns:1fr!important}}
+details.mes{margin-bottom:14px;border:1px solid rgba(94,179,245,.18);border-radius:14px;overflow:hidden;background:rgba(19,41,82,.35)}
+details.mes>summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;padding:14px 18px;font-weight:700;color:#e8f1ff}
+details.mes>summary::-webkit-details-marker{display:none}
+details.mes>summary .sub{font-weight:500;color:var(--muted);font-size:12.5px;margin-left:10px}
+details.mes>summary .val{color:#5fb3f5;font-weight:800}
+details.mes>summary:before{content:'▸';margin-right:10px;color:#5fb3f5;transition:transform .2s}
+details.mes[open]>summary:before{transform:rotate(90deg)}
+details.mes .inner{padding:0 14px 14px}
+.st.ok{white-space:nowrap}.st.warn{white-space:nowrap}
+@media print{details.mes{break-inside:auto;}details.mes>summary:before{display:none}}
+</style>
 </head>
 <body>
 
@@ -116,15 +130,14 @@ footer{margin:54px 0 40px;text-align:center;font-size:12px;color:var(--muted);pa
   <div>
     <div class="pc-logo">F</div>
     <h1>Passivos<br>Gestão Anterior</h1>
-    <div class="pc-sub">Posto Travessia · Pagamentos e conciliação de comprovantes<br>Período: 01/10/2026 a 31/10/2026 + 05/11/2026 (+ 3 pagamentos de agosto)</div>
+    <div class="pc-sub">Posto Travessia · Pagamentos e conciliação de comprovantes<br>Acumulado de 26/06/2026 a 31/10/2026 (+ 05/11)</div>
     <div class="pc-hl">
-      <div class="pc-box"><div class="l">Total Pago</div><div class="v">R$ 97.178</div><div class="d">12 lançamentos</div></div>
-      <div class="pc-box"><div class="l">Período</div><div class="v">Outubro 2026</div><div class="d">01/10 a 31/10 + 05/11 + 3 de agosto</div></div>
+      <div class="pc-box"><div class="l">Total Acumulado</div><div class="v">R$ 494.264</div><div class="d">94 lançamentos</div></div>
+      <div class="pc-box"><div class="l">Pago em Outubro</div><div class="v">R$ 97.178</div><div class="d">12 lançamentos</div></div>
     </div>
   </div>
   <div class="pc-foot"><span><b style="color:#5fb3f5">Finansys</b> · Assessoria &amp; Consultoria Financeira</span><span>Documento confidencial · Outubro/2026</span></div>
 </div>
-
 <header>
   <div class="hdr-in">
     <div class="logo-box">
@@ -148,20 +161,29 @@ footer{margin:54px 0 40px;text-align:center;font-size:12px;color:var(--muted);pa
 <div class="wrap">
   <div class="hero">
     <h1>Passivos — Gestão Anterior</h1>
-    <p>Posto Travessia · Pagamentos e conciliação de comprovantes</p>
-    <p class="cnpj">POSTO DE SERVIÇOS TRAVESSIA DE SANTOS LTDA · CNPJ 08.521.038/0001-11 · Período 01/10/2026 a 31/10/2026 (+ 2 pagamentos de 05/11 e 3 de agosto com comprovante recebido depois)</p>
+    <p>Posto Travessia · Pagamentos e conciliação de comprovantes · acumulado desde a troca de gestão</p>
+    <p class="cnpj">POSTO DE SERVIÇOS TRAVESSIA DE SANTOS LTDA · CNPJ 08.521.038/0001-11 · Período 26/06/2026 a 31/10/2026 (+ 05/11)</p>
   </div>
-
 
   <div class="kpi-grid">
     <div class="kpi-card">
-      <div class="kpi-label">Total Pago</div>
+      <div class="kpi-label">Total Acumulado</div>
+      <div class="kpi-val">R$ 494.264</div>
+      <div class="kpi-sub">94 lançamentos · jun a out/26</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Pago em Outubro</div>
       <div class="kpi-val">R$ 97.178</div>
-      <div class="kpi-sub">12 lançamentos · outubro</div>
+      <div class="kpi-sub">12 lançamentos (+ 05/11 e 3 de agosto)</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Trabalhista (acumulado)</div>
+      <div class="kpi-val">R$ 230.066</div>
+      <div class="kpi-sub">46,5% do total · acordos, rescisões e FGTS</div>
     </div>
   </div>
 
-  <div class="section-title">Composição dos Passivos</div>
+  <div class="section-title">Composição Acumulada</div>
   <div class="chart-grid">
     <div class="chart-card">
       <h3>Distribuição por Categoria</h3>
@@ -169,38 +191,189 @@ footer{margin:54px 0 40px;text-align:center;font-size:12px;color:var(--muted);pa
     </div>
     <div class="chart-card">
       <h3>Valor por Categoria</h3>
-      <div class="bar-row"><span class="bar-label">Acordos trabalhistas</span><div class="bar-track"><div class="bar-fill" data-w="100.0"></div></div><span class="bar-val">R$ 76.277</span></div>
-      <div class="bar-row"><span class="bar-label">FGTS</span><div class="bar-track"><div class="bar-fill" data-w="11.1"></div></div><span class="bar-val">R$ 8.493</span></div>
-      <div class="bar-row"><span class="bar-label">Rescisões e encargos</span><div class="bar-track"><div class="bar-fill" data-w="8.8"></div></div><span class="bar-val">R$ 6.686</span></div>
-      <div class="bar-row"><span class="bar-label">Férias atrasadas</span><div class="bar-track"><div class="bar-fill" data-w="7.5"></div></div><span class="bar-val">R$ 5.721</span></div>
+      <div class="bar-row"><span class="bar-label">Trabalhista</span><div class="bar-track"><div class="bar-fill" data-w="100.0"></div></div><span class="bar-val">R$ 230.066</span></div>
+      <div class="bar-row"><span class="bar-label">Aluguel Ipiranga</span><div class="bar-track"><div class="bar-fill" data-w="52.4"></div></div><span class="bar-val">R$ 120.616</span></div>
+      <div class="bar-row"><span class="bar-label">Utilidades</span><div class="bar-track"><div class="bar-fill" data-w="16.6"></div></div><span class="bar-val">R$ 38.267</span></div>
+      <div class="bar-row"><span class="bar-label">Bloqueio judicial</span><div class="bar-track"><div class="bar-fill" data-w="14.4"></div></div><span class="bar-val">R$ 33.211</span></div>
+      <div class="bar-row"><span class="bar-label">Fornecedores conveniência</span><div class="bar-track"><div class="bar-fill" data-w="12.5"></div></div><span class="bar-val">R$ 28.753</span></div>
+      <div class="bar-row"><span class="bar-label">Impostos e taxas</span><div class="bar-track"><div class="bar-fill" data-w="10.7"></div></div><span class="bar-val">R$ 24.531</span></div>
+      <div class="bar-row"><span class="bar-label">Uniformes (Clanel)</span><div class="bar-track"><div class="bar-fill" data-w="5.3"></div></div><span class="bar-val">R$ 12.160</span></div>
+      <div class="bar-row"><span class="bar-label">Serviços e administrativo</span><div class="bar-track"><div class="bar-fill" data-w="2.7"></div></div><span class="bar-val">R$ 6.264</span></div>
+      <div class="bar-row"><span class="bar-label">Manutenção</span><div class="bar-track"><div class="bar-fill" data-w="0.2"></div></div><span class="bar-val">R$ 396</span></div>
     </div>
     <div class="chart-card">
-      <h3>Desembolso por Mês</h3>
+      <h3>Desembolso por Mês e Acumulado</h3>
       <div class="chart-box"><canvas id="mesBar"></canvas></div>
     </div>
   </div>
 
-  <div class="section-title">Conciliação Detalhada</div>
+  <div class="section-title">Acordos Trabalhistas em Parcelas</div>
   <div class="chart-card">
+    <table>
+      <thead><tr><th>Beneficiário</th><th class="num">Pagamentos</th><th class="num">Total pago (R$)</th><th class="num">Última parcela informada</th><th class="num">Último pagamento</th><th>Situação</th></tr></thead>
+      <tbody>
+        <tr><td>Douglas Gladiel</td><td class="num">2</td><td class="num">65.000,00</td><td class="num">—</td><td class="num">07/10</td><td><span class="st ok">Pago em out/26</span></td></tr>
+        <tr><td>Bruna Verônica</td><td class="num">8</td><td class="num">49.454,05</td><td class="num">4</td><td class="num">05/11</td><td><span class="st ok">Pago em out/26</span></td></tr>
+        <tr><td>Lélio</td><td class="num">3</td><td class="num">12.000,00</td><td class="num">4</td><td class="num">09/10</td><td><span class="st ok">Pago em out/26</span></td></tr>
+        <tr><td>Roberta</td><td class="num">2</td><td class="num">10.000,00</td><td class="num">2</td><td class="num">28/09</td><td><span class="st warn">Sem pagamento desde set/26</span></td></tr>
+        <tr><td>Leandra</td><td class="num">3</td><td class="num">8.000,00</td><td class="num">3</td><td class="num">15/10</td><td><span class="st ok">Pago em out/26</span></td></tr>
+        <tr><td>Maria Edite (via Natalia de Castro)</td><td class="num">3</td><td class="num">3.750,00</td><td class="num">4</td><td class="num">29/08</td><td><span class="st warn">Sem pagamento desde ago/26</span></td></tr>
+        <tr><td>Nayra Santos</td><td class="num">4</td><td class="num">3.826,68</td><td class="num">7</td><td class="num">06/10</td><td><span class="st ok">Pago em out/26</span></td></tr>
+        <tr><td>Sinelande</td><td class="num">4</td><td class="num">2.194,28</td><td class="num">6/10</td><td class="num">20/10</td><td><span class="st ok">Pago em out/26</span></td></tr>
+        <tr><td>Valéria</td><td class="num">1</td><td class="num">7.000,00</td><td class="num">10</td><td class="num">10/07</td><td><span class="st ok">Quitado</span></td></tr>
+        <tr class="tot-row"><td>Total em acordos</td><td class="num">30</td><td class="num">161.225,01</td><td colspan="3"></td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:11.5px;color:var(--muted);margin-top:10px">Considera os pagamentos registrados desde 26/06/2026. Parcelas anteriores à troca de gestão não constam. Roberta: última parcela registrada em 28/09 (sem pagamento desde set/26). Maria Edite (via Natalia de Castro): última parcela registrada em 29/08 (sem pagamento desde ago/26). Bruna inclui o processo no TRT (julho), o acordo e o FGTS de 05/11.</p>
+  </div>
+
+  <div class="section-title">Conciliação Detalhada por Mês</div>
+  
+  <details class="mes" open>
+    <summary><span>Outubro/2026<span class="sub">01/10 a 31/10 + 05/11 + 3 pagamentos de agosto · 12 lançamentos</span></span><span class="val">R$ 97.177,65</span></summary>
+    <div class="inner">
     <table>
       <thead><tr><th>Data</th><th>Beneficiário</th><th>Descrição</th><th class="num">Valor (R$)</th><th>Categoria</th><th>Status</th></tr></thead>
       <tbody>
-<tr><td>07/08</td><td>CAIXA ECONÔMICA FEDERAL</td><td>CONSIGNADO EM ATRASO ANNE (pago em ago.)</td><td class="num">539,33</td><td>Rescisões e encargos</td><td><span class="st ok">Confirmado</span></td></tr>
-<tr><td>10/08</td><td>ZULEIDE (LÉLIO)</td><td>ACORDO TRABALHISTA LÉLIO (PARC 2) (pago em ago.)</td><td class="num">4.000,00</td><td>Acordos trabalhistas</td><td><span class="st ok">Confirmado</span></td></tr>
-<tr><td>21/08</td><td>JESSICA LETICIA</td><td>RESCISÃO JESSICA (pago em ago.)</td><td class="num">6.146,85</td><td>Rescisões e encargos</td><td><span class="st ok">Confirmado</span></td></tr>
-<tr><td>02/10</td><td>MARIA CLEIDE</td><td>2 FÉRIAS ATRASADAS</td><td class="num">5.721,14</td><td>Férias atrasadas</td><td><span class="st ok">Confirmado</span></td></tr>
-<tr><td>06/10</td><td>BRUNA VERONICA</td><td>ACORDO TRABALHISTA (PARC 3)</td><td class="num">10.000,00</td><td>Acordos trabalhistas</td><td><span class="st ok">Confirmado</span></td></tr>
-<tr><td>06/10</td><td>NAYRA SANTOS</td><td>ACORDO TEMPO SEM REGISTRO NAYRA (PARC 7)</td><td class="num">956,67</td><td>Acordos trabalhistas</td><td><span class="st ok">Confirmado</span></td></tr>
-<tr><td>07/10</td><td>DOUGLAS GLADIEL</td><td>ACORDO TRABALHISTA DOUGLAS</td><td class="num">50.000,00</td><td>Acordos trabalhistas</td><td><span class="st ok">Confirmado</span></td></tr>
-<tr><td>09/10</td><td>LELIO</td><td>ACORDO TRABALHISTA LELIO (PARC 4)</td><td class="num">4.000,00</td><td>Acordos trabalhistas</td><td><span class="st ok">Confirmado</span></td></tr>
-<tr><td>15/10</td><td>LEANDRA</td><td>ACORDO TRABALHISTA LEANDRA (PARC 3)</td><td class="num">4.000,00</td><td>Acordos trabalhistas</td><td><span class="st ok">Confirmado</span></td></tr>
-<tr><td>20/10</td><td>SINELANDE</td><td>ACORDO TRABALHISTA (PARC 6/10)</td><td class="num">548,57</td><td>Acordos trabalhistas</td><td><span class="st ok">Confirmado</span></td></tr>
-<tr><td>05/11</td><td>BRUNA VERONICA</td><td>ACORDO TRABALHISTA (PARC 4)</td><td class="num">2.771,68</td><td>Acordos trabalhistas</td><td><span class="st ok">Confirmado</span></td></tr>
-<tr><td>05/11</td><td>BRUNA VERONICA</td><td>FGTS</td><td class="num">8.493,41</td><td>FGTS</td><td><span class="st ok">Confirmado</span></td></tr>
-        <tr class="tot-row"><td colspan="3">Total do período (outubro + 05/11 + 3 pagamentos de agosto)</td><td class="num">97.177,65</td><td colspan="2"></td></tr>
+<tr><td>07/08</td><td>CAIXA ECONÔMICA FEDERAL</td><td>CONSIGNADO EM ATRASO ANNE (pago em ago.)</td><td class="num">539,33</td><td>Trabalhista</td><td><span class="st ok">Confirmado</span></td></tr>
+<tr><td>10/08</td><td>ZULEIDE (LÉLIO)</td><td>ACORDO TRABALHISTA LÉLIO (PARC 2) (pago em ago.)</td><td class="num">4.000,00</td><td>Trabalhista</td><td><span class="st ok">Confirmado</span></td></tr>
+<tr><td>21/08</td><td>JESSICA LETICIA</td><td>RESCISÃO JESSICA (pago em ago.)</td><td class="num">6.146,85</td><td>Trabalhista</td><td><span class="st ok">Confirmado</span></td></tr>
+<tr><td>02/10</td><td>MARIA CLEIDE</td><td>2 FÉRIAS ATRASADAS</td><td class="num">5.721,14</td><td>Trabalhista</td><td><span class="st ok">Confirmado</span></td></tr>
+<tr><td>06/10</td><td>BRUNA VERONICA</td><td>ACORDO TRABALHISTA (PARC 3)</td><td class="num">10.000,00</td><td>Trabalhista</td><td><span class="st ok">Confirmado</span></td></tr>
+<tr><td>06/10</td><td>NAYRA SANTOS</td><td>ACORDO TEMPO SEM REGISTRO NAYRA (PARC 7)</td><td class="num">956,67</td><td>Trabalhista</td><td><span class="st ok">Confirmado</span></td></tr>
+<tr><td>07/10</td><td>DOUGLAS GLADIEL</td><td>ACORDO TRABALHISTA DOUGLAS</td><td class="num">50.000,00</td><td>Trabalhista</td><td><span class="st ok">Confirmado</span></td></tr>
+<tr><td>09/10</td><td>LELIO</td><td>ACORDO TRABALHISTA LELIO (PARC 4)</td><td class="num">4.000,00</td><td>Trabalhista</td><td><span class="st ok">Confirmado</span></td></tr>
+<tr><td>15/10</td><td>LEANDRA</td><td>ACORDO TRABALHISTA LEANDRA (PARC 3)</td><td class="num">4.000,00</td><td>Trabalhista</td><td><span class="st ok">Confirmado</span></td></tr>
+<tr><td>20/10</td><td>SINELANDE</td><td>ACORDO TRABALHISTA (PARC 6/10)</td><td class="num">548,57</td><td>Trabalhista</td><td><span class="st ok">Confirmado</span></td></tr>
+<tr><td>05/11</td><td>BRUNA VERONICA</td><td>ACORDO TRABALHISTA (PARC 4)</td><td class="num">2.771,68</td><td>Trabalhista</td><td><span class="st ok">Confirmado</span></td></tr>
+<tr><td>05/11</td><td>BRUNA VERONICA</td><td>FGTS</td><td class="num">8.493,41</td><td>Trabalhista</td><td><span class="st ok">Confirmado</span></td></tr>
+        <tr class="tot-row"><td colspan="3">Subtotal — Outubro/2026</td><td class="num">97.177,65</td><td colspan="2"></td></tr>
       </tbody>
     </table>
-    <p style="font-size:11.5px;color:var(--muted);margin-top:10px">O maior pagamento do mês foi o acordo trabalhista do Douglas Gladiel (R$ 50.000,00 em 07/10). Os demais acordos seguem as parcelas em curso (Bruna parc. 3 e 4, Lélio parc. 4, Leandra parc. 3, Nayra parc. 7, Sinelande parc. 6 de 10); a parcela 5 da Sinelande foi paga em 23/09 (no relatório de setembro constou como 4/10). As férias atrasadas da Maria Cleide somaram R$ 5.721,14. Os dois pagamentos de 05/11 (Bruna parc. 4 e FGTS, R$ 11.265,09) estão na planilha de outubro e foram mantidos neste período. Três pagamentos de agosto — consignado em atraso da Anne (R$ 539,33, 07/08), 2ª parcela do acordo do Lélio (R$ 4.000,00, 10/08) e rescisão da Jessica (R$ 6.146,85, 21/08), total de R$ 10.686,18 — não estavam no relatório de agosto porque os comprovantes só foram enviados agora; foram incluídos neste período. Nenhum destes pagamentos está nas despesas operacionais do Posto Travessia.</p>
+    <p style="font-size:11.5px;color:var(--muted);margin-top:10px">O maior pagamento do mês foi o acordo trabalhista do Douglas Gladiel (R$ 50.000,00 em 07/10). Os dois pagamentos de 05/11 (Bruna parc. 4 e FGTS, R$ 11.265,09) estão na planilha de outubro e foram mantidos neste período. Três pagamentos de agosto — consignado em atraso da Anne (R$ 539,33, 07/08), 2ª parcela do acordo do Lélio (R$ 4.000,00, 10/08) e rescisão da Jessica (R$ 6.146,85, 21/08), total de R$ 10.686,18 — não estavam no relatório de agosto porque os comprovantes só foram enviados depois; foram incluídos em outubro.</p>
+    </div>
+  </details>
+  <details class="mes">
+    <summary><span>Setembro/2026<span class="sub">01/09 a 30/09 · 9 lançamentos</span></span><span class="val">R$ 31.774,02</span></summary>
+    <div class="inner">
+    <table>
+      <thead><tr><th>Data</th><th>Beneficiário</th><th>Descrição</th><th class="num">Valor (R$)</th><th>Categoria</th><th>Status</th></tr></thead>
+      <tbody>
+<tr><td>04/09</td><td>SAMUEL MELO</td><td>ACORDO TRABALHISTA BRUNA (PARC 2)</td><td class="num">10.000,00</td><td>Trabalhista</td><td><span class="st ok">Confirmado</span></td></tr>
+<tr><td>04/09</td><td>NAYRA SANTOS</td><td>ACORDO TEMPO SEM REGISTRO NAYRA (PARC 6)</td><td class="num">956,67</td><td>Trabalhista</td><td><span class="st ok">Confirmado</span></td></tr>
+<tr><td>10/09</td><td>ZULEIDE</td><td>ACORDO TRABALHISTA LELIO (PARC 3)</td><td class="num">4.000,00</td><td>Trabalhista</td><td><span class="st ok">Confirmado</span></td></tr>
+<tr><td>10/09</td><td>J ALVES</td><td>ALUGUEL MÁQUINA REI DO CAFÉ (PARC 3)</td><td class="num">700,00</td><td>Fornecedores conveniência</td><td><span class="st ok">Confirmado</span></td></tr>
+<tr><td>15/09</td><td>ZULEIDE</td><td>ACORDO TRABALHISTA LEANDRA (PARC 2)</td><td class="num">2.000,00</td><td>Trabalhista</td><td><span class="st ok">Confirmado</span></td></tr>
+<tr><td>18/09</td><td>CAROLINA SEOANE</td><td>FÉRIAS ATRASADAS DANIEL</td><td class="num">7.868,78</td><td>Trabalhista</td><td><span class="st ok">Confirmado</span></td></tr>
+<tr><td>21/09</td><td>J ALVES</td><td>ALUGUEL MÁQUINA REI DO CAFÉ (PARC 4)</td><td class="num">700,00</td><td>Fornecedores conveniência</td><td><span class="st ok">Confirmado</span></td></tr>
+<tr><td>23/09</td><td>SINELANDE</td><td>ACORDO TEMPO SEM REGISTRO SINELANDE (PARC 5/10)</td><td class="num">548,57</td><td>Trabalhista</td><td><span class="st ok">Confirmado</span></td></tr>
+<tr><td>28/09</td><td>ZULEIDE</td><td>ACORDO TRABALHISTA ROBERTA (PARC 2 )</td><td class="num">5.000,00</td><td>Trabalhista</td><td><span class="st ok">Confirmado</span></td></tr>
+        <tr class="tot-row"><td colspan="3">Subtotal — Setembro/2026</td><td class="num">31.774,02</td><td colspan="2"></td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:11.5px;color:var(--muted);margin-top:10px">A parcela da Sinelande paga em 23/09 é a 5ª de 10 (no relatório de setembro constou como 4/10).</p>
+    </div>
+  </details>
+  <details class="mes">
+    <summary><span>Agosto/2026<span class="sub">01/08 a 31/08 (+ Clanel parc. 1 e 2 de julho) · 20 lançamentos</span></span><span class="val">R$ 87.447,70</span></summary>
+    <div class="inner">
+    <table>
+      <thead><tr><th>Data</th><th>Beneficiário</th><th>Descrição</th><th class="num">Valor (R$)</th><th>Categoria</th><th>Status</th></tr></thead>
+      <tbody>
+<tr><td>02/07</td><td>CLANEL</td><td>UNIFORMES GESTÃO ANTERIOR (PARC 1)</td><td class="num">4.175,77</td><td>Uniformes (Clanel)</td><td><span class="st ok">Confirmado</span></td></tr>
+<tr><td>20/07</td><td>CLANEL</td><td>UNIFORMES GESTÃO ANTERIOR (PARC 2)</td><td class="num">3.992,19</td><td>Uniformes (Clanel)</td><td><span class="st ok">Confirmado</span></td></tr>
+<tr><td>05/08</td><td>BRUNA VERONICA</td><td>ACORDO TRABALHISTA</td><td class="num">12.000,00</td><td>Trabalhista</td><td><span class="st ok">Confirmado</span></td></tr>
+<tr><td>06/08</td><td>NAYRA SANTOS</td><td>ACORDO TEMPO SEM REGISTRO</td><td class="num">956,67</td><td>Trabalhista</td><td><span class="st ok">Confirmado</span></td></tr>
+<tr><td>06/08</td><td>WALLACE</td><td>RESCISÃO WALLACE</td><td class="num">2.927,46</td><td>Trabalhista</td><td><span class="st ok">Confirmado</span></td></tr>
+<tr><td>18/08</td><td>CLANEL</td><td>UNIFORMES GESTÃO ANTERIOR (PARC 3)</td><td class="num">3.992,20</td><td>Uniformes (Clanel)</td><td><span class="st ok">Confirmado</span></td></tr>
+<tr><td>18/08</td><td>TELEFONICA GVT</td><td>VIVO ATRASADA</td><td class="num">194,53</td><td>Utilidades</td><td><span class="st ok">Confirmado</span></td></tr>
+<tr><td>18/08</td><td>TELEFONICA GVT</td><td>VIVO ATRASADA</td><td class="num">198,47</td><td>Utilidades</td><td><span class="st ok">Confirmado</span></td></tr>
+<tr><td>20/08</td><td>SINELANDE</td><td>ACORDO TEMPO SEM REGISTRO POUL (PARC 10)</td><td class="num">548,57</td><td>Trabalhista</td><td><span class="st ok">Confirmado</span></td></tr>
+<tr><td>20/08</td><td>CEF MATRIZ</td><td>FGTS RESCISÃO JESSICA</td><td class="num">888,25</td><td>Trabalhista</td><td><span class="st ok">Confirmado</span></td></tr>
+<tr><td>20/08</td><td>NATHALIA</td><td>RESCISÃO SEM REGISTRO NATHALIA</td><td class="num">805,30</td><td>Trabalhista</td><td><span class="st ok">Confirmado</span></td></tr>
+<tr><td>20/08</td><td>J ALVES</td><td>REI DO CAFÉ</td><td class="num">700,00</td><td>Fornecedores conveniência</td><td><span class="st ok">Confirmado</span></td></tr>
+<tr><td>25/08</td><td>—</td><td>BLOQUEIO JUDICIAL</td><td class="num">33.210,84</td><td>Bloqueio judicial</td><td><span class="st ok">Confirmado</span></td></tr>
+<tr><td>27/08</td><td>ZULEIDE</td><td>ACORDO TRABALHISTA ROBERTA (PARC 1)</td><td class="num">5.000,00</td><td>Trabalhista</td><td><span class="st ok">Confirmado</span></td></tr>
+<tr><td>28/08</td><td>ZULEIDE</td><td>ACORDO TRABALHISTA LEANDRA (PARC 1)</td><td class="num">2.000,00</td><td>Trabalhista</td><td><span class="st ok">Confirmado</span></td></tr>
+<tr><td>29/08</td><td>J ALVES</td><td>REI DO CAFÉ</td><td class="num">700,00</td><td>Fornecedores conveniência</td><td><span class="st ok">Confirmado</span></td></tr>
+<tr><td>29/08</td><td>NATALIA DE CASTRO</td><td>ACORDO TRABALHISTA MARIA EDITE (PARC 4)</td><td class="num">1.250,00</td><td>Trabalhista</td><td><span class="st ok">Confirmado</span></td></tr>
+<tr><td>31/08</td><td>GABRIELA PINHO</td><td>SALÁRIO E ADIANTAMENTO</td><td class="num">1.080,00</td><td>Trabalhista</td><td><span class="st ok">Confirmado</span></td></tr>
+<tr><td>31/08</td><td>RAFAEL BASTOS</td><td>HORAS NORMAIS, PERICULOSIDADE, INSS, ADIANTAMENTO</td><td class="num">10.500,83</td><td>Trabalhista</td><td><span class="st ok">Confirmado</span></td></tr>
+<tr><td>31/08</td><td>ROSELI BRITO</td><td>HORAS NORMAIS, QUEBRA CAIXA, INSS</td><td class="num">2.326,62</td><td>Trabalhista</td><td><span class="st ok">Confirmado</span></td></tr>
+        <tr class="tot-row"><td colspan="3">Subtotal — Agosto/2026</td><td class="num">87.447,70</td><td colspan="2"></td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:11.5px;color:var(--muted);margin-top:10px">Inclui o bloqueio judicial de R$ 33.210,84 (25/08) e as três parcelas do uniforme Clanel (duas pagas em julho e lançadas em agosto).</p>
+    </div>
+  </details>
+  <details class="mes">
+    <summary><span>Jun–Jul/2026<span class="sub">26/06 a 31/07 · 53 lançamentos</span></span><span class="val">R$ 277.864,42</span></summary>
+    <div class="inner">
+    <table>
+      <thead><tr><th>Data</th><th>Beneficiário</th><th>Descrição</th><th class="num">Valor (R$)</th><th>Categoria</th><th>Status</th></tr></thead>
+      <tbody>
+<tr><td>26/06</td><td>IPIRANGA PRODUTOS</td><td>ALUGUEL 10/04</td><td class="num">40.573,53</td><td>Aluguel Ipiranga</td><td><span class="st ok">Confirmado</span></td></tr>
+<tr><td>26/06</td><td>IPIRANGA PRODUTOS</td><td>ALUGUEL 10/05</td><td class="num">40.201,22</td><td>Aluguel Ipiranga</td><td><span class="st ok">Confirmado</span></td></tr>
+<tr><td>26/06</td><td>IPIRANGA PRODUTOS</td><td>ALUGUEL 10/06</td><td class="num">39.840,92</td><td>Aluguel Ipiranga</td><td><span class="st ok">Confirmado</span></td></tr>
+<tr><td>29/06</td><td>MATRIX SERVICES</td><td>LUZ JULIANO</td><td class="num">8.507,99</td><td>Utilidades</td><td><span class="st ok">Confirmado</span></td></tr>
+<tr><td>29/06</td><td>CPFL PIRATININGA</td><td>ENERGIA ELÉTRICA E GÁS JULIANO</td><td class="num">5.107,26</td><td>Utilidades</td><td><span class="st ok">Confirmado</span></td></tr>
+<tr><td>29/06</td><td>SABESP</td><td>ÁGUA JULIANO</td><td class="num">4.416,59</td><td>Utilidades</td><td><span class="st ok">Confirmado</span></td></tr>
+<tr><td>29/06</td><td>NATALIA DE CASTRO</td><td>ACORDO TRABALHISTA</td><td class="num">1.250,00</td><td>Trabalhista</td><td><span class="st ok">Confirmado</span></td></tr>
+<tr><td>30/06</td><td>JOSÉ CARLOS</td><td>ACERTO SALÁRIO VR E VT</td><td class="num">2.840,00</td><td>Trabalhista</td><td><span class="st ok">Confirmado</span></td></tr>
+<tr><td>01/07</td><td>MMFOODS</td><td>SALGADOS</td><td class="num">817,50</td><td>Fornecedores conveniência</td><td><span class="st ok">Confirmado</span></td></tr>
+<tr><td>01/07</td><td>PHILIP</td><td>CIGARROS</td><td class="num">503,31</td><td>Fornecedores conveniência</td><td><span class="st ok">Confirmado</span></td></tr>
+<tr><td>01/07</td><td>J ALVES</td><td>REI DO CAFÉ</td><td class="num">289,47</td><td>Fornecedores conveniência</td><td><span class="st ok">Confirmado</span></td></tr>
+<tr><td>01/07</td><td>J ALVES</td><td>REI DO CAFÉ</td><td class="num">600,02</td><td>Fornecedores conveniência</td><td><span class="st ok">Confirmado</span></td></tr>
+<tr><td>01/07</td><td>D. B. DOS SANTOS</td><td>DENISE SALGADOS</td><td class="num">248,66</td><td>Fornecedores conveniência</td><td><span class="st ok">Confirmado</span></td></tr>
+<tr><td>02/07</td><td>PHILIP</td><td>CIGARROS</td><td class="num">496,31</td><td>Fornecedores conveniência</td><td><span class="st ok">Confirmado</span></td></tr>
+<tr><td>02/07</td><td>SEFAZ</td><td>DARE</td><td class="num">579,07</td><td>Impostos e taxas</td><td><span class="st ok">Confirmado</span></td></tr>
+<tr><td>02/07</td><td>SABESP</td><td>ÁGUA JULIANO</td><td class="num">3.986,32</td><td>Utilidades</td><td><span class="st ok">Confirmado</span></td></tr>
+<tr><td>03/07</td><td>GLOBAL ESTRATEGIAS</td><td>SOUZA CRUZ</td><td class="num">12.269,70</td><td>Fornecedores conveniência</td><td><span class="st ok">Confirmado</span></td></tr>
+<tr><td>03/07</td><td>INST. BRAS. DO MEIO AMB.</td><td>IBAMA 1º TRI</td><td class="num">1.428,20</td><td>Impostos e taxas</td><td><span class="st ok">Confirmado</span></td></tr>
+<tr><td>03/07</td><td>IMPACTO ADM</td><td>PÃO DE QUEIJO</td><td class="num">400,64</td><td>Fornecedores conveniência</td><td><span class="st ok">Confirmado</span></td></tr>
+<tr><td>03/07</td><td>ADRIANA APARECIDA</td><td>PRODUTOS DE LIMPEZA</td><td class="num">476,76</td><td>Fornecedores conveniência</td><td><span class="st ok">Confirmado</span></td></tr>
+<tr><td>06/07</td><td>PHILIP</td><td>CIGARROS</td><td class="num">491,69</td><td>Fornecedores conveniência</td><td><span class="st ok">Confirmado</span></td></tr>
+<tr><td>06/07</td><td>VIVA VIDA</td><td>EMPADAS</td><td class="num">394,24</td><td>Fornecedores conveniência</td><td><span class="st ok">Confirmado</span></td></tr>
+<tr><td>07/07</td><td>NAYRA SANTOS</td><td>ACORDO TEMPO SEM REGISTRO</td><td class="num">956,67</td><td>Trabalhista</td><td><span class="st ok">Confirmado</span></td></tr>
+<tr><td>08/07</td><td>CLARO</td><td>INTERNET</td><td class="num">194,53</td><td>Serviços e administrativo</td><td><span class="st ok">Confirmado</span></td></tr>
+<tr><td>08/07</td><td>ADRIANA APARECIDA</td><td>SACHES</td><td class="num">735,40</td><td>Fornecedores conveniência</td><td><span class="st ok">Confirmado</span></td></tr>
+<tr><td>10/07</td><td>PHILIP</td><td>CIGARROS</td><td class="num">491,69</td><td>Fornecedores conveniência</td><td><span class="st ok">Confirmado</span></td></tr>
+<tr><td>10/07</td><td>LYTEX</td><td>CONTRIBUIÇÃO ASSISTENCIAL</td><td class="num">1.196,15</td><td>Trabalhista</td><td><span class="st ok">Confirmado</span></td></tr>
+<tr><td>10/07</td><td>RMF</td><td>CASA DOS TOLDOS</td><td class="num">1.700,00</td><td>Serviços e administrativo</td><td><span class="st ok">Confirmado</span></td></tr>
+<tr><td>10/07</td><td>ZULEIDE</td><td>ACORDO DOUGLAS 1ª PARC</td><td class="num">15.000,00</td><td>Trabalhista</td><td><span class="st ok">Confirmado</span></td></tr>
+<tr><td>10/07</td><td>ZULEIDE</td><td>ACORDO VALÉRIA ÚLTIMA PARC 10º</td><td class="num">7.000,00</td><td>Trabalhista</td><td><span class="st ok">Confirmado</span></td></tr>
+<tr><td>14/07</td><td>ADRIANA APARECIDA</td><td>SACHES</td><td class="num">452,80</td><td>Fornecedores conveniência</td><td><span class="st ok">Confirmado</span></td></tr>
+<tr><td>16/07</td><td>CAIXA ECONÔMICA</td><td>FGTS NATHALIA RESCISÃO</td><td class="num">484,99</td><td>Trabalhista</td><td><span class="st ok">Confirmado</span></td></tr>
+<tr><td>16/07</td><td>PRAXIS</td><td>CONTABILIDADE</td><td class="num">2.970,00</td><td>Serviços e administrativo</td><td><span class="st ok">Confirmado</span></td></tr>
+<tr><td>17/07</td><td>NATHALIA</td><td>RESCISÃO NATHALIA</td><td class="num">1.789,60</td><td>Trabalhista</td><td><span class="st ok">Confirmado</span></td></tr>
+<tr><td>17/07</td><td>ANNE CAROLINE</td><td>RESCISÃO ANNE</td><td class="num">13.844,91</td><td>Trabalhista</td><td><span class="st ok">Confirmado</span></td></tr>
+<tr><td>17/07</td><td>CAIXA ECONÔMICA</td><td>FGTS ANNE RESCISÃO</td><td class="num">4.984,94</td><td>Trabalhista</td><td><span class="st ok">Confirmado</span></td></tr>
+<tr><td>20/07</td><td>SINELANDE</td><td>ACORDO TEMPO SEM REGISTRO</td><td class="num">548,57</td><td>Trabalhista</td><td><span class="st ok">Confirmado</span></td></tr>
+<tr><td>20/07</td><td>SEFAZ</td><td>DARE</td><td class="num">1.985,42</td><td>Impostos e taxas</td><td><span class="st ok">Confirmado</span></td></tr>
+<tr><td>20/07</td><td>DARF</td><td>DARF</td><td class="num">20.538,63</td><td>Impostos e taxas</td><td><span class="st ok">Confirmado</span></td></tr>
+<tr><td>20/07</td><td>LITORAL SISTEMAS</td><td>WEB POSTO</td><td class="num">1.399,00</td><td>Serviços e administrativo</td><td><span class="st ok">Confirmado</span></td></tr>
+<tr><td>21/07</td><td>ADRIANA APARECIDA</td><td>SACHES</td><td class="num">225,50</td><td>Fornecedores conveniência</td><td><span class="st ok">Confirmado</span></td></tr>
+<tr><td>22/07</td><td>CPFL PIRATININGA</td><td>LUZ REF JUNHO JULIANO</td><td class="num">5.093,38</td><td>Utilidades</td><td><span class="st ok">Confirmado</span></td></tr>
+<tr><td>23/07</td><td>ADRIANA APARECIDA</td><td>PRODUTOS DE LIMPEZA</td><td class="num">398,10</td><td>Fornecedores conveniência</td><td><span class="st ok">Confirmado</span></td></tr>
+<tr><td>23/07</td><td>J. R. CORASSIN</td><td>MANUTENÇÃO BOMBAS</td><td class="num">396,18</td><td>Manutenção</td><td><span class="st ok">Confirmado</span></td></tr>
+<tr><td>27/07</td><td>PEPSICO</td><td>BOLETOS ATRASADOS</td><td class="num">6.263,09</td><td>Fornecedores conveniência</td><td><span class="st ok">Confirmado</span></td></tr>
+<tr><td>27/07</td><td>TRIBUNAL REGIONAL</td><td>PROCESSO BRUNA</td><td class="num">2.500,00</td><td>Trabalhista</td><td><span class="st ok">Confirmado</span></td></tr>
+<tr><td>27/07</td><td>TRIBUNAL REGIONAL</td><td>PROCESSO BRUNA</td><td class="num">2.688,96</td><td>Trabalhista</td><td><span class="st ok">Confirmado</span></td></tr>
+<tr><td>27/07</td><td>TRIBUNAL REGIONAL</td><td>PROCESSO BRUNA</td><td class="num">1.000,00</td><td>Trabalhista</td><td><span class="st ok">Confirmado</span></td></tr>
+<tr><td>28/07</td><td>COMPANHIA PIRATININGA</td><td>LUZ REF SETEMBRO 2023</td><td class="num">5.568,27</td><td>Utilidades</td><td><span class="st ok">Confirmado</span></td></tr>
+<tr><td>28/07</td><td>COMPANHIA PIRATININGA</td><td>LUZ REF AGOSTO 2023</td><td class="num">5.194,13</td><td>Utilidades</td><td><span class="st ok">Confirmado</span></td></tr>
+<tr><td>29/07</td><td>MARIA EDITE (créd. Natalia de Castro)</td><td>3ª PARCELA ACORDO TRABALHISTA</td><td class="num">1.250,00</td><td>Trabalhista</td><td><span class="st ok">Confirmado</span></td></tr>
+<tr><td>30/07</td><td>ADRIANA APARECIDA</td><td>PRODUTOS DE LIMPEZA</td><td class="num">398,00</td><td>Fornecedores conveniência</td><td><span class="st ok">Confirmado</span></td></tr>
+<tr><td>31/07</td><td>CAIXA ECONÔMICA</td><td>FGTS ANNE RESCISÃO ATRASADO</td><td class="num">4.896,11</td><td>Trabalhista</td><td><span class="st ok">Confirmado</span></td></tr>
+        <tr class="tot-row"><td colspan="3">Subtotal — Jun–Jul/2026</td><td class="num">277.864,42</td><td colspan="2"></td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:11.5px;color:var(--muted);margin-top:10px">Inclui três aluguéis em atraso da Ipiranga (abril a junho, R$ 120.615,67), contas de luz, água e gás da gestão anterior e fornecedores da conveniência.</p>
+    </div>
+  </details>
+  <div class="chart-card" style="margin-top:6px">
+    <table><tbody><tr class="tot-row"><td>Total acumulado (26/06 a 31/10 + 05/11)</td><td class="num">494.263,79</td></tr></tbody></table>
+    <p style="font-size:11.5px;color:var(--muted);margin-top:10px">Nenhum destes pagamentos está nas despesas operacionais dos fechamentos mensais do Posto Travessia.</p>
   </div>
 
   <footer>Relatório gerado por <b style="color:var(--accent)">Finansys</b> · Assessoria &amp; Consultoria Financeira · Posto Travessia · Outubro 2026</footer>
@@ -212,9 +385,9 @@ Chart.defaults.borderColor='rgba(94,179,245,0.1)';
 Chart.defaults.font.family='Inter';
 if(window.ChartDataLabels){Chart.register(ChartDataLabels);Chart.defaults.set('plugins.datalabels',{display:false});}
 const BRL=v=>'R$ '+v.toLocaleString('pt-BR',{maximumFractionDigits:0});
-const catLabels=["Acordos trabalhistas", "FGTS", "Rescisões e encargos", "Férias atrasadas"];
-const catData=[76276.92, 8493.41, 6686.18, 5721.14];
-const catColors=['#5fb3f5','#22c55e','#f59e0b','#a07af5'];
+const catLabels=["Trabalhista", "Aluguel Ipiranga", "Utilidades", "Bloqueio judicial", "Fornecedores conveniência", "Impostos e taxas", "Uniformes (Clanel)", "Serviços e administrativo", "Manutenção"];
+const catData=[230066.27, 120615.67, 38266.94, 33210.84, 28752.88, 24531.32, 12160.16, 6263.53, 396.18];
+const catColors=['#5fb3f5','#1e5fc8','#ef4444','#22c55e','#f59e0b','#a07af5','#14b8a6','#f472b6','#94a3b8','#eab308'];
 const donutOpts=data=>{const tot=data.reduce((a,b)=>a+b,0);return{responsive:true,maintainAspectRatio:false,cutout:'58%',
  plugins:{legend:{position:'bottom',labels:{padding:12,font:{size:11},boxWidth:12,usePointStyle:true,pointStyle:'circle'}},
   datalabels:{display:c=>c.dataset.data[c.dataIndex]/tot>0.05,color:'#fff',font:{weight:800,size:11.5},
@@ -226,15 +399,17 @@ new Chart(document.getElementById('catDonut'),{type:'doughnut',
  options:donutOpts(catData)});
 
 new Chart(document.getElementById('mesBar'),{type:'bar',
- data:{labels:['Jun–Jul/2026','Agosto/2026','Setembro/2026','Outubro/2026'],
-  datasets:[{data:[277864.42,87447.70,31774.02,97177.65],backgroundColor:['#1e5fc8','#1e5fc8','#1e5fc8','#5fb3f5'],borderRadius:8,barThickness:70}]},
+ data:{labels:["Jun\u2013Jul/2026", "Agosto/2026", "Setembro/2026", "Outubro/2026"],
+  datasets:[{type:'bar',label:'No mês',data:[277864.42, 87447.7, 31774.02, 97177.65],backgroundColor:['#1e5fc8','#1e5fc8','#1e5fc8','#5fb3f5'],borderRadius:8,barThickness:60,order:2},
+   {type:'line',label:'Acumulado',data:[277864.42, 365312.12, 397086.14, 494263.79],borderColor:'#f59e0b',backgroundColor:'#f59e0b',pointRadius:4,tension:.25,order:1}]},
  options:{responsive:true,maintainAspectRatio:false,
-  plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>' '+BRL(c.parsed.y)}}},
+  plugins:{legend:{display:true,position:'bottom',labels:{boxWidth:12,font:{size:11}}},tooltip:{callbacks:{label:c=>' '+c.dataset.label+': '+BRL(c.parsed.y)}}},
   scales:{y:{ticks:{callback:v=>(v/1000)+'k'}},x:{grid:{display:false}}}}});
 
 function animateBars(){document.querySelectorAll('.bar-fill[data-w]').forEach(b=>{setTimeout(()=>{b.style.width=b.dataset.w+'%'},120)})}
 animateBars();
-window.addEventListener('beforeprint',()=>{document.querySelectorAll('.bar-fill[data-w]').forEach(b=>{b.style.width=b.dataset.w+'%'})});
+window.prepararImpressao=()=>{document.querySelectorAll('details.mes').forEach(d=>d.open=true);};
+window.addEventListener('beforeprint',()=>{document.querySelectorAll('details.mes').forEach(d=>d.open=true);document.querySelectorAll('.bar-fill[data-w]').forEach(b=>{b.style.width=b.dataset.w+'%'})});
 </script>
 </body>
 </html>
